@@ -15,6 +15,7 @@ namespace BrickBreakerV2
         private Ball ball;
         private Paddle paddle;
 
+
         /// <summary>
         /// Sets up the content and window for the game
         /// </summary>
