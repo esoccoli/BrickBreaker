@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace BrickBreakerV2
 {
+    /// <summary>
+    /// Manages the bricks and related data
+    /// </summary>
     internal class Brick
     {
+
     }
 }
