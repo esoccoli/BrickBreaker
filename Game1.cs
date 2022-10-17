@@ -11,9 +11,13 @@ namespace BrickBreakerV2
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private Brick brick;
+        private Texture2D _texture;
+        
+        private Brick refBrick;
         private Ball ball;
         private Paddle paddle;
+
+        private Texture2D ballTexture;
 
 
         /// <summary>
@@ -31,8 +35,15 @@ namespace BrickBreakerV2
         /// </summary>
         protected override void Initialize()
         {
+            _graphics.PreferredBackBufferWidth = 420;
+            _graphics.PreferredBackBufferHeight = 980;
+            _graphics.ApplyChanges();
+
+            _texture = new Texture2D(GraphicsDevice, 1, 1);
+            _texture.SetData(new Color[] { Color.Red });
+            
             // TODO: Add your initialization logic here
-            brick = new Brick(/* Add parameters here */);
+            refBrick = new Brick(50, 70);
             ball = new Ball(/* Add parameters here */);
             paddle = new Paddle(/* Add parameters here */);
 
@@ -47,7 +58,7 @@ namespace BrickBreakerV2
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-
+            
         }
 
         /// <summary>
@@ -67,12 +78,28 @@ namespace BrickBreakerV2
         /// <summary>
         /// Loops every frame and draws the content on the screen
         /// </summary>
-        /// <param name="gameTime">The ti9me elapsed in the game</param>
+        /// <param name="gameTime">The time elapsed in the game</param>
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            _spriteBatch.Begin();
+            
+            for (int row = 0; row < 15; row++)
+            {
+                for (int col = 0; col < 4; col++)
+                {
+                    Brick currBrick = new(refBrick.X, refBrick.Y);
+                    _spriteBatch.Draw(_texture, new Rectangle(currBrick.X, currBrick.Y, currBrick.Width, currBrick.Height), Color.Red);
+
+                    refBrick.X += 80;
+                }
+                refBrick.Y += 30;
+                refBrick.X = 50;
+            }
+            refBrick.Y = 70;
             // TODO: Add your drawing code here
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
