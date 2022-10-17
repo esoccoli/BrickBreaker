@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace BrickBreakerV2
 {
@@ -58,7 +59,7 @@ namespace BrickBreakerV2
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            
+            ballTexture = Content.Load<Texture2D>("ball");
         }
 
         /// <summary>
@@ -99,6 +100,11 @@ namespace BrickBreakerV2
             }
             refBrick.Y = 70;
             // TODO: Add your drawing code here
+
+            _spriteBatch.Draw(ballTexture, new Vector2(
+                (GraphicsDevice.Viewport.Bounds.Width / 2) - 16, 
+                GraphicsDevice.Viewport.Bounds.Height - 200), 
+                Color.White);
             _spriteBatch.End();
 
             base.Draw(gameTime);
