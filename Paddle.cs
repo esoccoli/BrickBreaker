@@ -26,5 +26,24 @@ namespace BrickBreakerV2
         public int Width { get => width; }
         public int Height { get => height; }
         public Color PaddleColor { get => color; set => color = value; }
+
+        // === CONSTRUCTORS ===
+        public Paddle(Rectangle position, Color color)
+        {
+            xPos= position.X;
+            yPos = position.Y;
+            width = position.Width;
+            height = position.Height;
+            this.color = color;
+        }
+
+        public Paddle(int xPos, int yPos, int width, int height, Color color)
+        {
+            this.xPos = xPos;
+            this.yPos = yPos;
+            this.width = width;
+            this.height = height;
+            this.color = color;
+        }
     }
 }
