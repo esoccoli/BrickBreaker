@@ -48,7 +48,7 @@ namespace BrickBreakerV2
             // TODO: Add your initialization logic here
             refBrick = new Brick(50, 70);
             ball = new Ball();
-            paddle = new Paddle(/* Add parameters here */);
+            paddle = new Paddle(200, 750, 90, 20, Color.White);
 
             base.Initialize();
         }
@@ -109,6 +109,7 @@ namespace BrickBreakerV2
             // TODO: Add your drawing code here
 
             _spriteBatch.Draw(ballTexture, new Vector2(ball.X, ball.Y), Color.White);
+            _spriteBatch.Draw(_texture, new Rectangle(paddle.X, paddle.Y, paddle.Width, paddle.Height), Color.Green);
             _spriteBatch.End();
 
             base.Draw(gameTime);
