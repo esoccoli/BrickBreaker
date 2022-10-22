@@ -10,6 +10,7 @@ namespace BrickBreakerV2
     /// </summary>
     public class Game1 : Game
     {
+        public static Game1 game;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Texture2D _texture;
@@ -26,6 +27,7 @@ namespace BrickBreakerV2
         /// </summary>
         public Game1()
         {
+            game = this;
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -45,7 +47,7 @@ namespace BrickBreakerV2
             
             // TODO: Add your initialization logic here
             refBrick = new Brick(50, 70);
-            ball = new Ball(/* Add parameters here */);
+            ball = new Ball();
             paddle = new Paddle(/* Add parameters here */);
 
             base.Initialize();
@@ -72,7 +74,9 @@ namespace BrickBreakerV2
                 Exit();
 
             // TODO: Add your update logic here
-
+            
+            ball.X += 5;
+            ball.Y += 5;
             base.Update(gameTime);
         }
 
@@ -91,8 +95,11 @@ namespace BrickBreakerV2
                 for (int col = 0; col < 4; col++)
                 {
                     Brick currBrick = new(refBrick.X, refBrick.Y);
-                    _spriteBatch.Draw(_texture, new Rectangle(currBrick.X, currBrick.Y, currBrick.Width, currBrick.Height), Color.Red);
-
+                    // Make condition to only draw the brick if it isnt broken
+                    if (currBrick.Broken == false)
+                    {
+                        _spriteBatch.Draw(_texture, new Rectangle(currBrick.X, currBrick.Y, currBrick.Width, currBrick.Height), Color.Red);
+                    }
                     refBrick.X += 80;
                 }
                 refBrick.Y += 30;
@@ -101,10 +108,7 @@ namespace BrickBreakerV2
             refBrick.Y = 70;
             // TODO: Add your drawing code here
 
-            _spriteBatch.Draw(ballTexture, new Vector2(
-                (GraphicsDevice.Viewport.Bounds.Width / 2) - 16, 
-                GraphicsDevice.Viewport.Bounds.Height - 200), 
-                Color.White);
+            _spriteBatch.Draw(ballTexture, new Vector2(ball.X, ball.Y), Color.White);
             _spriteBatch.End();
 
             base.Draw(gameTime);

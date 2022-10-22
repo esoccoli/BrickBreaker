@@ -20,16 +20,17 @@ namespace BrickBreakerV2
         private int width;
         private int height;
         private Color color;
+        private bool isBroken;
 
         // Turning the fields into properties
         // Allow other classes to access these values
         // Prevents creation of excessive variables
-
         public int X { get => xPos; set => xPos = value; }
         public int Y { get => yPos; set => yPos = value; }
         public int Width { get => width; }
         public int Height { get => height; }
         public Color BrickColor { get => color; }
+        public bool Broken { get => isBroken; set => isBroken = value; }
 
         // ======== CONSTRUCTORS ========
         public Brick(int xPos, int yPos, Color color)
@@ -39,6 +40,7 @@ namespace BrickBreakerV2
             this.color = color;
             width = 75;
             height = 25;
+            isBroken = false;
         }
 
         public Brick(int xPos, int yPos)
@@ -48,6 +50,7 @@ namespace BrickBreakerV2
             width = 75;
             height = 25;
             color = Color.Red;
+            isBroken = false;
         }
     }
 }
