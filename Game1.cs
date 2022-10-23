@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 
 namespace BrickBreakerV2
 {
@@ -20,7 +22,7 @@ namespace BrickBreakerV2
         private Paddle paddle;
 
         private Texture2D ballTexture;
-
+        private List<Brick> brickList;
 
         /// <summary>
         /// Sets up the content and window for the game
@@ -50,6 +52,13 @@ namespace BrickBreakerV2
             ball = new Ball();
             paddle = new Paddle(200, 750, 90, 20, Color.White);
 
+            for (int row = 0; row < 15; row++)
+            {
+                for (int col = 0; col < 4; col++)
+                {
+                    brickList.Add(new Brick(5 + col * 80, 5 + row * 30));
+                }
+            }
             base.Initialize();
         }
         
@@ -90,6 +99,7 @@ namespace BrickBreakerV2
 
             _spriteBatch.Begin();
             
+            /*
             for (int row = 0; row < 15; row++)
             {
                 for (int col = 0; col < 4; col++)
@@ -106,6 +116,12 @@ namespace BrickBreakerV2
                 refBrick.X = 50;
             }
             refBrick.Y = 70;
+            */
+
+            for (int i = 0; i < brickList.Count; i++)
+            {
+                // Draw bricks
+            }
             // TODO: Add your drawing code here
 
             _spriteBatch.Draw(ballTexture, new Vector2(ball.X, ball.Y), Color.White);
