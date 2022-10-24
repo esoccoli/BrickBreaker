@@ -54,14 +54,6 @@ namespace BrickBreaker
             paddle = new Paddle(200, 750, 90, 20, Color.White);
             brickList = new List<Brick>();
 
-            /*for (int row = 0; row < GraphicsDevice.Viewport.Width / 90; row++)
-            {
-                for (int col = 0; col < GraphicsDevice.Viewport.Height / 40; col++)
-                {
-                    Brick currBrick = new Brick(new Rectangle(, yPos, 75, 25));
-                    brickList.Add(currBrick);
-                }
-            }*/
             for (int row = 0; row < 15; row++)
             {
                 for (int col = 0; col < 5; col++)
@@ -112,7 +104,10 @@ namespace BrickBreaker
 
             for (int i = 0; i < brickList.Count; i++)
             {
-                _spriteBatch.Draw(_texture, brickList[i].Hitbox, Color.Red);
+                if (brickList[i].Broken == false)
+                {
+                    _spriteBatch.Draw(_texture, brickList[i].Hitbox, Color.Red);
+                }
             }
             // TODO: Add your drawing code here
 
