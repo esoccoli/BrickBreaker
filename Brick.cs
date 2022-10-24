@@ -15,40 +15,28 @@ namespace BrickBreaker
     internal class Brick
     {
         // ======== FIELDS ========
-        private int xPos;
-        private int yPos;
-        private int width;
-        private int height;
+        private Rectangle hitbox;
         private Color color;
         private bool isBroken;
 
         // Turning the fields into properties
         // Allow other classes to access these values
         // Prevents creation of excessive variables
-        public int X { get => xPos; set => xPos = value; }
-        public int Y { get => yPos; set => yPos = value; }
-        public int Width { get => width; }
-        public int Height { get => height; }
+        public Rectangle Hitbox { get { return hitbox; } }
         public Color BrickColor { get => color; }
         public bool Broken { get => isBroken; set => isBroken = value; }
 
         // ======== CONSTRUCTORS ========
-        public Brick(int xPos, int yPos, Color color)
+        public Brick(Rectangle hitbox, Color color)
         {
-            this.xPos = xPos;
-            this.yPos = yPos;
+            this.hitbox = hitbox;
             this.color = color;
-            width = 75;
-            height = 25;
             isBroken = false;
         }
 
-        public Brick(int xPos, int yPos)
+        public Brick(Rectangle hitbox)
         {
-            this.xPos = xPos;
-            this.yPos = yPos;
-            width = 75;
-            height = 25;
+            this.hitbox = hitbox;
             color = Color.Red;
             isBroken = false;
         }

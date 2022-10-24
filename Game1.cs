@@ -33,6 +33,7 @@ namespace BrickBreaker
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            //_graphics.IsFullScreen = true;
         }
 
         /// <summary>
@@ -48,15 +49,24 @@ namespace BrickBreaker
             _texture.SetData(new Color[] { Color.Red });
             
             // TODO: Add your initialization logic here
-            refBrick = new Brick(50, 70);
+            //refBrick = new Brick(new Rectangle(50, 70, 75, 25));
             ball = new Ball();
             paddle = new Paddle(200, 750, 90, 20, Color.White);
+            brickList = new List<Brick>();
 
+            /*for (int row = 0; row < GraphicsDevice.Viewport.Width / 90; row++)
+            {
+                for (int col = 0; col < GraphicsDevice.Viewport.Height / 40; col++)
+                {
+                    Brick currBrick = new Brick(new Rectangle(, yPos, 75, 25));
+                    brickList.Add(currBrick);
+                }
+            }*/
             for (int row = 0; row < 15; row++)
             {
-                for (int col = 0; col < 4; col++)
+                for (int col = 0; col < 5; col++)
                 {
-                    Brick currBrick = new Brick(5 + col * 80, 5 + row * 30);
+                    Brick currBrick = new Brick(new Rectangle(13 + col * 80, 20 + row * 30, 75, 25));
                     brickList.Add(currBrick);
                 }
             }
@@ -99,36 +109,17 @@ namespace BrickBreaker
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
-            
-            /*
-            for (int row = 0; row < 15; row++)
-            {
-                for (int col = 0; col < 4; col++)
-                {
-                    Brick currBrick = new(refBrick.X, refBrick.Y);
-                    // Make condition to only draw the brick if it isnt broken
-                    if (currBrick.Broken == false)
-                    {
-                        _spriteBatch.Draw(_texture, new Rectangle(currBrick.X, currBrick.Y, currBrick.Width, currBrick.Height), Color.Red);
-                    }
-                    refBrick.X += 80;
-                }
-                refBrick.Y += 30;
-                refBrick.X = 50;
-            }
-            refBrick.Y = 70;
-            */
 
             for (int i = 0; i < brickList.Count; i++)
             {
-                // Draw bricks
+                _spriteBatch.Draw(_texture, brickList[i].Hitbox, Color.Red);
             }
             // TODO: Add your drawing code here
 
             _spriteBatch.Draw(ballTexture, new Vector2(ball.X, ball.Y), Color.White);
             _spriteBatch.Draw(_texture, new Rectangle(paddle.X, paddle.Y, paddle.Width, paddle.Height), Color.Green);
             _spriteBatch.End();
-
+            
             base.Draw(gameTime);
         }
     }
