@@ -1,3 +1,3 @@
 ﻿
-using var game = new BrickBreakerV2.Game1();
+using var game = new BrickBreaker.Game1();
 game.Run();

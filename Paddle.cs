@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BrickBreakerV2
+namespace BrickBreaker
 {
     /// <summary>
     /// Manages the paddle and related data

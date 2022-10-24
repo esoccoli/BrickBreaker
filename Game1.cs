@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 
-namespace BrickBreakerV2
+namespace BrickBreaker
 {
     /// <summary>
     /// Manages the game and game updates
@@ -56,7 +56,8 @@ namespace BrickBreakerV2
             {
                 for (int col = 0; col < 4; col++)
                 {
-                    brickList.Add(new Brick(5 + col * 80, 5 + row * 30));
+                    Brick currBrick = new Brick(5 + col * 80, 5 + row * 30);
+                    brickList.Add(currBrick);
                 }
             }
             base.Initialize();

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BrickBreakerV2
+namespace BrickBreaker
 {
     /// <summary>
     /// Manages the bricks and related data
@@ -51,6 +51,11 @@ namespace BrickBreakerV2
             height = 25;
             color = Color.Red;
             isBroken = false;
+        }
+
+        public void Update(GameTime gametime)
+        {
+            
         }
     }
 }

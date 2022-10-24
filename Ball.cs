@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BrickBreakerV2
+namespace BrickBreaker
 {
     /// <summary>
     /// Manages the ball and related data
@@ -59,7 +59,6 @@ namespace BrickBreakerV2
 
         public void Update(GameTime gameTime)
         {
-
         }
 
     }
