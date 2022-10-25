@@ -81,7 +81,7 @@ namespace BrickBreaker
                 velocity.Y *= -1;
             }
 
-            position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            Position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         public void Draw(SpriteBatch _spriteBatch)
