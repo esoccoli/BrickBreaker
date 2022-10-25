@@ -14,6 +14,8 @@ namespace BrickBreaker
     internal class Ball
     {
         #region Fields
+        private Rectangle windowSize;
+        
         private Rectangle bounds;
         private Vector2 position;
         private Vector2 velocity;
@@ -46,7 +48,7 @@ namespace BrickBreaker
         /// <summary>                        
         /// Tracks the velocity and lets other classes access it
         /// </summary>
-        public Vector2 Vector2 { get { return velocity; } }
+        public Vector2 Velocity { get { return velocity; } }
 
         public int X { get { return xPos; } set { xPos = value; } }
         public int Y { get { return yPos; } set { yPos = value; } }
@@ -59,20 +61,33 @@ namespace BrickBreaker
         {
             this.texture = texture;
 
-            Rectangle windowSize = Game1.game.GraphicsDevice.Viewport.Bounds;
+            windowSize = Game1.game.GraphicsDevice.Viewport.Bounds;
             bounds = new Rectangle((windowSize.Width / 2) - 16, (windowSize.Height - 200), 32, 32);
 
             position = new Vector2(bounds.X, bounds.Y);
-            velocity = new Vector2(0, 0);
+            velocity = new Vector2(30, -30);
         }
 
         public void Update(GameTime gameTime)
         {
+
+            if (bounds.Right >= windowSize.Width || bounds.Left <= 0)
+            {
+                velocity.X *= -1;
+            }
+
+            if (bounds.Top <= 0)
+            {
+                velocity.Y *= -1;
+            }
+
+            position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         public void Draw(SpriteBatch _spriteBatch)
         {
             _spriteBatch.Draw(texture, new Vector2(bounds.X, bounds.Y), Color.White);
+            
         }
 
     }

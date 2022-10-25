@@ -50,7 +50,6 @@ namespace BrickBreaker
             
             // TODO: Add your initialization logic here
             
-            ball = new Ball();
 
             Rectangle windowSize = GraphicsDevice.Viewport.Bounds;
 
@@ -77,6 +76,8 @@ namespace BrickBreaker
 
             // TODO: use this.Content to load your game content here
             ballTexture = Content.Load<Texture2D>("ball");
+            ball = new Ball(ballTexture);
+
         }
 
         /// <summary>
@@ -89,9 +90,8 @@ namespace BrickBreaker
                 Exit();
 
             // TODO: Add your update logic here
-            
-            ball.X += 5;
-            ball.Y += 5;
+
+            ball.Update(gameTime);
             paddle.Update(gameTime);
             base.Update(gameTime);
         }
@@ -115,7 +115,7 @@ namespace BrickBreaker
             }
             // TODO: Add your drawing code here
 
-            
+            ball.Draw(_spriteBatch);
             paddle.Draw(_spriteBatch);
             _spriteBatch.End();
             
