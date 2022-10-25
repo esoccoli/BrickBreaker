@@ -53,7 +53,7 @@ namespace BrickBreaker
 
             Rectangle windowSize = GraphicsDevice.Viewport.Bounds;
 
-            paddle = new Paddle(new Rectangle(windowSize.Width / 2 - 50, windowSize.Height - 150, 100, 30), Color.Black, _texture);
+            paddle = new Paddle(new Rectangle(windowSize.Width / 2 - 50, windowSize.Height - 150, 115, 20), Color.Black, _texture);
             brickList = new List<Brick>();
 
             for (int row = 0; row < 15; row++)
