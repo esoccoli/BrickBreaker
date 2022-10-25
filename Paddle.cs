@@ -19,9 +19,8 @@ namespace BrickBreaker
         private Vector2 position;
         private Color color;
         private Texture2D paddleTexture;
-        // Turns fields into properties
-        // Allows other classes to access the values
-        // Reduces creation of extra variables
+
+       // Allows other classes to access field values
         public Rectangle Hitbox { get => hitbox; set => hitbox = value; }
         public Vector2 Position { get => position; set => position = value; }
         public Color PaddleColor { get => color; set => color = value; }
@@ -42,16 +41,27 @@ namespace BrickBreaker
 
         public void Update(GameTime gameTime)
         {
+
             if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
-                hitbox.X -= 3;
+                if (Hitbox.Left >= 0)
+                {
+                    hitbox.X -= 3;
+                }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
-                hitbox.X += 3;
+                if (Hitbox.Right <= Game1.game.GraphicsDevice.Viewport.Width)
+                {
+                    hitbox.X += 3;
+                }
             }
         }
 
+        /// <summary>
+        /// Draws the paddle at the specified position
+        /// </summary>
+        /// <param name="_spriteBatch">Allows things to be drawn on screen</param>
         public void Draw(SpriteBatch _spriteBatch)
         {
             _spriteBatch.Draw(paddleTexture, Hitbox, PaddleColor);
