@@ -13,11 +13,16 @@ namespace BrickBreaker
     /// </summary>
     internal class Ball
     {
+        #region Fields
         private Rectangle bounds;
         private Vector2 position;
         private Vector2 velocity;
+
+        private Texture2D texture;
+
         private int xPos;
         private int yPos;
+        #endregion
 
         /// <summary>
         /// Tracks the hitbox and lets other classes access it
@@ -50,15 +55,24 @@ namespace BrickBreaker
         /// Sets up the ball object at a given position
         /// </summary>
         /// <param name="bounds">The rectangle that the ball is located in</param>
-        public Ball()
+        public Ball(Texture2D texture)
         {
-            bounds = new Rectangle((Game1.game.GraphicsDevice.Viewport.Bounds.Width / 2) - 16, (Game1.game.GraphicsDevice.Viewport.Bounds.Height - 200), 32, 32);
+            this.texture = texture;
+
+            Rectangle windowSize = Game1.game.GraphicsDevice.Viewport.Bounds;
+            bounds = new Rectangle((windowSize.Width / 2) - 16, (windowSize.Height - 200), 32, 32);
+
             position = new Vector2(bounds.X, bounds.Y);
             velocity = new Vector2(0, 0);
         }
 
         public void Update(GameTime gameTime)
         {
+        }
+
+        public void Draw(SpriteBatch _spriteBatch)
+        {
+            _spriteBatch.Draw(texture, new Vector2(bounds.X, bounds.Y), Color.White);
         }
 
     }
