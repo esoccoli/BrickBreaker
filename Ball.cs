@@ -65,18 +65,24 @@ namespace BrickBreaker
             bounds = new Rectangle((windowSize.Width / 2) - 16, (windowSize.Height - 200), 32, 32);
 
             position = new Vector2(bounds.X, bounds.Y);
-            velocity = new Vector2(30, -30);
+            velocity = new Vector2(200, -200);
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Paddle paddle)
         {
-
+            // Ball bounces off the left, right, and top of the screen
             if (bounds.Right >= windowSize.Width || bounds.Left <= 0)
             {
                 velocity.X *= -1;
             }
 
             if (bounds.Top <= 0)
+            {
+                velocity.Y *= -1;
+            }
+
+            // Ball bounces off the paddle
+            if (bounds.Intersects(paddle.Hitbox))
             {
                 velocity.Y *= -1;
             }
