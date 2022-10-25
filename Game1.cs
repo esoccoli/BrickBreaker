@@ -46,12 +46,15 @@ namespace BrickBreaker
             _graphics.ApplyChanges();
 
             _texture = new Texture2D(GraphicsDevice, 1, 1);
-            _texture.SetData(new Color[] { Color.Red });
+            _texture.SetData(new Color[] { Color.White });
             
             // TODO: Add your initialization logic here
-            //refBrick = new Brick(new Rectangle(50, 70, 75, 25));
+            
             ball = new Ball();
-            paddle = new Paddle(200, 750, 90, 20, Color.White);
+
+            Rectangle windowSize = GraphicsDevice.Viewport.Bounds;
+
+            paddle = new Paddle(new Rectangle(windowSize.Width / 2 - 50, windowSize.Height - 150, 100, 30), Color.Black, _texture);
             brickList = new List<Brick>();
 
             for (int row = 0; row < 15; row++)
@@ -89,6 +92,7 @@ namespace BrickBreaker
             
             ball.X += 5;
             ball.Y += 5;
+            paddle.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -111,8 +115,8 @@ namespace BrickBreaker
             }
             // TODO: Add your drawing code here
 
-            _spriteBatch.Draw(ballTexture, new Vector2(ball.X, ball.Y), Color.White);
-            _spriteBatch.Draw(_texture, new Rectangle(paddle.X, paddle.Y, paddle.Width, paddle.Height), Color.Green);
+            
+            paddle.Draw(_spriteBatch);
             _spriteBatch.End();
             
             base.Draw(gameTime);
