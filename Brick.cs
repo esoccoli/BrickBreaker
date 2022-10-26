@@ -41,9 +41,14 @@ namespace BrickBreaker
             isBroken = false;
         }
 
-        public void Update(GameTime gametime)
+        public void Update(GameTime gametime, Ball ball)
         {
-            
+            Vector2 currVel = ball.Velocity;
+            if (hitbox.Intersects(ball.Bounds))
+            {
+                isBroken = true;
+            }
+            //ball.Position += currVel * (float)gametime.ElapsedGameTime.TotalSeconds;
         }
     }
 }

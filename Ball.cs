@@ -48,7 +48,7 @@ namespace BrickBreaker
         /// <summary>                        
         /// Tracks the velocity and lets other classes access it
         /// </summary>
-        public Vector2 Velocity { get { return velocity; } }
+        public Vector2 Velocity { get { return velocity; } set { velocity = value; } }
 
         public int X { get { return xPos; } set { xPos = value; } }
         public int Y { get { return yPos; } set { yPos = value; } }
