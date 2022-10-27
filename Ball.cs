@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,7 +69,7 @@ namespace BrickBreaker
             velocity = new Vector2(200, -200);
         }
 
-        public void Update(GameTime gameTime, Paddle paddle)
+        public void Update(GameTime gameTime, Paddle paddle, List<Brick> brickList)
         {
             // Ball bounces off the left, right, and top of the screen
             if (bounds.Right >= windowSize.Width || bounds.Left <= 0)
@@ -87,6 +88,34 @@ namespace BrickBreaker
                 velocity.Y *= -1;
             }
 
+            for (int i = 0; i < brickList.Count; i++)
+            {
+                if (bounds.Intersects(brickList[i].Hitbox))
+                {
+                    Rectangle intersection = Rectangle.Intersect(bounds, brickList[i].Hitbox);
+
+                    if (intersection.Width > intersection.Height)
+                    {
+                        velocity.Y *= -1;
+                    }
+                    else
+                    {
+                        velocity.X *= -1;
+                    }
+
+                    brickList[i].Broken = true;
+                    
+                    // Removes the broken brick from the list
+                    // Subtracts 1 from i to keep the bricks at the correct indexes
+                    brickList.RemoveAt(i);
+                    i--;
+                }
+                /*if (Rectangle.Intersect(bounds, brickList[i].Hitbox))
+                {
+
+                }*/
+            }
+            
             Position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 

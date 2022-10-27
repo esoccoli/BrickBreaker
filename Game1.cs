@@ -91,7 +91,7 @@ namespace BrickBreaker
 
             // TODO: Add your update logic here
 
-            ball.Update(gameTime, paddle);
+            ball.Update(gameTime, paddle, brickList);
             paddle.Update(gameTime);
             base.Update(gameTime);
         }
