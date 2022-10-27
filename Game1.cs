@@ -22,7 +22,7 @@ namespace BrickBreaker
         private Paddle paddle;
 
         private Texture2D ballTexture;
-        private List<Brick> brickList;
+        internal List<Brick> brickList;
 
         /// <summary>
         /// Sets up the content and window for the game
@@ -90,6 +90,14 @@ namespace BrickBreaker
                 Exit();
 
             // TODO: Add your update logic here
+            for (int i = 0; i < brickList.Count; i++)
+            {
+                brickList[i].Update(gameTime, ball);
+                if (brickList[i].Broken == true)
+                {
+                    brickList.Remove(brickList[i]);
+                }
+            }
 
             ball.Update(gameTime, paddle, brickList);
             paddle.Update(gameTime);
@@ -115,6 +123,7 @@ namespace BrickBreaker
             }
             // TODO: Add your drawing code here
 
+            
             ball.Draw(_spriteBatch);
             paddle.Draw(_spriteBatch);
             _spriteBatch.End();

@@ -41,9 +41,11 @@ namespace BrickBreaker
             isBroken = false;
         }
 
-        public void Update(GameTime gametime)
+        public void Update(GameTime gametime, Ball ball)
         {
-            
+            Vector2 currVel = ball.Velocity;
+            Vector2 currPos = ball.Position;
+            Rectangle ballBounds = ball.Bounds;
         }
     }
 }
