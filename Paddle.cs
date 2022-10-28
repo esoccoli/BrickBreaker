@@ -46,14 +46,14 @@ namespace BrickBreaker
             {
                 if (Hitbox.Left >= 0)
                 {
-                    hitbox.X -= 3;
+                    hitbox.X -= 5;
                 }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
                 if (Hitbox.Right <= Game1.game.GraphicsDevice.Viewport.Width)
                 {
-                    hitbox.X += 3;
+                    hitbox.X += 5;
                 }
             }
         }
