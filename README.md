@@ -11,6 +11,6 @@ The first method is to install the monogame extension in [Visual Studio](https:/
 The second method is to install it through the command line. To do this, open a new terminal, and run `dotnet new --install MonoGame.Templates.CSharp`. Then, you can open Visual Studio, and create a new project. When it propmts you to select a project type, search for **MonoGame Cross-Platform Desktop Application**, Select that, then name your project and create it.
 
 ## Project Components
-There are a few main components to a MonoGame project, being the Game1.cs file and the Content.mgcb editor. The Game1.cs file is the main program. This file has pre defined methods to allow developers to make games, without having to worry about making everything run and draw and update every frame. The Content.mgcb editor is the primary tool for adding sprites to the game. This allows items in the game to have custom images displayed in the game window.
+There are a few main components to a MonoGame project, being the Game1.cs file and the Content.mgcb editor. The Game1.cs file is the main program. This file has pre-defined methods to allow developers to make games, without having to worry about making everything run and draw and update every frame. The Content.mgcb editor is the primary tool for adding sprites to the game. This allows items in the game to have custom images displayed in the game window.
 
 For more information about installing, using, or understanding MonoGame, see the [MonoGame Documentation](https://docs.monogame.net/)
