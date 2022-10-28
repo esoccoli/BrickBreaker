@@ -14,19 +14,35 @@ namespace BrickBreaker
     /// </summary>
     internal class Brick
     {
-        // ======== FIELDS ========
+        #region Fields
         private Rectangle hitbox;
         private Color color;
         private bool isBroken;
+        #endregion
 
-        // Turning the fields into properties
-        // Allow other classes to access these values
-        // Prevents creation of excessive variables
+        #region Properties
+        /// <summary>
+        /// Accesses the hitbox of the brick
+        /// </summary>
         public Rectangle Hitbox { get { return hitbox; } }
-        public Color BrickColor { get => color; }
-        public bool Broken { get => isBroken; set => isBroken = value; }
 
-        // ======== CONSTRUCTORS ========
+        /// <summary>
+        /// Accesses the color of the brick
+        /// </summary>
+        public Color BrickColor { get => color; }
+
+        /// <summary>
+        /// Determines and/or updates the state of the brick (broken or not)
+        /// </summary>
+        public bool Broken { get => isBroken; set => isBroken = value; }
+        #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Sets up a brick with a specified hitbox and color
+        /// </summary>
+        /// <param name="hitbox">The hitbox (position) of the brick</param>
+        /// <param name="color">The color of the brick</param>
         public Brick(Rectangle hitbox, Color color)
         {
             this.hitbox = hitbox;
@@ -34,13 +50,23 @@ namespace BrickBreaker
             isBroken = false;
         }
 
+        /// <summary>
+        /// Sets up a brick with a specified hitbox and default color
+        /// </summary>
+        /// <param name="hitbox">The hitbox (position) of the brick</param>
         public Brick(Rectangle hitbox)
         {
             this.hitbox = hitbox;
             color = Color.Red;
             isBroken = false;
         }
+        #endregion
 
+        /// <summary>
+        /// Updates the state of the brick
+        /// </summary>
+        /// <param name="gametime">The current time in the game</param>
+        /// <param name="ball">The ball object that interacts with the bricks</param>
         public void Update(GameTime gametime, Ball ball)
         {
             Vector2 currVel = ball.Velocity;

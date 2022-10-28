@@ -15,18 +15,31 @@ namespace BrickBreaker
     /// </summary>
     internal class Paddle
     {
+        #region Fields
         private Rectangle hitbox;
         private Vector2 position;
         private Color color;
         private Texture2D paddleTexture;
+        #endregion
 
-       // Allows other classes to access field values
+        #region Properties
+        /// <summary>
+        /// Accesses or modifies the hitbox of the paddle
+        /// </summary>
         public Rectangle Hitbox { get => hitbox; set => hitbox = value; }
+
+        /// <summary>
+        /// Accesses or modifies the x and y position of the paddle
+        /// </summary>
         public Vector2 Position { get => position; set => position = value; }
+
+        /// <summary>
+        /// Accesses or modifies the color of the paddle
+        /// </summary>
         public Color PaddleColor { get => color; set => color = value; }
+        #endregion
 
         // === CONSTRUCTORS ===
-
         /// <summary>
         /// Sets up the paddle with a rectangle for the position
         /// </summary>
@@ -39,9 +52,13 @@ namespace BrickBreaker
             paddleTexture = texture;
         }
 
+        /// <summary>
+        /// Uodates the attributes of the paddle
+        /// </summary>
+        /// <param name="gameTime">The current time in the game</param>
         public void Update(GameTime gameTime)
         {
-
+            // Moves the paddle left or right when the arrow keys are pressed
             if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
                 if (Hitbox.Left >= 0)

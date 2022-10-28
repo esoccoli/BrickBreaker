@@ -27,6 +27,7 @@ namespace BrickBreaker
         private int yPos;
         #endregion
 
+        #region Properties
         /// <summary>
         /// Tracks the hitbox and lets other classes access it
         /// </summary>
@@ -51,8 +52,16 @@ namespace BrickBreaker
         /// </summary>
         public Vector2 Velocity { get { return velocity; } set { velocity = value; } }
 
+        /// <summary>
+        /// Accesses or modifies the current x-position of the ball
+        /// </summary>
         public int X { get { return xPos; } set { xPos = value; } }
+
+        /// <summary>
+        /// Accesses or modifies the current y-position of the ball
+        /// </summary>
         public int Y { get { return yPos; } set { yPos = value; } }
+        #endregion
 
         /// <summary>
         /// Sets up the ball object at a given position
@@ -69,6 +78,12 @@ namespace BrickBreaker
             velocity = new Vector2(200, -200);
         }
 
+        /// <summary>
+        /// Updates the ball and its attributes
+        /// </summary>
+        /// <param name="gameTime">The current time in the game</param>
+        /// <param name="paddle">The paddle object that is drawn to the screen</param>
+        /// <param name="brickList">The list of bricks that are on the screen</param>
         public void Update(GameTime gameTime, Paddle paddle, List<Brick> brickList)
         {
             // Ball bounces off the left, right, and top of the screen
@@ -88,6 +103,10 @@ namespace BrickBreaker
                 velocity.Y *= -1;
             }
 
+            #region Breaking Bricks
+            // Ball breaks bricks it intersects with
+            // When ball intsersects a brick, its velocity in the 
+            // direction of the collision is reversed
             for (int i = 0; i < brickList.Count; i++)
             {
                 if (bounds.Intersects(brickList[i].Hitbox))
@@ -109,13 +128,19 @@ namespace BrickBreaker
                     // Subtracts 1 from i to keep the bricks at the correct indexes
                     brickList.RemoveAt(i);
                     i--;
+
+                    // Ball speeds up slightly each time it breaks a brick
                     velocity *= 1.01f;
                 }
             }
-            
+            #endregion
             Position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
+        /// <summary>
+        /// Draws the ball on screen at the proper position
+        /// </summary>
+        /// <param name="_spriteBatch">Allows textures to be drawn in the window</param>
         public void Draw(SpriteBatch _spriteBatch)
         {
             _spriteBatch.Draw(texture, new Vector2(bounds.X, bounds.Y), Color.White);
