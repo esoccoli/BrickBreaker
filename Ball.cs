@@ -109,11 +109,8 @@ namespace BrickBreaker
                     // Subtracts 1 from i to keep the bricks at the correct indexes
                     brickList.RemoveAt(i);
                     i--;
+                    velocity *= 1.01f;
                 }
-                /*if (Rectangle.Intersect(bounds, brickList[i].Hitbox))
-                {
-
-                }*/
             }
             
             Position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
