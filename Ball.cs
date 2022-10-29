@@ -128,6 +128,7 @@ namespace BrickBreaker
                     // Removes the broken brick from the list
                     // Subtracts 1 from i to keep the bricks at the correct indexes
                     brickList.RemoveAt(i);
+                    Game1.game.score += 1;
                     i--;
 
                     // Ball speeds up slightly each time it breaks a brick

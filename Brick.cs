@@ -69,9 +69,7 @@ namespace BrickBreaker
         /// <param name="ball">The ball object that interacts with the bricks</param>
         public void Update(GameTime gametime, Ball ball)
         {
-            Vector2 currVel = ball.Velocity;
-            Vector2 currPos = ball.Position;
-            Rectangle ballBounds = ball.Bounds;
+            
         }
     }
 }
