@@ -18,7 +18,6 @@ namespace BrickBreaker
         private SpriteBatch _spriteBatch;
         private Texture2D _texture;
         
-        private Brick refBrick;
         private Ball ball;
         private Paddle paddle;
 
@@ -27,6 +26,7 @@ namespace BrickBreaker
         internal List<Brick> brickList;
 
         public int score;
+        internal SpriteFont arial;
         #endregion
 
         /// <summary>
@@ -69,6 +69,10 @@ namespace BrickBreaker
                     brickList.Add(currBrick);
                 }
             }
+
+            // Sets the score to 0 at the start of the game
+            score = 0;
+
             base.Initialize();
         }
         
@@ -85,6 +89,7 @@ namespace BrickBreaker
 
             ballTextureBelowPaddle = Content.Load<Texture2D>("surprised-pikachu");
 
+            arial = Content.Load<SpriteFont>("arial");
         }
 
         /// <summary>
@@ -134,6 +139,7 @@ namespace BrickBreaker
             }
 
             // Draws the ball and paddle
+            _spriteBatch.DrawString(arial, $"Score: {score}", new Vector2(300f, 20f), Color.Black);
             ball.Draw(_spriteBatch, paddle, ballTextureBelowPaddle);
             paddle.Draw(_spriteBatch);
             _spriteBatch.End();
