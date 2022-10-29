@@ -101,7 +101,23 @@ namespace BrickBreaker
             // Ball bounces off the paddle
             if (bounds.Intersects(paddle.Hitbox))
             {
-                velocity.Y *= -1;
+                // Checks if the ball is intersecting with the paddle
+                Rectangle intersection = Rectangle.Intersect(bounds, paddle.Hitbox);
+
+                // If the ball hits the top or bottom of the paddle
+                if (intersection.Width > intersection.Height)
+                {
+                    // Moves the ball to right above/below the paddle, then reverses its direction
+                    Position += new Vector2(0, intersection.Height * (velocity.Y > 0 ? -1 : 1));
+                    velocity.Y *= -1;
+                }
+                else
+                {
+                    // Moves the ball to directly left/right of the paddle, then reverses its direction
+                    Position += new Vector2(intersection.Width * (velocity.X > 0 ? -1 : 1), 0);
+                    velocity.X *= -1;
+                }
+                
             }
 
             #region Breaking Bricks
