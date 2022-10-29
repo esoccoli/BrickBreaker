@@ -22,6 +22,7 @@ namespace BrickBreaker
         private Ball ball;
         private Paddle paddle;
 
+        private Texture2D ballTextureBelowPaddle;
         private Texture2D ballTexture;
         internal List<Brick> brickList;
 
@@ -82,6 +83,8 @@ namespace BrickBreaker
             ballTexture = Content.Load<Texture2D>("ball");
             ball = new Ball(ballTexture);
 
+            ballTextureBelowPaddle = Content.Load<Texture2D>("surprised-pikachu");
+
         }
 
         /// <summary>
@@ -131,7 +134,7 @@ namespace BrickBreaker
             }
 
             // Draws the ball and paddle
-            ball.Draw(_spriteBatch);
+            ball.Draw(_spriteBatch, paddle, ballTextureBelowPaddle);
             paddle.Draw(_spriteBatch);
             _spriteBatch.End();
             

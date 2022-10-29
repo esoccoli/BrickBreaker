@@ -22,6 +22,7 @@ namespace BrickBreaker
         private Vector2 velocity;
 
         private Texture2D texture;
+        //private Texture2D ballTextureBelowPaddle;
 
         private int xPos;
         private int yPos;
@@ -141,9 +142,17 @@ namespace BrickBreaker
         /// Draws the ball on screen at the proper position
         /// </summary>
         /// <param name="_spriteBatch">Allows textures to be drawn in the window</param>
-        public void Draw(SpriteBatch _spriteBatch)
+        public void Draw(SpriteBatch _spriteBatch, Paddle paddle, Texture2D ballTextureBelowPaddle)
         {
-            _spriteBatch.Draw(texture, new Vector2(bounds.X, bounds.Y), Color.White);
+            if (position.Y > paddle.Hitbox.Bottom)
+            {
+                _spriteBatch.Draw(ballTextureBelowPaddle, new Vector2(bounds.X, bounds.Y), Color.White);
+            }
+            else
+            {
+                _spriteBatch.Draw(texture, new Vector2(bounds.X, bounds.Y), Color.White);
+            }
+            
             
         }
 
