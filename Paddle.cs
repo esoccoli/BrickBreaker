@@ -83,5 +83,10 @@ namespace BrickBreaker
         {
             _spriteBatch.Draw(paddleTexture, Hitbox, PaddleColor);
         }
+
+        public void Reset()
+        {
+
+        }
     }
 }

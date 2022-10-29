@@ -170,8 +170,12 @@ namespace BrickBreaker
                 _spriteBatch.Draw(texture, new Vector2(bounds.X, bounds.Y), Color.White);
             }
             
-            
         }
 
+        // Resets the position of the ball
+        public void Reset()
+        {
+            bounds = new Rectangle((windowSize.Width / 2) - 16, (windowSize.Height - 200), 32, 32);
+        }
     }
 }

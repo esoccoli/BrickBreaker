@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 
 namespace BrickBreaker
 {
@@ -58,20 +59,9 @@ namespace BrickBreaker
             Rectangle windowSize = GraphicsDevice.Viewport.Bounds;
 
             paddle = new Paddle(new Rectangle(windowSize.Width / 2 - 50, windowSize.Height - 150, 115, 20), Color.Black, _texture);
-            brickList = new List<Brick>();
-
-            // Adds 60 bricks to the list, in 15 rows and 4 columns
-            for (int row = 0; row < 15; row++)
-            {
-                for (int col = 0; col < 5; col++)
-                {
-                    Brick currBrick = new Brick(new Rectangle(13 + col * 80, 65 + row * 30, 75, 25));
-                    brickList.Add(currBrick);
-                }
-            }
-
-            // Sets the score to 0 at the start of the game
-            score = 0;
+            
+            // Creates the bricks and adds them to a list, then sets score to 0
+            Reset();
 
             base.Initialize();
         }
@@ -112,6 +102,10 @@ namespace BrickBreaker
                 }
             }
 
+            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                Reset();
+            }
             // Updates ball and paddle
             ball.Update(gameTime, paddle, brickList);
             paddle.Update(gameTime);
@@ -145,6 +139,25 @@ namespace BrickBreaker
             _spriteBatch.End();
             
             base.Draw(gameTime);
+        }
+
+        public void Reset()
+        {
+            brickList = new List<Brick>();
+
+            // Adds 60 bricks to the list, in 15 rows and 4 columns
+            for (int row = 0; row < 15; row++)
+            {
+                for (int col = 0; col < 5; col++)
+                {
+                    Brick currBrick = new Brick(new Rectangle(13 + col * 80, 65 + row * 30, 75, 25));
+                    brickList.Add(currBrick);
+                }
+            }
+
+            // Sets the score to 0 at the start of the game
+            score = 0;
+
         }
     }
 }
