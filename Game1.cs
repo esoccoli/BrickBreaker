@@ -141,8 +141,12 @@ namespace BrickBreaker
             base.Draw(gameTime);
         }
 
+        /// <summary>
+        /// Resets the state of all the bricks and sets the ball to the initial position
+        /// </summary>
         public void Reset()
         {
+            // Clears the list of bricks
             brickList = new List<Brick>();
 
             // Adds 60 bricks to the list, in 15 rows and 4 columns
@@ -154,7 +158,7 @@ namespace BrickBreaker
                     brickList.Add(currBrick);
                 }
             }
-
+            ball = new Ball(ballTexture);
             // Sets the score to 0 at the start of the game
             score = 0;
 
