@@ -16,10 +16,11 @@ namespace BrickBreaker
         #region Fields
         public static Game1 game;
         public Rectangle windowSize;
+        public Random rng;
 
         // Items that manage the content
         private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        public SpriteBatch _spriteBatch;
         private Texture2D _texture;
         
         // Data related to bricks
@@ -36,6 +37,7 @@ namespace BrickBreaker
 
         // Misc data
         public int score;
+        public int lives;
         internal SpriteFont arial;
         #endregion
 
@@ -60,6 +62,9 @@ namespace BrickBreaker
             _graphics.PreferredBackBufferHeight = 980;
             _graphics.ApplyChanges();
 
+            // Initializes the Random object
+            rng = new Random();
+
             // Stores the current window size in a variable for easy access
             windowSize = GraphicsDevice.Viewport.Bounds;
 
@@ -72,9 +77,9 @@ namespace BrickBreaker
 
             // Creates a paddle object
             paddle = new Paddle(_texture, startPaddlePos, Color.Black);
-            
+
             // Resets the game
-            Reset();
+            ResetGame();
 
             base.Initialize();
         }
@@ -117,9 +122,10 @@ namespace BrickBreaker
                 }
             }
 
+            // Resets the game if the 'R' key is pressed
             if (Keyboard.GetState().IsKeyDown(Keys.R))
             {
-                Reset();
+                ResetGame();
             }
 
             // Updates ball and paddle
@@ -148,8 +154,11 @@ namespace BrickBreaker
                 }
             }
 
-            // Draws the ball and paddle
+            // Draws lives and score
             _spriteBatch.DrawString(arial, $"Score: {score}", new Vector2(300f, 20f), Color.Black);
+            _spriteBatch.DrawString(arial, $"Lives: {lives}", new Vector2(30f, 20f), Color.Black);
+
+            // Draws the ball and paddle
             ball.Draw(_spriteBatch, paddle, ballTextureBelowPaddle);
             paddle.Draw(_spriteBatch);
             _spriteBatch.End();
@@ -160,7 +169,7 @@ namespace BrickBreaker
         /// <summary>
         /// Resets the state of all the bricks and sets the ball to the initial position
         /// </summary>
-        public void Reset()
+        public void ResetBricks()
         {
             // Clears the list of bricks
             brickList = new List<Brick>();
@@ -174,14 +183,49 @@ namespace BrickBreaker
                     brickList.Add(currBrick);
                 }
             }
+        }
 
-            // Resets the position of the ball
+        /// <summary>
+        /// Resets all elements of the game
+        /// </summary>
+        public void ResetGame()
+        {
+            ResetBricks();
+            ResetBall();
+            ResetPaddle();
+            ResetScore();
+            ResetLives();
+        }
+        /// <summary>
+        /// Resets the position of the ball
+        /// </summary>
+        public void ResetBall()
+        {
             ball = new Ball(ballTexture);
+        }
+
+        /// <summary>
+        /// Resets the position of the paddle
+        /// </summary>
+        public void ResetPaddle()
+        {
             paddle = new Paddle(_texture, startPaddlePos, Color.Black);
+        }
 
-            // Sets the score to 0 at the start of the game
+        /// <summary>
+        /// Resets the score to 0
+        /// </summary>
+        public void ResetScore()
+        {
             score = 0;
+        }
 
+        /// <summary>
+        /// Resets lives to 5
+        /// </summary>
+        public void ResetLives()
+        {
+            lives = 5;
         }
     }
 }

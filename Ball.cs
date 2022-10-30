@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -62,7 +64,7 @@ namespace BrickBreaker
             hitbox = new Rectangle((windowSize.Width / 2) - 16, (windowSize.Height - 200), 32, 32);
 
             position = new Vector2(hitbox.X, hitbox.Y);
-            velocity = new Vector2(200, -200);
+            velocity = new Vector2(0, 0);
         }
 
         /// <summary>
@@ -73,6 +75,20 @@ namespace BrickBreaker
         /// <param name="brickList">The list of bricks that are on the screen</param>
         public void Update(GameTime gameTime, Paddle paddle, List<Brick> brickList)
         {
+            // Randomly sets the x-velocity of the ball to positive or negative
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && velocity.X == 0 && velocity.Y == 0)
+            {
+                int posOrNeg = Game1.game.rng.Next(1, 3);
+                if (posOrNeg == 1)
+                {
+                    Velocity = new Vector2(200, -200);
+                }
+                else
+                {
+                    Velocity = new Vector2(-200, -200);
+                }
+                
+            }
             // Ball bounces off the left, right, and top of the screen
             if (hitbox.Right >= windowSize.Width || hitbox.Left <= 0)
             {
@@ -82,6 +98,13 @@ namespace BrickBreaker
             if (hitbox.Top <= 0)
             {
                 velocity.Y *= -1;
+            }
+
+            if (hitbox.Bottom >= windowSize.Height + 50)
+            {   
+                Game1.game.lives -= 1;
+                Game1.game.ResetBall();
+                Game1.game.ResetPaddle();
             }
 
             // Ball bounces off the paddle
@@ -129,9 +152,7 @@ namespace BrickBreaker
                     
                     // Removes the broken brick from the list
                     // Subtracts 1 from i to keep the bricks at the correct indexes
-                    brickList.RemoveAt(i);
                     Game1.game.score += 1;
-                    i--;
 
                     // Ball speeds up slightly each time it breaks a brick
                     velocity *= 1.01f;
