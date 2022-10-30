@@ -15,17 +15,26 @@ namespace BrickBreaker
     {
         #region Fields
         public static Game1 game;
+        public Rectangle windowSize;
+
+        // Items that manage the content
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Texture2D _texture;
         
-        private Ball ball;
-        private Paddle paddle;
-
-        private Texture2D ballTextureBelowPaddle;
-        private Texture2D ballTexture;
+        // Data related to bricks
         internal List<Brick> brickList;
 
+        // Data related to the ball
+        private Ball ball;
+        private Texture2D ballTextureBelowPaddle;
+        private Texture2D ballTexture;
+
+        // Data related to the paddle
+        private Paddle paddle;
+        private Rectangle startPaddlePos;
+
+        // Misc data
         public int score;
         internal SpriteFont arial;
         #endregion
@@ -39,7 +48,6 @@ namespace BrickBreaker
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            //_graphics.IsFullScreen = true;
         }
 
         /// <summary>
@@ -52,15 +60,20 @@ namespace BrickBreaker
             _graphics.PreferredBackBufferHeight = 980;
             _graphics.ApplyChanges();
 
+            // Stores the current window size in a variable for easy access
+            windowSize = GraphicsDevice.Viewport.Bounds;
+
             // Creates a default texture to allow drawing of colored rectangles
             _texture = new Texture2D(GraphicsDevice, 1, 1);
             _texture.SetData(new Color[] { Color.White });
-            
-            Rectangle windowSize = GraphicsDevice.Viewport.Bounds;
 
-            paddle = new Paddle(new Rectangle(windowSize.Width / 2 - 50, windowSize.Height - 150, 115, 20), Color.Black, _texture);
+            // Defines the starting position of the paddle
+            startPaddlePos = new Rectangle(windowSize.Width / 2 - 50, windowSize.Height - 150, 115, 20);
+
+            // Creates a paddle object
+            paddle = new Paddle(_texture, startPaddlePos, Color.Black);
             
-            // Creates the bricks and adds them to a list, then sets score to 0
+            // Resets the game
             Reset();
 
             base.Initialize();
@@ -77,8 +90,10 @@ namespace BrickBreaker
             ballTexture = Content.Load<Texture2D>("ball");
             ball = new Ball(ballTexture);
 
+            // Loads the texture that the ball gets when it falls below the paddle
             ballTextureBelowPaddle = Content.Load<Texture2D>("surprised-pikachu");
 
+            // Loads the font used to draw text on the screen
             arial = Content.Load<SpriteFont>("arial");
         }
 
@@ -106,6 +121,7 @@ namespace BrickBreaker
             {
                 Reset();
             }
+
             // Updates ball and paddle
             ball.Update(gameTime, paddle, brickList);
             paddle.Update(gameTime);
@@ -158,7 +174,11 @@ namespace BrickBreaker
                     brickList.Add(currBrick);
                 }
             }
+
+            // Resets the position of the ball
             ball = new Ball(ballTexture);
+            paddle = new Paddle(_texture, startPaddlePos, Color.Black);
+
             // Sets the score to 0 at the start of the game
             score = 0;
 

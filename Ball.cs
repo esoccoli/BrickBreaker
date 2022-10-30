@@ -22,17 +22,13 @@ namespace BrickBreaker
         private Vector2 velocity;
 
         private Texture2D texture;
-        //private Texture2D ballTextureBelowPaddle;
-
-        private int xPos;
-        private int yPos;
         #endregion
 
         #region Properties
         /// <summary>
         /// Tracks the hitbox and lets other classes access it
         /// </summary>
-        public Rectangle Bounds { get { return hitbox; } }
+        public Rectangle Hitbox { get { return hitbox; } }
 
         /// <summary>
         /// Tracks the position and lets other classes access it
@@ -52,16 +48,6 @@ namespace BrickBreaker
         /// Tracks the velocity and lets other classes access it
         /// </summary>
         public Vector2 Velocity { get { return velocity; } set { velocity = value; } }
-
-        /// <summary>
-        /// Accesses or modifies the current x-position of the ball
-        /// </summary>
-        public int X { get { return xPos; } set { xPos = value; } }
-
-        /// <summary>
-        /// Accesses or modifies the current y-position of the ball
-        /// </summary>
-        public int Y { get { return yPos; } set { yPos = value; } }
         #endregion
 
         /// <summary>

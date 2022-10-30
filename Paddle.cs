@@ -18,7 +18,7 @@ namespace BrickBreaker
         #region Fields
         private Rectangle hitbox;
         private Color color;
-        private Texture2D paddleTexture;
+        private Texture2D _texture;
         #endregion
 
         #region Properties
@@ -39,29 +39,33 @@ namespace BrickBreaker
         /// </summary>
         /// <param name="position">The position of the paddle</param>
         /// <param name="color">The color of the paddle</param>
-        public Paddle(Rectangle position, Color color, Texture2D texture)
+        public Paddle(Texture2D texture, Rectangle position, Color color)
         {
             this.hitbox = position;
             this.color = color;
-            paddleTexture = texture;
+            this._texture = texture;
         }
 
+        // === METHODS ===
         /// <summary>
         /// Uodates the attributes of the paddle
         /// </summary>
         /// <param name="gameTime">The current time in the game</param>
         public void Update(GameTime gameTime)
         {
-            // Moves the paddle left or right when the arrow keys are pressed
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            // Moves the paddle left or right when the arrow keys or A/D are pressed
+            if (Keyboard.GetState().IsKeyDown(Keys.Left) || Keyboard.GetState().IsKeyDown(Keys.A))
             {
+                // Only moves paddle if left edge is within window
                 if (Hitbox.Left >= 0)
                 {
                     hitbox.X -= 5;
                 }
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.D))
             {
+                // Only moves paddle if right edge is within window
                 if (Hitbox.Right <= Game1.game.GraphicsDevice.Viewport.Width)
                 {
                     hitbox.X += 5;
@@ -75,12 +79,12 @@ namespace BrickBreaker
         /// <param name="_spriteBatch">Allows things to be drawn on screen</param>
         public void Draw(SpriteBatch _spriteBatch)
         {
-            _spriteBatch.Draw(paddleTexture, Hitbox, PaddleColor);
+            _spriteBatch.Draw(_texture, Hitbox, PaddleColor);
         }
 
         public void Reset()
         {
-
+            
         }
     }
 }
