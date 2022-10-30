@@ -17,7 +17,6 @@ namespace BrickBreaker
     {
         #region Fields
         private Rectangle hitbox;
-        private Vector2 position;
         private Color color;
         private Texture2D paddleTexture;
         #endregion
@@ -27,11 +26,6 @@ namespace BrickBreaker
         /// Accesses or modifies the hitbox of the paddle
         /// </summary>
         public Rectangle Hitbox { get => hitbox; set => hitbox = value; }
-
-        /// <summary>
-        /// Accesses or modifies the x and y position of the paddle
-        /// </summary>
-        public Vector2 Position { get => position; set => position = value; }
 
         /// <summary>
         /// Accesses or modifies the color of the paddle

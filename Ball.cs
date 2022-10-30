@@ -17,7 +17,7 @@ namespace BrickBreaker
         #region Fields
         private Rectangle windowSize;
         
-        private Rectangle bounds;
+        private Rectangle hitbox;
         private Vector2 position;
         private Vector2 velocity;
 
@@ -32,7 +32,7 @@ namespace BrickBreaker
         /// <summary>
         /// Tracks the hitbox and lets other classes access it
         /// </summary>
-        public Rectangle Bounds { get { return bounds; } }
+        public Rectangle Bounds { get { return hitbox; } }
 
         /// <summary>
         /// Tracks the position and lets other classes access it
@@ -43,8 +43,8 @@ namespace BrickBreaker
             set 
             {
                 position = value;
-                bounds.X = (int)position.X;
-                bounds.Y = (int)position.Y;
+                hitbox.X = (int)position.X;
+                hitbox.Y = (int)position.Y;
             }
         }
 
@@ -73,9 +73,9 @@ namespace BrickBreaker
             this.texture = texture;
 
             windowSize = Game1.game.GraphicsDevice.Viewport.Bounds;
-            bounds = new Rectangle((windowSize.Width / 2) - 16, (windowSize.Height - 200), 32, 32);
+            hitbox = new Rectangle((windowSize.Width / 2) - 16, (windowSize.Height - 200), 32, 32);
 
-            position = new Vector2(bounds.X, bounds.Y);
+            position = new Vector2(hitbox.X, hitbox.Y);
             velocity = new Vector2(200, -200);
         }
 
@@ -88,21 +88,21 @@ namespace BrickBreaker
         public void Update(GameTime gameTime, Paddle paddle, List<Brick> brickList)
         {
             // Ball bounces off the left, right, and top of the screen
-            if (bounds.Right >= windowSize.Width || bounds.Left <= 0)
+            if (hitbox.Right >= windowSize.Width || hitbox.Left <= 0)
             {
                 velocity.X *= -1;
             }
 
-            if (bounds.Top <= 0)
+            if (hitbox.Top <= 0)
             {
                 velocity.Y *= -1;
             }
 
             // Ball bounces off the paddle
-            if (bounds.Intersects(paddle.Hitbox))
+            if (hitbox.Intersects(paddle.Hitbox))
             {
                 // Checks if the ball is intersecting with the paddle
-                Rectangle intersection = Rectangle.Intersect(bounds, paddle.Hitbox);
+                Rectangle intersection = Rectangle.Intersect(hitbox, paddle.Hitbox);
 
                 // If the ball hits the top or bottom of the paddle
                 if (intersection.Width > intersection.Height)
@@ -126,9 +126,9 @@ namespace BrickBreaker
             // direction of the collision is reversed
             for (int i = 0; i < brickList.Count; i++)
             {
-                if (bounds.Intersects(brickList[i].Hitbox))
+                if (hitbox.Intersects(brickList[i].Hitbox))
                 {
-                    Rectangle intersection = Rectangle.Intersect(bounds, brickList[i].Hitbox);
+                    Rectangle intersection = Rectangle.Intersect(hitbox, brickList[i].Hitbox);
 
                     if (intersection.Width > intersection.Height)
                     {
@@ -163,11 +163,11 @@ namespace BrickBreaker
         {
             if (position.Y > paddle.Hitbox.Bottom)
             {
-                _spriteBatch.Draw(ballTextureBelowPaddle, new Vector2(bounds.X, bounds.Y), Color.White);
+                _spriteBatch.Draw(ballTextureBelowPaddle, new Vector2(hitbox.X, hitbox.Y), Color.White);
             }
             else
             {
-                _spriteBatch.Draw(texture, new Vector2(bounds.X, bounds.Y), Color.White);
+                _spriteBatch.Draw(texture, new Vector2(hitbox.X, hitbox.Y), Color.White);
             }
             
         }
@@ -175,7 +175,7 @@ namespace BrickBreaker
         // Resets the position of the ball
         public void Reset()
         {
-            bounds = new Rectangle((windowSize.Width / 2) - 16, (windowSize.Height - 200), 32, 32);
+            hitbox = new Rectangle((windowSize.Width / 2) - 16, (windowSize.Height - 200), 32, 32);
         }
     }
 }
