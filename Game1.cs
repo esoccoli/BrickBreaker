@@ -19,7 +19,7 @@ namespace BrickBreaker
         public Random rng;
 
         // Items that manage the content
-        private GraphicsDeviceManager _graphics;
+        public GraphicsDeviceManager _graphics;
         public SpriteBatch _spriteBatch;
         private Texture2D _texture;
         
@@ -143,18 +143,22 @@ namespace BrickBreaker
             // Clears the window each frame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            _spriteBatch.Begin();
             if (lives == 0)
             {
                 // Clears the background and removes all objects from screen
                 GraphicsDevice.Clear(Color.CornflowerBlue);
                 brickList.Clear();
 
-                _spriteBatch.Begin();
                 _spriteBatch.DrawString(arial, "Game Over!", new Vector2(windowSize.Center.X - 60, windowSize.Center.Y - 30), Color.Black);
                 _spriteBatch.DrawString(arial, "Press 'R' to start a new game.", new Vector2(windowSize.Left + 60, windowSize.Center.Y + 30), Color.Black);
-                _spriteBatch.End();
             }
-            _spriteBatch.Begin();
+            else if (lives != 0 && brickList.Count == 0)
+            {
+                _spriteBatch.DrawString(arial, "You Win!", new Vector2(windowSize.Center.X - 60, windowSize.Center.Y - 30), Color.Black);
+                _spriteBatch.DrawString(arial, "Press 'R' to start a new game.", new Vector2(windowSize.Left + 60, windowSize.Center.Y + 30), Color.Black);
+            }
+            
 
             // Draws all bricks in the list that are not broken
             for (int i = 0; i < brickList.Count; i++)
@@ -169,12 +173,18 @@ namespace BrickBreaker
             _spriteBatch.DrawString(arial, $"Score: {score}", new Vector2(300f, 20f), Color.Black);
             _spriteBatch.DrawString(arial, $"Lives: {lives}", new Vector2(30f, 20f), Color.Black);
 
-            // Draws the ball and paddle
-
+            // Draws the ball and paddle only if lives is above 0
             if (lives > 0)
             {
                 ball.Draw(_spriteBatch, paddle, ballTextureBelowPaddle);
                 paddle.Draw(_spriteBatch);
+            }
+
+            // Clears the ball and paddle if no bricks are left
+            if (brickList.Count == 0)
+            {
+                ball.Reset();
+                paddle.Reset();
             }
 
             _spriteBatch.End();

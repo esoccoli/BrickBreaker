@@ -82,9 +82,12 @@ namespace BrickBreaker
             _spriteBatch.Draw(_texture, Hitbox, PaddleColor);
         }
 
+        /// <summary>
+        /// Resets the texture of the paddle
+        /// </summary>
         public void Reset()
         {
-            
+            _texture = new Texture2D(Game1.game.GraphicsDevice, 1, 1);
         }
     }
 }

@@ -180,9 +180,12 @@ namespace BrickBreaker
             
         }
 
-        // Resets the position of the ball
+        /// <summary>
+        /// Resets the position of the ball
+        /// </summary>
         public void Reset()
         {
+            texture = new Texture2D(Game1.game.GraphicsDevice, 1, 1);
             hitbox = new Rectangle((windowSize.Width / 2) - 16, (windowSize.Height - 200), 32, 32);
         }
     }
