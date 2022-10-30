@@ -75,10 +75,11 @@ namespace BrickBreaker
         /// <param name="brickList">The list of bricks that are on the screen</param>
         public void Update(GameTime gameTime, Paddle paddle, List<Brick> brickList)
         {
+            int posOrNeg = 0;
             // Randomly sets the x-velocity of the ball to positive or negative
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && velocity.X == 0 && velocity.Y == 0)
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && velocity.X == 0 && velocity.Y == 0 && Game1.game.lives > 0)
             {
-                int posOrNeg = Game1.game.rng.Next(1, 3);
+                posOrNeg = Game1.game.rng.Next(1, 3);
                 if (posOrNeg == 1)
                 {
                     Velocity = new Vector2(200, -200);

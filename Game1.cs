@@ -143,6 +143,17 @@ namespace BrickBreaker
             // Clears the window each frame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            if (lives == 0)
+            {
+                // Clears the background and removes all objects from screen
+                GraphicsDevice.Clear(Color.CornflowerBlue);
+                brickList.Clear();
+
+                _spriteBatch.Begin();
+                _spriteBatch.DrawString(arial, "Game Over!", new Vector2(windowSize.Center.X - 60, windowSize.Center.Y - 30), Color.Black);
+                _spriteBatch.DrawString(arial, "Press 'R' to start a new game.", new Vector2(windowSize.Left + 60, windowSize.Center.Y + 30), Color.Black);
+                _spriteBatch.End();
+            }
             _spriteBatch.Begin();
 
             // Draws all bricks in the list that are not broken
@@ -159,8 +170,13 @@ namespace BrickBreaker
             _spriteBatch.DrawString(arial, $"Lives: {lives}", new Vector2(30f, 20f), Color.Black);
 
             // Draws the ball and paddle
-            ball.Draw(_spriteBatch, paddle, ballTextureBelowPaddle);
-            paddle.Draw(_spriteBatch);
+
+            if (lives > 0)
+            {
+                ball.Draw(_spriteBatch, paddle, ballTextureBelowPaddle);
+                paddle.Draw(_spriteBatch);
+            }
+
             _spriteBatch.End();
             
             base.Draw(gameTime);
