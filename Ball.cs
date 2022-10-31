@@ -61,7 +61,7 @@ namespace BrickBreaker
             this.texture = texture;
 
             //windowSize = Game1.game.GraphicsDevice.Viewport.Bounds;
-            hitbox = new Rectangle((Game1.game.GraphicsDevice.Viewport.Bounds.Width / 2) - 16, (Game1.game.GraphicsDevice.Viewport.Bounds.Height - 220), 32, 32);
+            hitbox = new Rectangle((Game1.game.GraphicsDevice.Viewport.Bounds.Width / 2) - 16, Game1.game.GraphicsDevice.Viewport.Bounds.Height - 200, 32, 32);
 
             position = new Vector2(hitbox.X, hitbox.Y);
             velocity = new Vector2(0, 0);
