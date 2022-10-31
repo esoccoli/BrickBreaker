@@ -60,7 +60,7 @@ namespace BrickBreaker
         /// </summary>
         protected override void Initialize()
         {
-            // Updates the windiw size to 9:21 aspect ratio
+            // Updates the window size to 9:21 aspect ratio
             _graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
             _graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
 
@@ -135,7 +135,10 @@ namespace BrickBreaker
 
             // Updates ball and paddle
             ball.Update(gameTime, paddle, brickList);
-            paddle.Update(gameTime);
+            if (ball.Velocity != new Vector2(0f, 0f))
+            {
+                paddle.Update(gameTime);
+            }
             base.Update(gameTime);
         }
 
@@ -177,9 +180,9 @@ namespace BrickBreaker
             }
 
             // Draws lives and score
-            _spriteBatch.DrawString(arial, $"Score: {score}", new Vector2(GraphicsDevice.Viewport.Bounds.Width - 100, GraphicsDevice.Viewport.Bounds.Top + 20), Color.Black);
+            _spriteBatch.DrawString(arial, $"Score: {score}", new Vector2(GraphicsDevice.Viewport.Bounds.Width - 150, GraphicsDevice.Viewport.Bounds.Top + 30), Color.Black);
 
-            _spriteBatch.DrawString(arial, $"Lives: {lives}", new Vector2(GraphicsDevice.Viewport.Bounds.Width - 100, GraphicsDevice.Viewport.Bounds.Top + 20), Color.Black);
+            _spriteBatch.DrawString(arial, $"Lives: {lives}", new Vector2(50, GraphicsDevice.Viewport.Bounds.Top + 30), Color.Black);
 
             // Draws the ball and paddle only if lives is above 0
             if (lives > 0)
@@ -226,6 +229,7 @@ namespace BrickBreaker
             int brickHeight = (brickAreaHeight - ((numRows * brickSpacing) + brickSpacing)) / numRows;
 
             #endregion
+
             // Clears the list of bricks
             brickList = new List<Brick>();
 
