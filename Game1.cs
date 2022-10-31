@@ -48,6 +48,9 @@ namespace BrickBreaker
         {
             game = this;
             _graphics = new GraphicsDeviceManager(this);
+
+            
+            
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -58,8 +61,10 @@ namespace BrickBreaker
         protected override void Initialize()
         {
             // Updates the windiw size to 9:21 aspect ratio
-            _graphics.PreferredBackBufferWidth = 420;
-            _graphics.PreferredBackBufferHeight = 980;
+            _graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
+            _graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
+
+            _graphics.IsFullScreen = true;
             _graphics.ApplyChanges();
 
             // Initializes the Random object
@@ -73,7 +78,7 @@ namespace BrickBreaker
             _texture.SetData(new Color[] { Color.White });
 
             // Defines the starting position of the paddle
-            startPaddlePos = new Rectangle(windowSize.Width / 2 - 50, windowSize.Height - 150, 115, 20);
+            startPaddlePos = new Rectangle(GraphicsDevice.Viewport.Bounds.Width / 2 - 50, GraphicsDevice.Viewport.Bounds.Height - 150, 100, 20);
 
             // Creates a paddle object
             paddle = new Paddle(_texture, startPaddlePos, Color.Black);
@@ -142,7 +147,7 @@ namespace BrickBreaker
         {
             // Clears the window each frame
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            
             _spriteBatch.Begin();
             if (lives == 0)
             {
@@ -150,13 +155,15 @@ namespace BrickBreaker
                 GraphicsDevice.Clear(Color.CornflowerBlue);
                 brickList.Clear();
 
-                _spriteBatch.DrawString(arial, "Game Over!", new Vector2(windowSize.Center.X - 60, windowSize.Center.Y - 30), Color.Black);
-                _spriteBatch.DrawString(arial, "Press 'R' to start a new game.", new Vector2(windowSize.Left + 60, windowSize.Center.Y + 30), Color.Black);
+                _spriteBatch.DrawString(arial, "Game Over!", new Vector2(GraphicsDevice.Viewport.Bounds.Center.X - 60, GraphicsDevice.Viewport.Bounds.Center.Y - 30), Color.Black);
+
+                _spriteBatch.DrawString(arial, "Press 'R' to start a new game.", new Vector2(GraphicsDevice.Viewport.Bounds.Left + 60, GraphicsDevice.Viewport.Bounds.Center.Y + 30), Color.Black);
             }
             else if (lives != 0 && brickList.Count == 0)
             {
-                _spriteBatch.DrawString(arial, "You Win!", new Vector2(windowSize.Center.X - 60, windowSize.Center.Y - 30), Color.Black);
-                _spriteBatch.DrawString(arial, "Press 'R' to start a new game.", new Vector2(windowSize.Left + 60, windowSize.Center.Y + 30), Color.Black);
+                _spriteBatch.DrawString(arial, "You Win!", new Vector2(GraphicsDevice.Viewport.Bounds.Center.X - 60, GraphicsDevice.Viewport.Bounds.Center.Y - 30), Color.Black);
+
+                _spriteBatch.DrawString(arial, "Press 'R' to start a new game.", new Vector2(GraphicsDevice.Viewport.Bounds.Left + 60, GraphicsDevice.Viewport.Bounds.Center.Y + 30), Color.Black);
             }
             
 
@@ -170,8 +177,9 @@ namespace BrickBreaker
             }
 
             // Draws lives and score
-            _spriteBatch.DrawString(arial, $"Score: {score}", new Vector2(300f, 20f), Color.Black);
-            _spriteBatch.DrawString(arial, $"Lives: {lives}", new Vector2(30f, 20f), Color.Black);
+            _spriteBatch.DrawString(arial, $"Score: {score}", new Vector2(GraphicsDevice.Viewport.Bounds.Width - 100, GraphicsDevice.Viewport.Bounds.Top + 20), Color.Black);
+
+            _spriteBatch.DrawString(arial, $"Lives: {lives}", new Vector2(GraphicsDevice.Viewport.Bounds.Width - 100, GraphicsDevice.Viewport.Bounds.Top + 20), Color.Black);
 
             // Draws the ball and paddle only if lives is above 0
             if (lives > 0)
@@ -203,9 +211,16 @@ namespace BrickBreaker
             // Adds 60 bricks to the list, in 15 rows and 4 columns
             for (int row = 0; row < 15; row++)
             {
-                for (int col = 0; col < 5; col++)
+                for (int col = 0; col < 4; col++)
                 {
-                    Brick currBrick = new Brick(new Rectangle(13 + col * 80, 65 + row * 30, 75, 25));
+                    // brickSpacing = whatever you want
+                    // brickAreaHeight = whatever you want i suggest maybe screenheight/3
+                    // brickAreaOffsetFromTop = whatever you want, maybe 80
+                    // brickwidth = (screenwidth - ((cols*brickSpacing) +brickSpacing))/cols
+                    // brickHeight = (brickAreaHeight - ((rows*brickSpacing) +brickSpacing))/rows
+                    // brickx = 5 + (col*(brickwidth+brickSpacing))
+                    // bricky = brickAreaOffsetFromTop + (row*(brickheight+spacing))
+                    Brick currBrick = new Brick(new Rectangle(80 + col * 180, 85 + row * 60, (GraphicsDevice.Viewport.Width) / 12, (GraphicsDevice.Viewport.Bounds.Height) / 12));
                     brickList.Add(currBrick);
                 }
             }
