@@ -155,7 +155,7 @@ namespace BrickBreaker
                     
                     // Removes the broken brick from the list
                     // Subtracts 1 from i to keep the bricks at the correct indexes
-                    Game1.game.score += 1;
+                    Game1.game.score += Game1.game.lives;
 
                     // Ball speeds up slightly each time it breaks a brick
                     velocity *= 1.01f;
