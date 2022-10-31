@@ -59,7 +59,7 @@ namespace BrickBreaker
                 // Only moves paddle if left edge is within window
                 if (Hitbox.Left >= 0)
                 {
-                    hitbox.X -= 5;
+                    hitbox.X -= Game1.game.windowSize.Width / 150;
                 }
             }
 
@@ -68,7 +68,7 @@ namespace BrickBreaker
                 // Only moves paddle if right edge is within window
                 if (Hitbox.Right <= Game1.game.GraphicsDevice.Viewport.Width)
                 {
-                    hitbox.X += 5;
+                    hitbox.X += Game1.game.windowSize.Width / 150;
                 }
             }
         }
