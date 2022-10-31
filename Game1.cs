@@ -205,13 +205,34 @@ namespace BrickBreaker
         /// </summary>
         public void ResetBricks()
         {
+            #region Useful Variables
+            // Number of rows/columns of bricks
+            int numRows = 15;
+            int numCols = 8;
+
+            // Number of pixels between bricks
+            int brickSpacing = 5;
+
+            // Greatest y-coordinate (farthest down) that bricks can be drawn
+            int brickAreaHeight = GraphicsDevice.Viewport.Height / 3;
+
+            // Number of pixels away from top of screen that the first brick is drawn
+            int brickAreaTopOffset = 80;
+
+            // The width of each brick (should scale based on window size)
+            int brickWidth = (GraphicsDevice.Viewport.Width - ((numCols * brickSpacing) + brickSpacing)) / numCols;
+
+            // Height of each brick (should scale based on window size)
+            int brickHeight = (brickAreaHeight - ((numRows * brickSpacing) + brickSpacing)) / numRows;
+
+            #endregion
             // Clears the list of bricks
             brickList = new List<Brick>();
 
             // Adds 60 bricks to the list, in 15 rows and 4 columns
-            for (int row = 0; row < 15; row++)
+            for (int row = 0; row < numRows; row++)
             {
-                for (int col = 0; col < 4; col++)
+                for (int col = 0; col < numCols; col++)
                 {
                     // brickSpacing = whatever you want
                     // brickAreaHeight = whatever you want i suggest maybe screenheight/3
@@ -220,7 +241,7 @@ namespace BrickBreaker
                     // brickHeight = (brickAreaHeight - ((rows*brickSpacing) +brickSpacing))/rows
                     // brickx = 5 + (col*(brickwidth+brickSpacing))
                     // bricky = brickAreaOffsetFromTop + (row*(brickheight+spacing))
-                    Brick currBrick = new Brick(new Rectangle(80 + col * 180, 85 + row * 60, (GraphicsDevice.Viewport.Width) / 12, (GraphicsDevice.Viewport.Bounds.Height) / 12));
+                    Brick currBrick = new Brick(new Rectangle(5 + (col * (brickWidth + brickSpacing)), brickAreaTopOffset + (row * (brickHeight + brickSpacing)), brickWidth, brickHeight));
                     brickList.Add(currBrick);
                 }
             }
@@ -237,6 +258,7 @@ namespace BrickBreaker
             ResetScore();
             ResetLives();
         }
+
         /// <summary>
         /// Resets the position of the ball
         /// </summary>
