@@ -153,12 +153,15 @@ namespace BrickBreaker
 
                     brickList[i].Broken = true;
                     
-                    // Removes the broken brick from the list
-                    // Subtracts 1 from i to keep the bricks at the correct indexes
+                    // Increases score by number of lives left each time a brick is broken
+                    // The more lives the player has left, the more points they get from each brick
                     Game1.game.score += Game1.game.lives;
 
                     // Ball speeds up slightly each time it breaks a brick
                     velocity *= 1.01f;
+
+                    // Removes the broken brick from the list
+                    // Subtracts 1 from i to keep the bricks at the correct indexes
                     brickList.RemoveAt(i);
                     i--;
                 }
