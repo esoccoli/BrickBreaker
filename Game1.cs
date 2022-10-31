@@ -160,13 +160,13 @@ namespace BrickBreaker
 
                 _spriteBatch.DrawString(arial, "Game Over!", new Vector2(GraphicsDevice.Viewport.Bounds.Center.X - 60, GraphicsDevice.Viewport.Bounds.Center.Y - 30), Color.Black);
 
-                _spriteBatch.DrawString(arial, "Press 'R' to start a new game.", new Vector2(GraphicsDevice.Viewport.Bounds.Left + 60, GraphicsDevice.Viewport.Bounds.Center.Y + 30), Color.Black);
+                _spriteBatch.DrawString(arial, "Press 'R' to start a new game.", new Vector2(GraphicsDevice.Viewport.Bounds.Center.X - 150, GraphicsDevice.Viewport.Bounds.Center.Y + 30), Color.Black);
             }
             else if (lives != 0 && brickList.Count == 0)
             {
                 _spriteBatch.DrawString(arial, "You Win!", new Vector2(GraphicsDevice.Viewport.Bounds.Center.X - 60, GraphicsDevice.Viewport.Bounds.Center.Y - 30), Color.Black);
 
-                _spriteBatch.DrawString(arial, "Press 'R' to start a new game.", new Vector2(GraphicsDevice.Viewport.Bounds.Left + 60, GraphicsDevice.Viewport.Bounds.Center.Y + 30), Color.Black);
+                _spriteBatch.DrawString(arial, "Press 'R' to start a new game.", new Vector2(GraphicsDevice.Viewport.Bounds.Center.X - 150, GraphicsDevice.Viewport.Bounds.Center.Y + 30), Color.Black);
             }
             
 
