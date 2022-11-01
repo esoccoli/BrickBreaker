@@ -122,6 +122,18 @@ namespace BrickBreaker
                     // Moves the ball to right above/below the paddle, then reverses its direction
                     Position += new Vector2(0, intersection.Height * (velocity.Y > 0 ? -1 : 1));
                     velocity.Y *= -1;
+
+                    // If ball hits the leftmost quarter of the paddle and is moving right
+                    // Or if the ball hits the rightmost quarter of the paddle and is moving left
+                    // x-velocity is reversed (multiplied by -1)
+                    if (hitbox.Left < paddle.Hitbox.Left + paddle.Hitbox.Width / 4 && velocity.X > 0)
+                    {
+                        velocity.X *= -1;
+                    }
+                    if ((hitbox.Right > paddle.Hitbox.Right - paddle.Hitbox.Width / 4) && velocity.X < 0)
+                    {
+                        velocity.X *= -1;
+                    }
                 }
                 else
                 {
