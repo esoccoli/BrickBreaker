@@ -17,8 +17,8 @@ namespace BrickBreaker
     internal class Ball
     {
         #region Fields
-        //private Rectangle windowSize;
-        
+        private Rectangle windowSize;
+
         private Rectangle hitbox;
         private Vector2 position;
         private Vector2 velocity;
@@ -60,8 +60,9 @@ namespace BrickBreaker
         {
             this.texture = texture;
 
-            //windowSize = Game1.game.GraphicsDevice.Viewport.Bounds;
-            hitbox = new Rectangle((Game1.game.GraphicsDevice.Viewport.Bounds.Width / 2) - 16, Game1.game.GraphicsDevice.Viewport.Bounds.Height - 200, 32, 32);
+            windowSize = Game1.game.windowSize;
+
+            hitbox = new Rectangle((windowSize.Width / 2) - 16, windowSize.Height - 200, 32, 32);
 
             position = new Vector2(hitbox.X, hitbox.Y);
             velocity = new Vector2(0, 0);
@@ -78,7 +79,9 @@ namespace BrickBreaker
             int posOrNeg = 0;
 
             // Randomly sets the x-velocity of the ball to positive or negative
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && velocity.X == 0 && velocity.Y == 0 && Game1.game.lives > 0)
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && 
+                velocity.X == 0 && velocity.Y == 0 
+                && Game1.game.lives > 0)
             {
                 posOrNeg = Game1.game.rng.Next(1, 3);
                 if (posOrNeg == 1)
@@ -92,7 +95,7 @@ namespace BrickBreaker
                 
             }
             // Ball bounces off the left, right, and top of the screen
-            if (hitbox.Right >= Game1.game.GraphicsDevice.Viewport.Bounds.Width || hitbox.Left <= 0)
+            if (hitbox.Right >= windowSize.Width || hitbox.Left <= 0)
             {
                 velocity.X *= -1;
             }
@@ -103,7 +106,7 @@ namespace BrickBreaker
             }
 
             // Resets the ball and paddle if the ball goes below the window
-            if (hitbox.Bottom >= Game1.game.GraphicsDevice.Viewport.Bounds.Height + 50)
+            if (hitbox.Bottom >= windowSize.Height + 50)
             {   
                 Game1.game.lives -= 1;
                 Game1.game.ResetBall();
@@ -205,7 +208,7 @@ namespace BrickBreaker
         public void Reset()
         {
             texture = new Texture2D(Game1.game.GraphicsDevice, 1, 1);
-            hitbox = new Rectangle((Game1.game.GraphicsDevice.Viewport.Bounds.Width / 2) - 16, (Game1.game.GraphicsDevice.Viewport.Bounds.Height - 220), 32, 32);
+            hitbox = new Rectangle((windowSize.Width / 2) - 16, (windowSize.Height - 220), 32, 32);
         }
     }
 }

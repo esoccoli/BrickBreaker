@@ -62,14 +62,9 @@ namespace BrickBreaker
         }
         #endregion
 
-        /// <summary>
-        /// Updates the state of the brick
-        /// </summary>
-        /// <param name="gametime">The current time in the game</param>
-        /// <param name="ball">The ball object that interacts with the bricks</param>
-        public void Update(GameTime gametime, Ball ball)
+        /*public void Update(GameTime gameTime, Ball ball)
         {
-            
-        }
+
+        }*/
     }
 }

@@ -77,11 +77,12 @@ namespace BrickBreaker
 
             #region Paddle Start Rectangle
             int paddleWidth = windowSize.Width / 10;
-            int paddleHeight = windowSize.Height / 50;
+            int paddleHeight = 21; // Thin paddle regardless of screen size
 
             int paddleStartX = (windowSize.Width / 2) - (paddleWidth / 2);
             int paddleStartY = windowSize.Height - 150;
             #endregion
+
             // Defines the starting position of the paddle
             startPaddlePos = new Rectangle(paddleStartX, paddleStartY, paddleWidth, paddleHeight);
 
@@ -125,7 +126,7 @@ namespace BrickBreaker
             // Loops through the list of bricks, and removes any broken ones
             for (int i = 0; i < brickList.Count; i++)
             {
-                brickList[i].Update(gameTime, ball);
+                //brickList[i].Update(gameTime, ball);
                 if (brickList[i].Broken == true)
                 {
                     brickList.Remove(brickList[i]);
@@ -156,7 +157,9 @@ namespace BrickBreaker
             // Clears the window each frame
             GraphicsDevice.Clear(Color.CornflowerBlue);
             
+            // Gathers all the draw calls and performs them all at once
             _spriteBatch.Begin();
+
             if (lives == 0)
             {
                 // Clears the background and removes all objects from screen
@@ -203,8 +206,8 @@ namespace BrickBreaker
                 paddle.Reset();
             }
 
+            // Finishes gathering draw calls, and draws them all at once
             _spriteBatch.End();
-            
             base.Draw(gameTime);
         }
 
@@ -243,13 +246,6 @@ namespace BrickBreaker
             {
                 for (int col = 0; col < numCols; col++)
                 {
-                    // brickSpacing = whatever you want
-                    // brickAreaHeight = whatever you want i suggest maybe screenheight/3
-                    // brickAreaOffsetFromTop = whatever you want, maybe 80
-                    // brickwidth = (screenwidth - ((cols*brickSpacing) +brickSpacing))/cols
-                    // brickHeight = (brickAreaHeight - ((rows*brickSpacing) +brickSpacing))/rows
-                    // brickx = 5 + (col*(brickwidth+brickSpacing))
-                    // bricky = brickAreaOffsetFromTop + (row*(brickheight+spacing))
                     Brick currBrick = new Brick(new Rectangle(5 + (col * (brickWidth + brickSpacing)), brickAreaTopOffset + (row * (brickHeight + brickSpacing)), brickWidth, brickHeight));
                     brickList.Add(currBrick);
                 }
