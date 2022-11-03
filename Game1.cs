@@ -92,6 +92,9 @@ namespace BrickBreaker
             // Resets the game
             ResetGame();
 
+            // Initializes the custom devcade controls
+            Devcade.Input.Initialize();
+
             base.Initialize();
         }
         
@@ -119,9 +122,14 @@ namespace BrickBreaker
         /// <param name="gameTime">The time elapsed in the game</param>
         protected override void Update(GameTime gameTime)
         {
-            // Exits the game if the escape key or back button is pressed
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            // Adds keybind to exit the game
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed           // Back button on controller
+                || Keyboard.GetState().IsKeyDown(Keys.Escape)                                   // Escape key on keyboard
+                || GamePad.GetState(1).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A4)    // Player 1 button A4 on devcade
+                || GamePad.GetState(2).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A4))   // Player 2 button A4 on devcade
+            {
                 Exit();
+            }
 
             // Loops through the list of bricks, and removes any broken ones
             for (int i = 0; i < brickList.Count; i++)
@@ -133,8 +141,11 @@ namespace BrickBreaker
                 }
             }
 
-            // Resets the game if the 'R' key is pressed
-            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            // Adds keybind to reset the game
+            if (GamePad.GetState(PlayerIndex.One).Buttons.LeftShoulder == ButtonState.Pressed   // Left shoulder button on controller
+                || Keyboard.GetState().IsKeyDown(Keys.R)                                        // 'R' key on keyboard
+                || GamePad.GetState(1).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A3)    // Player 1 A3 button on devcade
+                || GamePad.GetState(2).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A3))   // Player 2 A3 button on devcade
             {
                 ResetGame();
             }
@@ -145,6 +156,11 @@ namespace BrickBreaker
             {
                 paddle.Update(gameTime);
             }
+
+            // Updates the devcade inputs each frame
+            // This allows the input checks to work properly
+            Devcade.Input.Update();
+
             base.Update(gameTime);
         }
 
@@ -168,13 +184,13 @@ namespace BrickBreaker
 
                 _spriteBatch.DrawString(arial, "Game Over!", new Vector2(windowSize.Center.X - 60, windowSize.Center.Y - 30), Color.Black);
 
-                _spriteBatch.DrawString(arial, "Press 'R' to start a new game.", new Vector2(windowSize.Center.X - 150, windowSize.Center.Y + 30), Color.Black);
+                _spriteBatch.DrawString(arial, "Press 'R' or 'A4' to start a new game.", new Vector2(windowSize.Center.X - 170, windowSize.Center.Y + 30), Color.Black);
             }
             else if (lives != 0 && brickList.Count == 0)
             {
                 _spriteBatch.DrawString(arial, "You Win!", new Vector2(windowSize.Center.X - 60, windowSize.Center.Y - 30), Color.Black);
 
-                _spriteBatch.DrawString(arial, "Press 'R' to start a new game.", new Vector2(windowSize.Center.X - 150, windowSize.Center.Y + 30), Color.Black);
+                _spriteBatch.DrawString(arial, "Press 'R' or 'A4' to start a new game.", new Vector2(windowSize.Center.X - 170, windowSize.Center.Y + 30), Color.Black);
             }
             
 
@@ -241,7 +257,8 @@ namespace BrickBreaker
             // Clears the list of bricks
             brickList = new List<Brick>();
 
-            // Adds 60 bricks to the list, in 15 rows and 4 columns
+            // Adds 120 bricks to the list, in 15 rows and 8 columns
+            // Width and height of bricks will scale based on window size
             for (int row = 0; row < numRows; row++)
             {
                 for (int col = 0; col < numCols; col++)
