@@ -55,7 +55,7 @@ namespace BrickBreaker
         /// <summary>
         /// Sets up the ball object at a given position
         /// </summary>
-        /// <param name="bounds">The rectangle that the ball is located in</param>
+        /// <param name="texture">The texture that the ball will have</param>
         public Ball(Texture2D texture)
         {
             this.texture = texture;
@@ -186,9 +186,11 @@ namespace BrickBreaker
         }
 
         /// <summary>
-        /// Draws the ball on screen at the proper position
+        /// Draws the ball in the proper position
         /// </summary>
-        /// <param name="_spriteBatch">Allows textures to be drawn in the window</param>
+        /// <param name="_spriteBatch">The sprite manager that is used to draw on screen</param>
+        /// <param name="paddle">The paddle object</param>
+        /// <param name="ballTextureBelowPaddle">The texture file that the ball will get when it falls below the paddle</param>
         public void Draw(SpriteBatch _spriteBatch, Paddle paddle, Texture2D ballTextureBelowPaddle)
         {
             if (position.Y > paddle.Hitbox.Bottom)
