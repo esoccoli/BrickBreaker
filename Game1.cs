@@ -152,6 +152,7 @@ namespace BrickBreaker
 
             // Updates ball and paddle
             ball.Update(gameTime, paddle, brickList);
+            
             if (ball.Velocity != new Vector2(0f, 0f))
             {
                 paddle.Update(gameTime);

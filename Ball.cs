@@ -79,18 +79,24 @@ namespace BrickBreaker
             int posOrNeg = 0;
 
             // Randomly sets the x-velocity of the ball to positive or negative
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && 
-                velocity.X == 0 && velocity.Y == 0 
-                && Game1.game.lives > 0)
+            if (Keyboard.GetState().IsKeyDown(Keys.Space)                                       // Spacebar on keyboard
+                || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.A)                    // 'A' button on controller
+                || GamePad.GetState(1).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A1)    // Player 1 A1 button on devcade
+                || GamePad.GetState(2).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A1))   // Player 2 A1 button on devcade
             {
-                posOrNeg = Game1.game.rng.Next(1, 3);
-                if (posOrNeg == 1)
+                // Ball will only move if player has live(s) left AND the ball is not moving
+                if (Game1.game.lives > 0 && velocity == new Vector2(0f,0f)) 
                 {
-                    Velocity = new Vector2(200, -200);
-                }
-                else
-                {
-                    Velocity = new Vector2(-200, -200);
+                    // Randomly chooses whether the ball moves left or right to start
+                    posOrNeg = Game1.game.rng.Next(1, 3);
+                    if (posOrNeg == 1)
+                    {
+                        Velocity = new Vector2(200, -200);
+                    }
+                    else
+                    {
+                        Velocity = new Vector2(-200, -200);
+                    }
                 }
                 
             }
