@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace BrickBreaker
         private Rectangle hitbox;       // Hitbox of ball
         private Vector2 position;       // Position of ball
         private Vector2 velocity;       // Velocity of ball
-
+        private Vector2 pastVel;        // Velocity of ball before losing the most recent life
         private Texture2D texture;      // Texture of ball
         #endregion
 
@@ -50,6 +51,11 @@ namespace BrickBreaker
         /// Tracks the velocity and lets other classes access it
         /// </summary>
         public Vector2 Velocity { get { return velocity; } set { velocity = value; } }
+
+        /// <summary>
+        /// Tracks the velocity right before the past life was lost
+        /// </summary>
+        public Vector2 PastVel { get { return pastVel; } set { pastVel = value; } }
         #endregion
 
         /// <summary>
@@ -89,6 +95,26 @@ namespace BrickBreaker
                 {
                     // Randomly chooses whether the ball moves left or right to start
                     posOrNeg = Game1.game.rng.Next(1, 3);
+                    if (Game1.game.lives < 5 && posOrNeg == 1)
+                    {
+                        Velocity = PastVel;
+                    }
+                    else if (Game1.game.lives < 5 && posOrNeg == 2)
+                    {
+                        Velocity = PastVel;
+                        velocity.X *= -1;
+                    }
+                    else if (Game1.game.lives == 5 && posOrNeg == 1)
+                    {
+                        Velocity = new Vector2(200, -200);
+                    }
+                    else
+                    {
+                        Velocity = new Vector2(-200, -200);
+                    }
+                    {
+
+                    }
                     if (posOrNeg == 1)
                     {
                         Velocity = new Vector2(200, -200); // Ball moves right
@@ -113,7 +139,8 @@ namespace BrickBreaker
 
             // Resets the ball and paddle if the ball goes below the window
             if (hitbox.Bottom >= windowSize.Height + 50)
-            {   
+            {
+                PastVel = velocity;
                 Game1.game.lives -= 1;      // Lose a life
                 Game1.game.ResetBall();     // Resets ball position & texture
                 Game1.game.ResetPaddle();   // Resets paddle position
@@ -187,7 +214,7 @@ namespace BrickBreaker
                     Game1.game.score += Game1.game.lives;
 
                     // Ball speeds up slightly each time it breaks a brick
-                    velocity *= 1.02f;
+                    velocity *= 1.01f;
 
                     // Removes the broken brick from the list
                     // Subtracts 1 from i to keep the bricks at the correct indexes
