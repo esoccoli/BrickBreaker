@@ -56,9 +56,8 @@ namespace BrickBreaker
             // Keybinds to move paddle left
             if (Keyboard.GetState().IsKeyDown(Keys.Left)                                                // Left arrow key on keyboard
                 || Keyboard.GetState().IsKeyDown(Keys.A)                                                // 'A' key on keyboard
-                || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0                             // Player 1 controller joystick left
-                || GamePad.GetState(1).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.StickLeft)     // Player 1 joystick left on devcade
-                || GamePad.GetState(2).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.StickLeft))    // Player 2 joystick left on devcade
+                || GamePad.GetState(1).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.StickLeft)     // Player 1 joystick left 
+                || GamePad.GetState(2).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.StickLeft))    // Player 2 joystick left
             {
                 // Only moves paddle if left edge is within window
                 if (Hitbox.Left >= 0)
@@ -68,11 +67,10 @@ namespace BrickBreaker
             }
 
             // Keybinds to move paddle right
-            if (Keyboard.GetState().IsKeyDown(Keys.Right)                                               // Right arrow key on keyboard
+            if (Keyboard.GetState().IsKeyDown(Keys.Right)                                               // Right arrow key 
                 || Keyboard.GetState().IsKeyDown(Keys.D)                                                // 'D' key on keyboard
-                || GamePad.GetState(PlayerIndex.One).ThumbSticks.Right.X > 0                            // Player 1 controller joystick right
-                || GamePad.GetState(1).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.StickRight)    // Player 1 joystick right on devcade
-                || GamePad.GetState(2).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.StickRight))   // Player 2 joystick right on devcade
+                || GamePad.GetState(1).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.StickRight)    // Player 1 joystick right 
+                || GamePad.GetState(2).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.StickRight))   // Player 2 joystick right 
             {
                 // Only moves paddle if right edge is within window
                 if (Hitbox.Right <= Game1.game.GraphicsDevice.Viewport.Width)

@@ -119,8 +119,7 @@ namespace BrickBreaker
         protected override void Update(GameTime gameTime)
         {
             // Adds keybind to exit the game
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed           // Back button on controller
-                || Keyboard.GetState().IsKeyDown(Keys.Escape)                                   // Escape key on keyboard
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape)                                      // Escape key on keyboard
                 || GamePad.GetState(1).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A4)    // Player 1 button A4 on devcade
                 || GamePad.GetState(2).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A4))   // Player 2 button A4 on devcade
             {
@@ -137,8 +136,7 @@ namespace BrickBreaker
             }
 
             // Adds keybind to reset the game
-            if (GamePad.GetState(PlayerIndex.One).Buttons.LeftShoulder == ButtonState.Pressed   // Left shoulder button on controller
-                || Keyboard.GetState().IsKeyDown(Keys.R)                                        // 'R' key on keyboard
+            if (Keyboard.GetState().IsKeyDown(Keys.R)                                           // 'R' key on keyboard
                 || GamePad.GetState(1).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A3)    // Player 1 A3 button on devcade
                 || GamePad.GetState(2).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A3))   // Player 2 A3 button on devcade
             {

@@ -86,7 +86,6 @@ namespace BrickBreaker
 
             // Randomly sets the x-velocity of the ball to positive or negative
             if (Keyboard.GetState().IsKeyDown(Keys.Space)                                       // Spacebar on keyboard
-                || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.A)                    // 'A' button on controller
                 || GamePad.GetState(1).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A1)    // Player 1 A1 button on devcade
                 || GamePad.GetState(2).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A1))   // Player 2 A1 button on devcade
             {
@@ -111,9 +110,6 @@ namespace BrickBreaker
                     else
                     {
                         Velocity = new Vector2(-200, -200);
-                    }
-                    {
-
                     }
                     if (posOrNeg == 1)
                     {
