@@ -1,4 +1,4 @@
-# Breakout
+# Brick Breaker
 
 A recreation of the popular game Atari Breakout. Made using Monogame as a framework for C#, and designed for a vertical display.
 
