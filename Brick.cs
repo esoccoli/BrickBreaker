@@ -15,9 +15,9 @@ namespace BrickBreaker
     internal class Brick
     {
         #region Fields
-        private Rectangle hitbox;
-        private Color color;
-        private bool isBroken;
+        private Rectangle hitbox;   // Size and position of brick
+        private Color color;        // Color of brick
+        private bool isBroken;      // Whether brick is broken
         #endregion
 
         #region Properties
@@ -61,10 +61,5 @@ namespace BrickBreaker
             isBroken = false;
         }
         #endregion
-
-        /*public void Update(GameTime gameTime, Ball ball)
-        {
-
-        }*/
     }
 }

@@ -17,13 +17,13 @@ namespace BrickBreaker
     internal class Ball
     {
         #region Fields
-        private Rectangle windowSize;
+        private Rectangle windowSize;   // Current window size
 
-        private Rectangle hitbox;
-        private Vector2 position;
-        private Vector2 velocity;
+        private Rectangle hitbox;       // Hitbox of ball
+        private Vector2 position;       // Position of ball
+        private Vector2 velocity;       // Velocity of ball
 
-        private Texture2D texture;
+        private Texture2D texture;      // Texture of ball
         #endregion
 
         #region Properties
@@ -60,10 +60,10 @@ namespace BrickBreaker
         {
             this.texture = texture;
 
+            // Sets local window size variable to value of Game1's window size variable
             windowSize = Game1.game.windowSize;
 
             hitbox = new Rectangle((windowSize.Width / 2) - 16, windowSize.Height - 200, 32, 32);
-
             position = new Vector2(hitbox.X, hitbox.Y);
             velocity = new Vector2(0, 0);
         }
@@ -91,21 +91,21 @@ namespace BrickBreaker
                     posOrNeg = Game1.game.rng.Next(1, 3);
                     if (posOrNeg == 1)
                     {
-                        Velocity = new Vector2(200, -200);
+                        Velocity = new Vector2(200, -200); // Ball moves right
                     }
                     else
                     {
-                        Velocity = new Vector2(-200, -200);
+                        Velocity = new Vector2(-200, -200); // Ball moves left
                     }
                 }
                 
             }
+
             // Ball bounces off the left, right, and top of the screen
             if (hitbox.Right >= windowSize.Width || hitbox.Left <= 0)
             {
                 velocity.X *= -1;
             }
-
             if (hitbox.Top <= 0)
             {
                 velocity.Y *= -1;
@@ -114,9 +114,9 @@ namespace BrickBreaker
             // Resets the ball and paddle if the ball goes below the window
             if (hitbox.Bottom >= windowSize.Height + 50)
             {   
-                Game1.game.lives -= 1;
-                Game1.game.ResetBall();
-                Game1.game.ResetPaddle();
+                Game1.game.lives -= 1;      // Lose a life
+                Game1.game.ResetBall();     // Resets ball position & texture
+                Game1.game.ResetPaddle();   // Resets paddle position
             }
 
             // Ball bounces off the paddle
@@ -125,25 +125,28 @@ namespace BrickBreaker
                 // Checks if the ball is intersecting with the paddle
                 Rectangle intersection = Rectangle.Intersect(hitbox, paddle.Hitbox);
 
-                // If the ball hits the top or bottom of the paddle
+                // Runs this block if the ball hit the top or bottom of the paddle
                 if (intersection.Width > intersection.Height)
                 {
                     // Moves the ball to right above/below the paddle, then reverses its direction
                     Position += new Vector2(0, intersection.Height * (velocity.Y > 0 ? -1 : 1));
                     velocity.Y *= -1;
 
-                    // If ball hits the leftmost quarter of the paddle and is moving right
+                    // If ball hits the leftmost quarter of the paddle and is moving right,
                     // Or if the ball hits the rightmost quarter of the paddle and is moving left
                     // x-velocity is reversed (multiplied by -1)
                     if (hitbox.Left < paddle.Hitbox.Left + paddle.Hitbox.Width / 4 && velocity.X > 0)
                     {
                         velocity.X *= -1;
                     }
+
                     if ((hitbox.Right > paddle.Hitbox.Right - paddle.Hitbox.Width / 4) && velocity.X < 0)
                     {
                         velocity.X *= -1;
                     }
                 }
+
+                // Runs this block if the ball hit the left or right of the paddle
                 else
                 {
                     // Moves the ball to directly left/right of the paddle, then reverses its direction
@@ -159,14 +162,19 @@ namespace BrickBreaker
             // direction of the collision is reversed
             for (int i = 0; i < brickList.Count; i++)
             {
+                // Checks if the ball collides with the brick
                 if (hitbox.Intersects(brickList[i].Hitbox))
                 {
+                    // Stores a rectangle of the overlapping area
                     Rectangle intersection = Rectangle.Intersect(hitbox, brickList[i].Hitbox);
 
+                    // Runs if the ball hits the top or bottom of the brick
                     if (intersection.Width > intersection.Height)
                     {
                         velocity.Y *= -1;
                     }
+
+                    // Runs if the ball hits the left or right of the brick
                     else
                     {
                         velocity.X *= -1;
@@ -211,7 +219,7 @@ namespace BrickBreaker
         }
 
         /// <summary>
-        /// Resets the position of the ball
+        /// Resets the position & texture of the ball
         /// </summary>
         public void Reset()
         {

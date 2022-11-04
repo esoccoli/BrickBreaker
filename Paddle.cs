@@ -53,7 +53,7 @@ namespace BrickBreaker
         /// <param name="gameTime">The current time in the game</param>
         public void Update(GameTime gameTime)
         {
-            // Keybinds to move paddle left on keyboard, controller, and devcade
+            // Keybinds to move paddle left
             if (Keyboard.GetState().IsKeyDown(Keys.Left)                                                // Left arrow key on keyboard
                 || Keyboard.GetState().IsKeyDown(Keys.A)                                                // 'A' key on keyboard
                 || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0                             // Player 1 controller joystick left
@@ -67,7 +67,7 @@ namespace BrickBreaker
                 }
             }
 
-            // Keybinds to move paddle right on keyboard, controller, and devcade
+            // Keybinds to move paddle right
             if (Keyboard.GetState().IsKeyDown(Keys.Right)                                               // Right arrow key on keyboard
                 || Keyboard.GetState().IsKeyDown(Keys.D)                                                // 'D' key on keyboard
                 || GamePad.GetState(PlayerIndex.One).ThumbSticks.Right.X > 0                            // Player 1 controller joystick right
