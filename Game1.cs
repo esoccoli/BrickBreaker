@@ -246,7 +246,7 @@ namespace BrickBreaker
             int brickAreaHeight = windowSize.Height / 2;
 
             // First row of bricks is 80 pixels below top of window
-            int brickAreaTopOffset = 80;
+            int brickAreaTopOffset = 100;
 
             // Width and height of each brick (scales based on window size
             int brickWidth = (windowSize.Width - ((numCols * brickSpacing) + brickSpacing)) / numCols;
