@@ -18,7 +18,7 @@
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:arial.spritefont
+/build:arial.spritefont;font.spritefont
 
 #begin ball.png
 /importer:TextureImporter
