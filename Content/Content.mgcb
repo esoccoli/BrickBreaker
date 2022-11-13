@@ -26,8 +26,10 @@
 /build:ball.png
 
 #begin Roboto-Regular.ttf
-/importer:
-/processor:
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
 /build:Roboto-Regular.ttf
 
 #begin roboto.spritefont
