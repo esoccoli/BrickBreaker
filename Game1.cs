@@ -33,7 +33,7 @@ namespace BrickBreaker
 
         public int score;                           // Current score
         public int lives;                           // Number of lives remaining
-        internal SpriteFont font;                  // Font file used to display text in the game window
+        internal SpriteFont roboto;                  // Font file used to display text in the game window
         #endregion
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace BrickBreaker
             ballTextureBelowPaddle = Content.Load<Texture2D>("surprised-pikachu");
 
             // Loads the font used to draw text on the screen
-            font = Content.Load<SpriteFont>("font");
+            roboto = Content.Load<SpriteFont>("roboto");
         }
 
         /// <summary>
@@ -178,17 +178,17 @@ namespace BrickBreaker
                 GraphicsDevice.Clear(Color.CornflowerBlue);
                 brickList.Clear();
 
-                _spriteBatch.DrawString(font, "Game Over!", new Vector2(windowSize.Center.X - 60, windowSize.Center.Y - 30), Color.Black);
+                _spriteBatch.DrawString(roboto, "Game Over!", new Vector2(windowSize.Center.X - 60, windowSize.Center.Y - 30), Color.Black);
 
-                _spriteBatch.DrawString(font, "Press 'R' or 'A4' to start a new game.", new Vector2(windowSize.Center.X - 170, windowSize.Center.Y + 30), Color.Black);
+                _spriteBatch.DrawString(roboto, "Press 'R' or 'A4' to start a new game.", new Vector2(windowSize.Center.X - 170, windowSize.Center.Y + 30), Color.Black);
             }
 
             // Tells user they won if they have any lives and no bricks left
             else if (lives != 0 && brickList.Count == 0)
             {
-                _spriteBatch.DrawString(font, "You Win!", new Vector2(windowSize.Center.X - 60, windowSize.Center.Y - 30), Color.Black);
+                _spriteBatch.DrawString(roboto, "You Win!", new Vector2(windowSize.Center.X - 60, windowSize.Center.Y - 30), Color.Black);
 
-                _spriteBatch.DrawString(font, "Press 'R' or 'A4' to start a new game.", new Vector2(windowSize.Center.X - 170, windowSize.Center.Y + 30), Color.Black);
+                _spriteBatch.DrawString(roboto, "Press 'R' or 'A4' to start a new game.", new Vector2(windowSize.Center.X - 170, windowSize.Center.Y + 30), Color.Black);
             }
             
 
@@ -202,9 +202,9 @@ namespace BrickBreaker
             }
 
             // Displays lives and score
-            _spriteBatch.DrawString(font, $"Score: {score}", new Vector2(windowSize.Width - 150, windowSize.Top + 30), Color.Black);
+            _spriteBatch.DrawString(roboto, $"Score: {score}", new Vector2(windowSize.Width - 150, windowSize.Top + 30), Color.Black);
 
-            _spriteBatch.DrawString(font, $"Lives: {lives}", new Vector2(50, windowSize.Top + 30), Color.Black);
+            _spriteBatch.DrawString(roboto, $"Lives: {lives}", new Vector2(50, windowSize.Top + 30), Color.Black);
 
             // Draws the ball and paddle only if lives is above 0
             if (lives > 0)
