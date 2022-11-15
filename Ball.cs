@@ -83,7 +83,7 @@ namespace BrickBreaker
         public void Update(GameTime gameTime, Paddle paddle, List<Brick> brickList)
         {
             int posOrNeg = 0;
-
+            
             // Randomly sets the x-velocity of the ball to positive or negative
             if (Keyboard.GetState().IsKeyDown(Keys.Space)                                       // Spacebar on keyboard
                 || GamePad.GetState(1).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A1)    // Player 1 A1 button on devcade
@@ -230,6 +230,13 @@ namespace BrickBreaker
         /// <param name="ballTextureBelowPaddle">The texture file that the ball will get when it falls below the paddle</param>
         public void Draw(SpriteBatch _spriteBatch, Paddle paddle, Texture2D ballTextureBelowPaddle)
         {
+            //Game1.game._spriteBatch.Begin();
+            if (velocity == new Vector2(0f, 0f))
+            {
+                Game1.game._spriteBatch.DrawString(Game1.game.Roboto, "Press 'A1' to start a new game.", new Vector2(windowSize.Center.X - 170, windowSize.Height - 80), Color.Black);
+            }
+            //Game1.game._spriteBatch.End();
+            
             if (position.Y > paddle.Hitbox.Bottom)
             {
                 _spriteBatch.Draw(ballTextureBelowPaddle, new Vector2(hitbox.X, hitbox.Y), Color.White);
