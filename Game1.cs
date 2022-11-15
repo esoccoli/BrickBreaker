@@ -197,7 +197,7 @@ namespace BrickBreaker
             {
                 if (brickList[i].Broken == false)
                 {
-                    _spriteBatch.Draw(_texture, brickList[i].Hitbox, Color.Red);
+                    _spriteBatch.Draw(_texture, brickList[i].Hitbox, new Color(217, 15, 42));
                 }
             }
 

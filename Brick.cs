@@ -57,7 +57,7 @@ namespace BrickBreaker
         public Brick(Rectangle hitbox)
         {
             this.hitbox = hitbox;
-            color = Color.Red;
+            color = new Color(217, 15, 42);
             isBroken = false;
         }
         #endregion
