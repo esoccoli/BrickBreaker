@@ -94,30 +94,13 @@ namespace BrickBreaker
                 {
                     // Randomly chooses whether the ball moves left or right to start
                     posOrNeg = Game1.game.rng.Next(1, 3);
-                    if (Game1.game.lives < 5 && posOrNeg == 1)
-                    {
-                        Velocity = PastVel;
-                    }
-                    else if (Game1.game.lives < 5 && posOrNeg == 2)
-                    {
-                        Velocity = PastVel;
-                        velocity.X *= -1;
-                    }
-                    else if (Game1.game.lives == 5 && posOrNeg == 1)
-                    {
-                        Velocity = new Vector2(200, -200);
-                    }
-                    else
-                    {
-                        Velocity = new Vector2(-200, -200);
-                    }
                     if (posOrNeg == 1)
                     {
-                        Velocity = new Vector2(200, -200); // Ball moves right
+                        velocity = new Vector2(350f, 350f);
                     }
                     else
                     {
-                        Velocity = new Vector2(-200, -200); // Ball moves left
+                        velocity = new Vector2(-350f, 350f);
                     }
                 }
                 
