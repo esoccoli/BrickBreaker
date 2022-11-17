@@ -96,11 +96,11 @@ namespace BrickBreaker
                     posOrNeg = Game1.game.rng.Next(1, 3);
                     if (posOrNeg == 1)
                     {
-                        velocity = new Vector2(350f, 350f);
+                        velocity = new Vector2(250f, -250f);
                     }
                     else
                     {
-                        velocity = new Vector2(-350f, 350f);
+                        velocity = new Vector2(-250f, -250f);
                     }
                 }
                 

@@ -202,7 +202,7 @@ namespace BrickBreaker
             }
 
             // Displays lives and score
-            _spriteBatch.DrawString(Roboto, $"Score: {score}", new Vector2(windowSize.Width - 150, windowSize.Top + 30), Color.Black);
+            _spriteBatch.DrawString(Roboto, $"Score: {score}", new Vector2(windowSize.Width - 200, windowSize.Top + 30), Color.Black);
 
             _spriteBatch.DrawString(Roboto, $"Lives: {lives}", new Vector2(50, windowSize.Top + 30), Color.Black);
 
