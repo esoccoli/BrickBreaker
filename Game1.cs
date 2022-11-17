@@ -119,9 +119,9 @@ namespace BrickBreaker
         protected override void Update(GameTime gameTime)
         {
             // Adds keybind to exit the game
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape)                                      // Escape key on keyboard
-                || GamePad.GetState(1).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A4)    // Player 1 button A4 on devcade
-                || GamePad.GetState(2).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A4))   // Player 2 button A4 on devcade
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape)                                                       // Escape key on keyboard
+                || (GamePad.GetState(PlayerIndex.One).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.Menu)    // Player 1 button A4 on devcade
+                && GamePad.GetState(PlayerIndex.Two).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.Menu)))   // Player 2 button A4 on devcade
             {
                 Exit();
             }
@@ -136,9 +136,9 @@ namespace BrickBreaker
             }
 
             // Adds keybind to reset the game
-            if (Keyboard.GetState().IsKeyDown(Keys.R)                                           // 'R' key on keyboard
-                || GamePad.GetState(1).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A3)    // Player 1 A3 button on devcade
-                || GamePad.GetState(2).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A3))   // Player 2 A3 button on devcade
+            if (Keyboard.GetState().IsKeyDown(Keys.R)                                                         // 'R' key on keyboard
+                || GamePad.GetState(PlayerIndex.One).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A3)    // Player 1 A3 button on devcade
+                || GamePad.GetState(PlayerIndex.Two).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A3))   // Player 2 A3 button on devcade
             {
                 ResetGame();
             }
@@ -180,7 +180,7 @@ namespace BrickBreaker
 
                 _spriteBatch.DrawString(Roboto, "Game Over!", new Vector2(windowSize.Center.X - 60, windowSize.Center.Y - 30), Color.Black);
 
-                _spriteBatch.DrawString(Roboto, "Press 'A4' to start a new game.", new Vector2(windowSize.Center.X - 170, windowSize.Center.Y + 30), Color.Black);
+                _spriteBatch.DrawString(Roboto, "Press 'A3' to start a new game.", new Vector2(windowSize.Center.X - 170, windowSize.Center.Y + 30), Color.Black);
             }
 
             // Tells user they won if they have any lives and no bricks left
@@ -188,7 +188,7 @@ namespace BrickBreaker
             {
                 _spriteBatch.DrawString(Roboto, "You Win!", new Vector2(windowSize.Center.X - 60, windowSize.Center.Y - 30), Color.Black);
 
-                _spriteBatch.DrawString(Roboto, "Press 'A4' to start a new game.", new Vector2(windowSize.Center.X - 170, windowSize.Center.Y + 30), Color.Black);
+                _spriteBatch.DrawString(Roboto, "Press 'A3' to start a new game.", new Vector2(windowSize.Center.X - 170, windowSize.Center.Y + 30), Color.Black);
             }
             
 

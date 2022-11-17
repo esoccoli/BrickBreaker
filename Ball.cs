@@ -85,9 +85,9 @@ namespace BrickBreaker
             int posOrNeg = 0;
             
             // Randomly sets the x-velocity of the ball to positive or negative
-            if (Keyboard.GetState().IsKeyDown(Keys.Space)                                       // Spacebar on keyboard
-                || GamePad.GetState(1).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A1)    // Player 1 A1 button on devcade
-                || GamePad.GetState(2).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A1))   // Player 2 A1 button on devcade
+            if (Keyboard.GetState().IsKeyDown(Keys.Space)                                                     // Spacebar on keyboard
+                || GamePad.GetState(PlayerIndex.One).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A1)    // Player 1 A1 button on devcade
+                || GamePad.GetState(PlayerIndex.Two).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A1))   // Player 2 A1 button on devcade
             {
                 // Ball will only move if player has live(s) left AND the ball is not moving
                 if (Game1.game.lives > 0 && velocity == new Vector2(0f,0f)) 
@@ -210,7 +210,7 @@ namespace BrickBreaker
                     Game1.game.score += Game1.game.lives;
 
                     // Ball speeds up slightly each time it breaks a brick
-                    velocity *= 1.01f;
+                    velocity *= 1.02f;
 
                     // Removes the broken brick from the list
                     // Subtracts 1 from i to keep the bricks at the correct indexes
@@ -233,7 +233,7 @@ namespace BrickBreaker
             //Game1.game._spriteBatch.Begin();
             if (velocity == new Vector2(0f, 0f))
             {
-                Game1.game._spriteBatch.DrawString(Game1.game.Roboto, "Press 'A1' to start a new game.", new Vector2(windowSize.Center.X - 170, windowSize.Height - 80), Color.Black);
+                Game1.game._spriteBatch.DrawString(Game1.game.Roboto, "Press 'A1' to play.", new Vector2(windowSize.Center.X - 110, windowSize.Height - 80), Color.Black);
             }
             //Game1.game._spriteBatch.End();
             
