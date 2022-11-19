@@ -181,7 +181,7 @@ namespace BrickBreaker
 
                 _spriteBatch.DrawString(Roboto, "Game Over!", new Vector2(windowSize.Center.X - 60, windowSize.Center.Y - 30), Color.Black);
 
-                _spriteBatch.DrawString(Roboto, "Press 'A3' to start a new game.", new Vector2(windowSize.Center.X - 170, windowSize.Center.Y + 30), Color.Black);
+                _spriteBatch.DrawString(Roboto, "Press the green button to start a new game.", new Vector2(windowSize.Center.X - 230, windowSize.Center.Y + 30), Color.Black);
             }
 
             // Tells user they won if they have any lives and no bricks left
@@ -189,7 +189,7 @@ namespace BrickBreaker
             {
                 _spriteBatch.DrawString(Roboto, "You Win!", new Vector2(windowSize.Center.X - 60, windowSize.Center.Y - 30), Color.Black);
 
-                _spriteBatch.DrawString(Roboto, "Press 'A3' to start a new game.", new Vector2(windowSize.Center.X - 170, windowSize.Center.Y + 30), Color.Black);
+                _spriteBatch.DrawString(Roboto, "Press the green button to start a new game.", new Vector2(windowSize.Center.X - 210, windowSize.Center.Y + 30), Color.Black);
             }
             
 
@@ -312,7 +312,7 @@ namespace BrickBreaker
         /// </summary>
         public void ResetLives()
         {
-            lives = 5;
+            lives = 1;
         }
     }
 }

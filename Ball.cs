@@ -216,7 +216,7 @@ namespace BrickBreaker
             //Game1.game._spriteBatch.Begin();
             if (velocity == new Vector2(0f, 0f))
             {
-                Game1.game._spriteBatch.DrawString(Game1.game.Roboto, "Press 'A1' to play.", new Vector2(windowSize.Center.X - 110, windowSize.Height - 80), Color.Black);
+                Game1.game._spriteBatch.DrawString(Game1.game.Roboto, "Press the red button to play.", new Vector2(windowSize.Center.X - 170, windowSize.Height - 80), Color.Black);
             }
             //Game1.game._spriteBatch.End();
             
