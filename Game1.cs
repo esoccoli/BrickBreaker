@@ -136,9 +136,10 @@ namespace BrickBreaker
             }
 
             // Adds keybind to reset the game
-            if (Keyboard.GetState().IsKeyDown(Keys.R)                                                         // 'R' key on keyboard
-                || GamePad.GetState(PlayerIndex.One).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A3)    // Player 1 A3 button on devcade
-                || GamePad.GetState(PlayerIndex.Two).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A3))   // Player 2 A3 button on devcade
+            if ((lives == 0 || brickList.Count == 0)
+                && (Keyboard.GetState().IsKeyDown(Keys.R)                                                     // 'R' key on keyboard
+                || GamePad.GetState(PlayerIndex.One).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A3)    // Player 1 A3
+                || GamePad.GetState(PlayerIndex.Two).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A3)))  // Player 2 A3
             {
                 ResetGame();
             }
