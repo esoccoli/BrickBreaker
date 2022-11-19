@@ -96,11 +96,11 @@ namespace BrickBreaker
                     posOrNeg = Game1.game.rng.Next(1, 3);
                     if (posOrNeg == 1)
                     {
-                        velocity = new Vector2(250f, -250f);
+                        velocity = new Vector2(350f, -350f);
                     }
                     else
                     {
-                        velocity = new Vector2(-250f, -250f);
+                        velocity = new Vector2(-350f, -350f);
                     }
                 }
                 
@@ -193,7 +193,7 @@ namespace BrickBreaker
                     Game1.game.score += Game1.game.lives;
 
                     // Ball speeds up slightly each time it breaks a brick
-                    velocity *= 1.02f;
+                    velocity *= 1.01f;
 
                     // Removes the broken brick from the list
                     // Subtracts 1 from i to keep the bricks at the correct indexes
