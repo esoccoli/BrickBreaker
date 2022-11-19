@@ -312,7 +312,7 @@ namespace BrickBreaker
         /// </summary>
         public void ResetLives()
         {
-            lives = 1;
+            lives = 5;
         }
     }
 }
