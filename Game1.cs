@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 
 namespace BrickBreaker
 {
@@ -43,7 +41,7 @@ namespace BrickBreaker
         {
             game = this;
             _graphics = new GraphicsDeviceManager(this);
-            
+
             Content.RootDirectory = "Content";
             IsMouseVisible = false;
         }
@@ -91,7 +89,7 @@ namespace BrickBreaker
 
             base.Initialize();
         }
-        
+
         /// <summary>
         /// Loads content from the content manager
         /// </summary>
@@ -146,7 +144,7 @@ namespace BrickBreaker
 
             // Updates ball and paddle
             ball.Update(gameTime, paddle, brickList);
-            
+
             // Paddle can't move while ball isn't moving
             if (ball.Velocity != new Vector2(0f, 0f))
             {
@@ -168,7 +166,7 @@ namespace BrickBreaker
         {
             // Clears the window each frame
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            
+
             // Gathers all the draw calls and performs them all at once
             _spriteBatch.Begin();
 
@@ -191,7 +189,7 @@ namespace BrickBreaker
 
                 _spriteBatch.DrawString(Roboto, "Press the green button to start a new game.", new Vector2(windowSize.Center.X - 210, windowSize.Center.Y + 30), Color.Black);
             }
-            
+
 
             // Draws all bricks in the list that are not broken
             for (int i = 0; i < brickList.Count; i++)

@@ -1,14 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BrickBreaker
 {
@@ -37,9 +30,9 @@ namespace BrickBreaker
         /// Tracks the position and lets other classes access it
         /// </summary>
         public Vector2 Position
-        { 
-            get { return position; } 
-            set 
+        {
+            get { return position; }
+            set
             {
                 position = value;
                 hitbox.X = (int)position.X;
@@ -83,14 +76,14 @@ namespace BrickBreaker
         public void Update(GameTime gameTime, Paddle paddle, List<Brick> brickList)
         {
             int posOrNeg = 0;
-            
+
             // Randomly sets the x-velocity of the ball to positive or negative
             if (Keyboard.GetState().IsKeyDown(Keys.Space)                                                     // Spacebar on keyboard
                 || GamePad.GetState(PlayerIndex.One).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A1)    // Player 1 A1 button on devcade
                 || GamePad.GetState(PlayerIndex.Two).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A1))   // Player 2 A1 button on devcade
             {
                 // Ball will only move if player has live(s) left AND the ball is not moving
-                if (Game1.game.lives > 0 && velocity == new Vector2(0f,0f)) 
+                if (Game1.game.lives > 0 && velocity == new Vector2(0f, 0f))
                 {
                     // Randomly chooses whether the ball moves left or right to start
                     posOrNeg = Game1.game.rng.Next(1, 3);
@@ -103,7 +96,7 @@ namespace BrickBreaker
                         velocity = new Vector2(-350f, -350f);
                     }
                 }
-                
+
             }
 
             // Ball bounces off the left, right, and top of the screen
@@ -159,7 +152,7 @@ namespace BrickBreaker
                     Position += new Vector2(intersection.Width * (velocity.X > 0 ? -1 : 1), 0);
                     velocity.X *= -1;
                 }
-                
+
             }
 
             #region Breaking Bricks
@@ -187,7 +180,7 @@ namespace BrickBreaker
                     }
 
                     brickList[i].Broken = true;
-                    
+
                     // Increases score by number of lives left each time a brick is broken
                     // The more lives the player has left, the more points they get from each brick
                     Game1.game.score += Game1.game.lives;
@@ -219,7 +212,7 @@ namespace BrickBreaker
                 Game1.game._spriteBatch.DrawString(Game1.game.Roboto, "Press the red button to play.", new Vector2(windowSize.Center.X - 170, windowSize.Height - 80), Color.Black);
             }
             //Game1.game._spriteBatch.End();
-            
+
             if (position.Y > paddle.Hitbox.Bottom)
             {
                 _spriteBatch.Draw(ballTextureBelowPaddle, new Vector2(hitbox.X, hitbox.Y), Color.White);
@@ -228,7 +221,7 @@ namespace BrickBreaker
             {
                 _spriteBatch.Draw(texture, new Vector2(hitbox.X, hitbox.Y), Color.White);
             }
-            
+
         }
 
         /// <summary>
