@@ -1,94 +1,83 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using static Devcade.Input;
 
 namespace BrickBreaker
 {
     /// <summary>
     /// Manages the paddle and related data
     /// </summary>
-    internal class Paddle
+    public class Paddle
     {
-        #region Fields
         private Rectangle hitbox;
-        private Color color;
-        private Texture2D _texture;
-        #endregion
-
-        #region Properties
+        
         /// <summary>
-        /// Accesses or modifies the hitbox of the paddle
+        /// Bounds of the paddle, also used as the hitbox for collision detection
         /// </summary>
         public Rectangle Hitbox { get => hitbox; set => hitbox = value; }
+        
+        /// <summary>
+        /// Color of the paddle
+        /// </summary>
+        public Color Color { get; private set; }
+        
+        /// <summary>
+        /// What the paddle looks like when it is drawn
+        /// </summary>
+        public Texture2D Texture { get; private set; }
 
         /// <summary>
-        /// Accesses or modifies the color of the paddle
+        /// Creates a paddle with the specified attributes
         /// </summary>
-        public Color PaddleColor { get => color; set => color = value; }
-        #endregion
-
-        // === CONSTRUCTORS ===
-        /// <summary>
-        /// Sets up the paddle with a rectangle for the position
-        /// </summary>
-        /// <param name="position">The position of the paddle</param>
-        /// <param name="color">The color of the paddle</param>
+        /// <param name="texture">What the paddle looks like</param>
+        /// <param name="position">Location of the top left corner of the paddle</param>
+        /// <param name="color">Color of the paddle</param>
         public Paddle(Texture2D texture, Rectangle position, Color color)
         {
-            this.hitbox = position;
-            this.color = color;
-            this._texture = texture;
+            Hitbox = position;
+            Color = color;
+            Texture = texture;
         }
-
-        // === METHODS ===
+        
         /// <summary>
-        /// Uodates the attributes of the paddle
+        /// Updates the attributes of the paddle
         /// </summary>
-        /// <param name="gameTime">The current time in the game</param>
-        public void Update(GameTime gameTime)
+        /// <param name="gt">The current time in the game</param>
+        public void Update(GameTime gt)
         {
             // Keybinds to move paddle left
-            if (Keyboard.GetState().IsKeyDown(Keys.Left)                                                              // Left arrow key on keyboard
-                || Keyboard.GetState().IsKeyDown(Keys.A)                                                              // 'A' key on keyboard
-                || GamePad.GetState(PlayerIndex.One).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.StickLeft)     // Player 1 joystick left 
-                || GamePad.GetState(PlayerIndex.Two).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.StickLeft))    // Player 2 joystick left
+            if ((Keyboard.GetState().IsKeyDown(Keys.Left)
+                 || Keyboard.GetState().IsKeyDown(Keys.A)
+                 || GetButtonDown(1, ArcadeButtons.StickLeft) 
+                 || GetButtonDown(2, ArcadeButtons.StickLeft)) 
+                && Hitbox.Left >= 0)
             {
                 // Only moves paddle if left edge is within window
-                if (Hitbox.Left >= 0)
-                {
-                    hitbox.X -= Game1.game.windowSize.Width / 150;
-                }
+                hitbox.X -= Game1.Game.WindowSize.Width / 150;
             }
 
             // Keybinds to move paddle right
-            if (Keyboard.GetState().IsKeyDown(Keys.Right)                                                             // Right arrow key 
-                || Keyboard.GetState().IsKeyDown(Keys.D)                                                              // 'D' key on keyboard
-                || GamePad.GetState(PlayerIndex.One).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.StickRight)    // Player 1 joystick right 
-                || GamePad.GetState(PlayerIndex.Two).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.StickRight))   // Player 2 joystick right 
+            if ((Keyboard.GetState().IsKeyDown(Keys.Right)
+                 || Keyboard.GetState().IsKeyDown(Keys.D)
+                 || GetButtonDown(1, ArcadeButtons.StickRight) 
+                 || GetButtonDown(2, ArcadeButtons.StickRight)) && 
+                Hitbox.Right <= Game1.Game.WindowSize.Width)
             {
                 // Only moves paddle if right edge is within window
-                if (Hitbox.Right <= Game1.game.GraphicsDevice.Viewport.Width)
-                {
-                    hitbox.X += Game1.game.windowSize.Width / 150;
-                }
+                hitbox.X += Game1.Game.WindowSize.Width / 150;
             }
         }
 
         /// <summary>
         /// Draws the paddle at the specified position
         /// </summary>
-        /// <param name="_spriteBatch">Allows things to be drawn on screen</param>
-        public void Draw(SpriteBatch _spriteBatch)
-        {
-            _spriteBatch.Draw(_texture, Hitbox, PaddleColor);
-        }
+        /// <param name="sb">Allows things to be drawn on screen</param>
+        public void Draw(SpriteBatch sb) => sb.Draw(Texture, Hitbox, Color);
 
         /// <summary>
         /// Resets the texture of the paddle
         /// </summary>
-        public void Reset()
-        {
-            _texture = new Texture2D(Game1.game.GraphicsDevice, 1, 1);
-        }
+        public void Reset() => Texture = new Texture2D(Game1.Game.GraphicsDevice, 1, 1);
     }
 }

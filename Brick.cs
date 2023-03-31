@@ -5,32 +5,23 @@ namespace BrickBreaker
     /// <summary>
     /// Manages the bricks and related data
     /// </summary>
-    internal class Brick
+    public class Brick
     {
-        #region Fields
-        private Rectangle hitbox;   // Size and position of brick
-        private Color color;        // Color of brick
-        private bool isBroken;      // Whether brick is broken
-        #endregion
-
-        #region Properties
         /// <summary>
-        /// Accesses the hitbox of the brick
+        /// Color of the brick
         /// </summary>
-        public Rectangle Hitbox { get { return hitbox; } }
+        private Color color;
+        
+        /// <summary>
+        /// Bounds of the brick, which is also used as the hitbox for collision detection
+        /// </summary>
+        public Rectangle Hitbox { get; private set; }
 
         /// <summary>
-        /// Accesses the color of the brick
+        /// Whether the brick is broken or not
         /// </summary>
-        public Color BrickColor { get => color; }
+        public bool Broken { get; set; }
 
-        /// <summary>
-        /// Determines and/or updates the state of the brick (broken or not)
-        /// </summary>
-        public bool Broken { get => isBroken; set => isBroken = value; }
-        #endregion
-
-        #region Constructors
         /// <summary>
         /// Sets up a brick with a specified hitbox and color
         /// </summary>
@@ -38,9 +29,9 @@ namespace BrickBreaker
         /// <param name="color">The color of the brick</param>
         public Brick(Rectangle hitbox, Color color)
         {
-            this.hitbox = hitbox;
+            Hitbox = hitbox;
             this.color = color;
-            isBroken = false;
+            Broken = false;
         }
 
         /// <summary>
@@ -49,10 +40,9 @@ namespace BrickBreaker
         /// <param name="hitbox">The hitbox (position) of the brick</param>
         public Brick(Rectangle hitbox)
         {
-            this.hitbox = hitbox;
+            Hitbox = hitbox;
             color = new Color(217, 15, 42);
-            isBroken = false;
+            Broken = false;
         }
-        #endregion
     }
 }

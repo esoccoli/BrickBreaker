@@ -2,36 +2,38 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using static Devcade.Input;
 
 namespace BrickBreaker
 {
     /// <summary>
     /// Manages the ball and related data
     /// </summary>
-    internal class Ball
+    public class Ball
     {
-        #region Fields
-        private Rectangle windowSize;   // Current window size
-
-        private Rectangle hitbox;       // Hitbox of ball
-        private Vector2 position;       // Position of ball
-        private Vector2 velocity;       // Velocity of ball
-        private Vector2 pastVel;        // Velocity of ball before losing the most recent life
-        private Texture2D texture;      // Texture of ball
-        #endregion
-
-        #region Properties
         /// <summary>
-        /// Tracks the hitbox and lets other classes access it
+        /// Hitbox of the ball
         /// </summary>
-        public Rectangle Hitbox { get { return hitbox; } }
+        private Rectangle hitbox;
+
+        /// <summary>
+        /// Position of the ball
+        /// </summary>
+        private Vector2 position;
+
+        /// <summary>
+        /// Texture file for the ball
+        /// </summary>
+        private Texture2D texture;
+        
+        private Vector2 velocity;
 
         /// <summary>
         /// Tracks the position and lets other classes access it
         /// </summary>
         public Vector2 Position
         {
-            get { return position; }
+            get => position;
             set
             {
                 position = value;
@@ -43,13 +45,7 @@ namespace BrickBreaker
         /// <summary>                        
         /// Tracks the velocity and lets other classes access it
         /// </summary>
-        public Vector2 Velocity { get { return velocity; } set { velocity = value; } }
-
-        /// <summary>
-        /// Tracks the velocity right before the past life was lost
-        /// </summary>
-        public Vector2 PastVel { get { return pastVel; } set { pastVel = value; } }
-        #endregion
+        public Vector2 Velocity { get => velocity; set => velocity = value; }
 
         /// <summary>
         /// Sets up the ball object at a given position
@@ -59,12 +55,9 @@ namespace BrickBreaker
         {
             this.texture = texture;
 
-            // Sets local window size variable to value of Game1's window size variable
-            windowSize = Game1.game.windowSize;
-
-            hitbox = new Rectangle((windowSize.Width / 2) - 16, windowSize.Height - 200, 32, 32);
+            hitbox = new Rectangle((Game1.Game.WindowSize.Width / 2) - 16, Game1.Game.WindowSize.Height - 200, 32, 32);
             position = new Vector2(hitbox.X, hitbox.Y);
-            velocity = new Vector2(0, 0);
+            Velocity = new Vector2(0, 0);
         }
 
         /// <summary>
@@ -75,32 +68,22 @@ namespace BrickBreaker
         /// <param name="brickList">The list of bricks that are on the screen</param>
         public void Update(GameTime gameTime, Paddle paddle, List<Brick> brickList)
         {
-            int posOrNeg = 0;
-
+            int posOrNeg = Game1.Game.Rng.Next(1, 3);
+            
             // Randomly sets the x-velocity of the ball to positive or negative
-            if (Keyboard.GetState().IsKeyDown(Keys.Space)                                                     // Spacebar on keyboard
-                || GamePad.GetState(PlayerIndex.One).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A1)    // Player 1 A1 button on devcade
-                || GamePad.GetState(PlayerIndex.Two).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A1))   // Player 2 A1 button on devcade
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) 
+                || GetButtonDown(1, ArcadeButtons.A1)
+                || GetButtonDown(2, ArcadeButtons.A1))
             {
-                // Ball will only move if player has live(s) left AND the ball is not moving
-                if (Game1.game.lives > 0 && velocity == new Vector2(0f, 0f))
+                
+                if (Game1.Game.Lives > 0 && Velocity == Vector2.Zero)
                 {
-                    // Randomly chooses whether the ball moves left or right to start
-                    posOrNeg = Game1.game.rng.Next(1, 3);
-                    if (posOrNeg == 1)
-                    {
-                        velocity = new Vector2(350f, -350f);
-                    }
-                    else
-                    {
-                        velocity = new Vector2(-350f, -350f);
-                    }
+                    Velocity = posOrNeg == 1 ? new Vector2(350f, -350f) : new Vector2(-350f, -350f);
                 }
-
             }
 
             // Ball bounces off the left, right, and top of the screen
-            if (hitbox.Right >= windowSize.Width || hitbox.Left <= 0)
+            if (hitbox.Right >= Game1.Game.WindowSize.Width || hitbox.Left <= 0)
             {
                 velocity.X *= -1;
             }
@@ -110,12 +93,12 @@ namespace BrickBreaker
             }
 
             // Resets the ball and paddle if the ball goes below the window
-            if (hitbox.Bottom >= windowSize.Height + 50)
+            if (hitbox.Bottom >= Game1.Game.WindowSize.Height + 50)
             {
-                PastVel = velocity;
-                Game1.game.lives -= 1;      // Lose a life
-                Game1.game.ResetBall();     // Resets ball position & texture
-                Game1.game.ResetPaddle();   // Resets paddle position
+                // Removes a life and resets the ball and paddle
+                Game1.Game.Lives -= 1;
+                Game1.Game.ResetBall();
+                Game1.Game.ResetPaddle();
             }
 
             // Ball bounces off the paddle
@@ -128,18 +111,18 @@ namespace BrickBreaker
                 if (intersection.Width > intersection.Height)
                 {
                     // Moves the ball to right above/below the paddle, then reverses its direction
-                    Position += new Vector2(0, intersection.Height * (velocity.Y > 0 ? -1 : 1));
+                    Position += new Vector2(0, intersection.Height * (Velocity.Y > 0 ? -1 : 1));
                     velocity.Y *= -1;
 
                     // If ball hits the leftmost quarter of the paddle and is moving right,
                     // Or if the ball hits the rightmost quarter of the paddle and is moving left
                     // x-velocity is reversed (multiplied by -1)
-                    if (hitbox.Left < paddle.Hitbox.Left + paddle.Hitbox.Width / 4 && velocity.X > 0)
+                    if (hitbox.Left < paddle.Hitbox.Left + paddle.Hitbox.Width / 4 && Velocity.X > 0)
                     {
                         velocity.X *= -1;
                     }
 
-                    if ((hitbox.Right > paddle.Hitbox.Right - paddle.Hitbox.Width / 4) && velocity.X < 0)
+                    if (hitbox.Right > paddle.Hitbox.Right - paddle.Hitbox.Width / 4 && Velocity.X < 0)
                     {
                         velocity.X *= -1;
                     }
@@ -149,7 +132,7 @@ namespace BrickBreaker
                 else
                 {
                     // Moves the ball to directly left/right of the paddle, then reverses its direction
-                    Position += new Vector2(intersection.Width * (velocity.X > 0 ? -1 : 1), 0);
+                    Position += new Vector2(intersection.Width * (Velocity.X > 0 ? -1 : 1), 0);
                     velocity.X *= -1;
                 }
 
@@ -157,7 +140,7 @@ namespace BrickBreaker
 
             #region Breaking Bricks
             // Ball breaks bricks it intersects with
-            // When ball intsersects a brick, its velocity in the 
+            // When ball intersects a brick, its velocity in the 
             // direction of the collision is reversed
             for (int i = 0; i < brickList.Count; i++)
             {
@@ -183,10 +166,10 @@ namespace BrickBreaker
 
                     // Increases score by number of lives left each time a brick is broken
                     // The more lives the player has left, the more points they get from each brick
-                    Game1.game.score += Game1.game.lives;
+                    Game1.Game.Score += Game1.Game.Lives;
 
                     // Ball speeds up slightly each time it breaks a brick
-                    velocity *= 1.01f;
+                    Velocity *= 1.03f;
 
                     // Removes the broken brick from the list
                     // Subtracts 1 from i to keep the bricks at the correct indexes
@@ -195,33 +178,26 @@ namespace BrickBreaker
                 }
             }
             #endregion
-            Position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            Position += Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         /// <summary>
         /// Draws the ball in the proper position
         /// </summary>
-        /// <param name="_spriteBatch">The sprite manager that is used to draw on screen</param>
+        /// <param name="sb">The sprite manager that is used to draw on screen</param>
         /// <param name="paddle">The paddle object</param>
-        /// <param name="ballTextureBelowPaddle">The texture file that the ball will get when it falls below the paddle</param>
-        public void Draw(SpriteBatch _spriteBatch, Paddle paddle, Texture2D ballTextureBelowPaddle)
+        /// <param name="textureBelowPaddle">The texture file that the ball will get when it falls below the paddle</param>
+        public void Draw(SpriteBatch sb, Paddle paddle, Texture2D textureBelowPaddle)
         {
-            //Game1.game._spriteBatch.Begin();
-            if (velocity == new Vector2(0f, 0f))
+            if (Velocity == Vector2.Zero)
             {
-                Game1.game._spriteBatch.DrawString(Game1.game.Roboto, "Press the red button to play.", new Vector2(windowSize.Center.X - 170, windowSize.Height - 80), Color.Black);
-            }
-            //Game1.game._spriteBatch.End();
-
-            if (position.Y > paddle.Hitbox.Bottom)
-            {
-                _spriteBatch.Draw(ballTextureBelowPaddle, new Vector2(hitbox.X, hitbox.Y), Color.White);
-            }
-            else
-            {
-                _spriteBatch.Draw(texture, new Vector2(hitbox.X, hitbox.Y), Color.White);
+                sb.DrawString(Game1.Game.Roboto, 
+                    "Press the red button to play.", 
+                    new Vector2(Game1.Game.WindowSize.Center.X - 170, Game1.Game.WindowSize.Height - 80), 
+                    Color.Black);
             }
 
+            sb.Draw(position.Y > paddle.Hitbox.Bottom ? textureBelowPaddle : texture, new Vector2(hitbox.X, hitbox.Y), Color.White);
         }
 
         /// <summary>
@@ -229,8 +205,8 @@ namespace BrickBreaker
         /// </summary>
         public void Reset()
         {
-            texture = new Texture2D(Game1.game.GraphicsDevice, 1, 1);
-            hitbox = new Rectangle((windowSize.Width / 2) - 16, (windowSize.Height - 220), 32, 32);
+            texture = new Texture2D(Game1.Game.GraphicsDevice, 1, 1);
+            hitbox = new Rectangle((Game1.Game.WindowSize.Width / 2) - 16, (Game1.Game.WindowSize.Height - 220), 32, 32);
         }
     }
 }

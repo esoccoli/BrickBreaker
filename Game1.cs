@@ -12,26 +12,81 @@ namespace BrickBreaker
     public class Game1 : Game
     {
         #region Fields
-        public static Game1 game;                   // Used to access game class data in other classes
-        public Rectangle windowSize;                // Stores the current window size
-        public Random rng;                          // Initializes a random object
+        
+        /// <summary>
+        /// Object variable to allow other classes to access the game data
+        /// </summary>
+        public static Game1 Game { get; set; }
+        
+        /// <summary>
+        /// Stores the bounds of the game window
+        /// </summary>
+        public Rectangle WindowSize { get; set; }
+        
+        /// <summary>
+        /// Initializes a random object for generating random numbers
+        /// </summary>
+        public Random Rng { get; set; }
+        
+        /// <summary>
+        /// Object for managing all graphics operations
+        /// </summary>
+        public GraphicsDeviceManager Graphics { get; set; }
+        
+        /// <summary>
+        /// Manages all content operations and draw calls
+        /// </summary>
+        public SpriteBatch SpriteBatch { get; set; }
 
-        public GraphicsDeviceManager _graphics;     // Graphics manager
-        public SpriteBatch _spriteBatch;            // Sprite manager
-        private Texture2D _texture;                 // Blank texture (used to draw rectangles for bricks and paddle)
+        /// <summary>
+        /// Default blank texture used for drawing rectangles for bricks and paddle
+        /// </summary>
+        public Texture2D Texture { get; set; }
+        
+        /// <summary>
+        /// List of all bricks in the game
+        /// </summary>
+        public List<Brick> BrickList { get; set; }
+        
+        /// <summary>
+        /// Ball that is used in the game
+        /// </summary>
+        public Ball Ball { get; set; }
 
-        internal List<Brick> brickList;             // List of bricks on the screen
+        /// <summary>
+        /// Default texture of the ball
+        /// </summary>
+        public Texture2D BallTexture { get; set; }
+        
+        /// <summary>
+        /// Texture of the ball when it is below the paddle
+        /// </summary>
+        public Texture2D BallTextureBelowPaddle { get; set; }
+        
+        /// <summary>
+        /// Paddle object used in the game
+        /// </summary>
+        public Paddle Paddle { get; set; }
+        
+        /// <summary>
+        /// Position of the paddle at the start of the game
+        /// </summary>
+        public Rectangle StartPaddlePos { get; set; }
 
-        private Ball ball;                          // Ball object
-        private Texture2D ballTexture;              // Default ball texture
-        private Texture2D ballTextureBelowPaddle;   // Texture ball gets when it falls below the paddle
-
-        private Paddle paddle;                      // Paddle object
-        private Rectangle startPaddlePos;           // Position and size of the paddle when the game starts
-
-        public int score;                           // Current score
-        public int lives;                           // Number of lives remaining
-        internal SpriteFont Roboto;                  // Font file used to display text in the game window
+        /// <summary>
+        /// Player's current score
+        /// </summary>
+        public int Score { get; set; }
+        
+        /// <summary>
+        /// Number of lives remaining
+        /// </summary>
+        public int Lives { get; set; }
+        
+        /// <summary>
+        /// Font file for displaying game info on screen
+        /// </summary>
+        public SpriteFont Roboto { get; set; }
         #endregion
 
         /// <summary>
@@ -39,8 +94,8 @@ namespace BrickBreaker
         /// </summary>
         public Game1()
         {
-            game = this;
-            _graphics = new GraphicsDeviceManager(this);
+            Game = this;
+            Graphics = new GraphicsDeviceManager(this);
 
             Content.RootDirectory = "Content";
             IsMouseVisible = false;
@@ -52,35 +107,34 @@ namespace BrickBreaker
         protected override void Initialize()
         {
             // Tells the game to run in borderless full screen
-            _graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
-            _graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
+            Graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
+            Graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
 
-            //_graphics.IsFullScreen = true;
-            _graphics.ApplyChanges();
+            Graphics.ApplyChanges();
 
             // Initializes the Random object
-            rng = new Random();
+            Rng = new Random();
 
             // Stores the current window size in a variable for easy access
-            windowSize = GraphicsDevice.Viewport.Bounds;
+            WindowSize = GraphicsDevice.Viewport.Bounds;
 
             // Creates a default texture to allow drawing of colored rectangles
-            _texture = new Texture2D(GraphicsDevice, 1, 1);
-            _texture.SetData(new Color[] { Color.White });
+            Texture = new Texture2D(GraphicsDevice, 1, 1);
+            Texture.SetData(new Color[] { Color.White });
 
             #region Paddle Start Rectangle
-            int paddleWidth = windowSize.Width / 10;                            // Sets paddle with to 10% of window size
+            int paddleWidth = WindowSize.Width / 10;                            // Sets paddle with to 10% of window size
             int paddleHeight = 21;                                              // Sets paddle height to 20, regardless of window height
 
-            int paddleStartX = (windowSize.Width / 2) - (paddleWidth / 2);      // Centers the paddle horizontally at the start of game
-            int paddleStartY = windowSize.Height - 150;                         // Paddle y-pos is always 150 pixels above bottom of window
+            int paddleStartX = (WindowSize.Width / 2) - (paddleWidth / 2);      // Centers the paddle horizontally at the start of game
+            int paddleStartY = WindowSize.Height - 150;                         // Paddle y-pos is always 150 pixels above bottom of window
             #endregion
 
             // Defines the starting position of the paddle using the variables defined above
-            startPaddlePos = new Rectangle(paddleStartX, paddleStartY, paddleWidth, paddleHeight);
+            StartPaddlePos = new Rectangle(paddleStartX, paddleStartY, paddleWidth, paddleHeight);
 
             // Creates a paddle object with the start position as defined above
-            paddle = new Paddle(_texture, startPaddlePos, Color.Black);
+            Paddle = new Paddle(Texture, StartPaddlePos, Color.Black);
 
             ResetGame();
 
@@ -95,16 +149,16 @@ namespace BrickBreaker
         /// </summary>
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            SpriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Loads ball texture from content editor and creates a new
             // ball object with that texture
-            ballTexture = Content.Load<Texture2D>("ball");
-            ball = new Ball(ballTexture);
+            BallTexture = Content.Load<Texture2D>("ball");
+            Ball = new Ball(BallTexture);
 
             // Loads alternate ball texture from content editor
             // This texture will be active when the ball is below the paddle
-            ballTextureBelowPaddle = Content.Load<Texture2D>("surprised-pikachu");
+            BallTextureBelowPaddle = Content.Load<Texture2D>("surprised-pikachu");
 
             // Loads the font used to draw text on the screen
             Roboto = Content.Load<SpriteFont>("Roboto");
@@ -116,39 +170,39 @@ namespace BrickBreaker
         /// <param name="gameTime">The time elapsed in the game</param>
         protected override void Update(GameTime gameTime)
         {
-            // Adds keybind to exit the game
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape)                                                       // Escape key on keyboard
-                || (GamePad.GetState(PlayerIndex.One).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.Menu)    // Player 1 button A4 on devcade
-                && GamePad.GetState(PlayerIndex.Two).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.Menu)))   // Player 2 button A4 on devcade
+            // Adds a keybind to exit the game
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape)
+                || (GamePad.GetState(PlayerIndex.One).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.Menu)
+                && GamePad.GetState(PlayerIndex.Two).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.Menu)))
             {
                 Exit();
             }
 
             // Loops through and removes all broken bricks from the list
-            for (int i = 0; i < brickList.Count; i++)
+            for (int i = 0; i < BrickList.Count; i++)
             {
-                if (brickList[i].Broken == true)
+                if (BrickList[i].Broken)
                 {
-                    brickList.Remove(brickList[i]);
+                    BrickList.Remove(BrickList[i]);
                 }
             }
 
             // Adds keybind to reset the game
-            if ((lives == 0 || brickList.Count == 0)
-                && (Keyboard.GetState().IsKeyDown(Keys.R)                                                     // 'R' key on keyboard
-                || GamePad.GetState(PlayerIndex.One).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A3)    // Player 1 A3
-                || GamePad.GetState(PlayerIndex.Two).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A3)))  // Player 2 A3
+            if ((Lives == 0 || BrickList.Count == 0)
+                && (Keyboard.GetState().IsKeyDown(Keys.R)
+                || GamePad.GetState(PlayerIndex.One).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A3)
+                || GamePad.GetState(PlayerIndex.Two).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.A3)))
             {
                 ResetGame();
             }
 
             // Updates ball and paddle
-            ball.Update(gameTime, paddle, brickList);
+            Ball.Update(gameTime, Paddle, BrickList);
 
             // Paddle can't move while ball isn't moving
-            if (ball.Velocity != new Vector2(0f, 0f))
+            if (Ball.Velocity != new Vector2(0f, 0f))
             {
-                paddle.Update(gameTime);
+                Paddle.Update(gameTime);
             }
 
             // Updates the devcade inputs each frame
@@ -168,59 +222,77 @@ namespace BrickBreaker
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // Gathers all the draw calls and performs them all at once
-            _spriteBatch.Begin();
+            SpriteBatch.Begin();
 
             // Ends the game if no lives are left
-            if (lives == 0)
+            if (Lives == 0)
             {
                 // Clears the background and removes all objects from screen
                 GraphicsDevice.Clear(Color.CornflowerBlue);
-                brickList.Clear();
+                BrickList.Clear();
 
-                _spriteBatch.DrawString(Roboto, "Game Over!", new Vector2(windowSize.Center.X - 60, windowSize.Center.Y - 30), Color.Black);
+                SpriteBatch.DrawString(Roboto, 
+                    "Game Over!", 
+                    new Vector2(WindowSize.Center.X - 60, WindowSize.Center.Y - 30), 
+                    Color.Black);
 
-                _spriteBatch.DrawString(Roboto, "Press the green button to start a new game.", new Vector2(windowSize.Center.X - 230, windowSize.Center.Y + 30), Color.Black);
+                SpriteBatch.DrawString(Roboto, 
+                    "Press the green button to start a new game.", 
+                    new Vector2(WindowSize.Center.X - 230, WindowSize.Center.Y + 30), 
+                    Color.Black);
             }
 
             // Tells user they won if they have any lives and no bricks left
-            else if (lives != 0 && brickList.Count == 0)
+            else if (Lives != 0 && BrickList.Count == 0)
             {
-                _spriteBatch.DrawString(Roboto, "You Win!", new Vector2(windowSize.Center.X - 60, windowSize.Center.Y - 30), Color.Black);
+                SpriteBatch.DrawString(Roboto, 
+                    "You Win!", 
+                    new Vector2(WindowSize.Center.X - 60, WindowSize.Center.Y - 30), 
+                    Color.Black);
 
-                _spriteBatch.DrawString(Roboto, "Press the green button to start a new game.", new Vector2(windowSize.Center.X - 210, windowSize.Center.Y + 30), Color.Black);
+                SpriteBatch.DrawString(Roboto, 
+                    "Press the green button to start a new game.", 
+                    new Vector2(WindowSize.Center.X - 210, WindowSize.Center.Y + 30), 
+                    Color.Black);
             }
 
 
             // Draws all bricks in the list that are not broken
-            for (int i = 0; i < brickList.Count; i++)
+            for (int i = 0; i < BrickList.Count; i++)
             {
-                if (brickList[i].Broken == false)
+                if (!BrickList[i].Broken)
                 {
-                    _spriteBatch.Draw(_texture, brickList[i].Hitbox, new Color(217, 15, 42));
+                    SpriteBatch.Draw(Texture, BrickList[i].Hitbox, new Color(217, 15, 42));
                 }
             }
 
             // Displays lives and score
-            _spriteBatch.DrawString(Roboto, $"Score: {score}", new Vector2(windowSize.Width - 200, windowSize.Top + 30), Color.Black);
+            SpriteBatch.DrawString(Roboto, 
+                $"Score: {Score}", 
+                new Vector2(WindowSize.Width - 200, WindowSize.Top + 30), 
+                Color.Black);
 
-            _spriteBatch.DrawString(Roboto, $"Lives: {lives}", new Vector2(50, windowSize.Top + 30), Color.Black);
+            SpriteBatch.DrawString(Roboto, 
+                $"Lives: {Lives}", 
+                new Vector2(50, WindowSize.Top + 30), 
+                Color.Black);
 
             // Draws the ball and paddle only if lives is above 0
-            if (lives > 0)
+            if (Lives > 0)
             {
-                ball.Draw(_spriteBatch, paddle, ballTextureBelowPaddle);
-                paddle.Draw(_spriteBatch);
+                Ball.Draw(SpriteBatch, Paddle, BallTextureBelowPaddle);
+                Paddle.Draw(SpriteBatch);
             }
 
             // Clears the ball and paddle if no bricks are left
-            if (brickList.Count == 0)
+            if (BrickList.Count == 0)
             {
-                ball.Reset();
-                paddle.Reset();
+                Ball.Reset();
+                Paddle.Reset();
             }
 
             // Finishes gathering draw calls, and draws them all at once
-            _spriteBatch.End();
+            SpriteBatch.End();
             base.Draw(gameTime);
         }
 
@@ -240,18 +312,18 @@ namespace BrickBreaker
             int brickSpacing = 5;
 
             // Greatest y-coordinate (farthest down) that bricks can be drawn
-            int brickAreaHeight = windowSize.Height / 2;
+            int brickAreaHeight = WindowSize.Height / 2;
 
             // First row of bricks is 80 pixels below top of window
             int brickAreaTopOffset = 100;
 
             // Width and height of each brick (scales based on window size
-            int brickWidth = (windowSize.Width - ((numCols * brickSpacing) + brickSpacing)) / numCols;
+            int brickWidth = (WindowSize.Width - ((numCols * brickSpacing) + brickSpacing)) / numCols;
             int brickHeight = (brickAreaHeight - ((numRows * brickSpacing) + brickSpacing)) / numRows;
             #endregion
 
             // Clears the list of bricks
-            brickList = new List<Brick>();
+            BrickList = new List<Brick>();
 
             // Adds all the bricks to the list
             for (int row = 0; row < numRows; row++)
@@ -264,7 +336,7 @@ namespace BrickBreaker
                         brickWidth,                                                 // Width of brick
                         brickHeight));                                              // Height of brick
 
-                    brickList.Add(currBrick);
+                    BrickList.Add(currBrick);
                 }
             }
         }
@@ -286,7 +358,7 @@ namespace BrickBreaker
         /// </summary>
         public void ResetBall()
         {
-            ball = new Ball(ballTexture);
+            Ball = new Ball(BallTexture);
         }
 
         /// <summary>
@@ -294,7 +366,7 @@ namespace BrickBreaker
         /// </summary>
         public void ResetPaddle()
         {
-            paddle = new Paddle(_texture, startPaddlePos, Color.Black);
+            Paddle = new Paddle(Texture, StartPaddlePos, Color.Black);
         }
 
         /// <summary>
@@ -302,7 +374,7 @@ namespace BrickBreaker
         /// </summary>
         public void ResetScore()
         {
-            score = 0;
+            Score = 0;
         }
 
         /// <summary>
@@ -310,7 +382,7 @@ namespace BrickBreaker
         /// </summary>
         public void ResetLives()
         {
-            lives = 5;
+            Lives = 5;
         }
     }
 }
