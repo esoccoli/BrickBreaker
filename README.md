@@ -44,5 +44,3 @@ This file contains only two lines, but is essential for making the program work.
 #### Content Folder
 
 The content folder contains the Content Manager tool, which is how sprites and textures can be processed and loaded into the game. Once a file has been processed by the Content Manager, it gets place in this folder, giving the program access to the file.
-
-e.
