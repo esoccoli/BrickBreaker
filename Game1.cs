@@ -11,22 +11,16 @@ namespace BrickBreaker
     /// </summary>
     public class Game1 : Game
     {
-        /// <summary>
-        /// Object for managing all graphics operations
-        /// </summary>
-        public GraphicsDeviceManager Graphics { get; set; }
+        private GraphicsDeviceManager _graphics;
         
-        /// <summary>
-        /// Manages all content operations and draw calls
-        /// </summary>
-        public SpriteBatch SpriteBatch { get; set; }
+        private SpriteBatch _spriteBatch;
 
         /// <summary>
         /// Sets up the content and window for the game
         /// </summary>
         public Game1()
         {
-            Graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this);
 
             Content.RootDirectory = "Content";
             IsMouseVisible = false;
@@ -37,7 +31,17 @@ namespace BrickBreaker
         /// </summary>
         protected override void Initialize()
         {
-
+            #region Setting Window Size
+#if DEBUG
+            _graphics.PreferredBackBufferWidth = 420;
+            _graphics.PreferredBackBufferHeight = 980;
+            _graphics.ApplyChanges();
+#else
+            _graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
+			_graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
+			_graphics.ApplyChanges();
+#endif
+            #endregion
             base.Initialize();
         }
 
@@ -72,7 +76,6 @@ namespace BrickBreaker
         /// <param name="gameTime">The time elapsed in the game</param>
         protected override void Draw(GameTime gameTime)
         {
-            // Clears the window each frame
             GraphicsDevice.Clear(Color.CornflowerBlue);
             
             base.Draw(gameTime);
