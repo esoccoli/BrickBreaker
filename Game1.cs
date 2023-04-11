@@ -3,23 +3,74 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using Devcade;
+using static Devcade.Input;
 
 namespace BrickBreaker
 {
+    /// <summary>
+    /// Tracks the state of the game to allow menus to be drawn
+    /// </summary>
+    public enum GameState
+    {
+        Menu,
+        Game,
+        GameOver,
+        Pause
+    }
+    
     /// <summary>
     /// Manages the game and game updates
     /// </summary>
     public class Game1 : Game
     {
+        public Game1 game;
+        
+        /// <summary>
+        /// Manages the graphics calls in the game
+        /// </summary>
         private GraphicsDeviceManager _graphics;
         
+        /// <summary>
+        /// Manages the draw calls for the game
+        /// </summary>
         private SpriteBatch _spriteBatch;
+        
+        /// <summary>
+        /// Texture of the brick, made from a Rectangle object instead of a file
+        /// </summary>
+        private Texture2D brickTexture;
+        
+        /// <summary>
+        /// Texture of the paddle, made from a Rectangle object instead of a file
+        /// </summary>
+        private Texture2D paddleTexture;
+        
+        /// <summary>
+        /// Default texture of the ball
+        /// </summary>
+        private Texture2D ballTexture;
+        
+        /// <summary>
+        /// Texture of the ball when it falls below the paddle
+        /// </summary>
+        private Texture2D ballTextureAlt;
+        
+        /// <summary>
+        /// Font file for the menu and info text
+        /// </summary>
+        private SpriteFont roboto24;
+
+        private GameState currState;
+        
+        public Paddle paddle { get; set; }
 
         /// <summary>
         /// Sets up the content and window for the game
         /// </summary>
         public Game1()
         {
+            game = this;
             _graphics = new GraphicsDeviceManager(this);
 
             Content.RootDirectory = "Content";
@@ -42,6 +93,19 @@ namespace BrickBreaker
 			_graphics.ApplyChanges();
 #endif
             #endregion
+            
+            currState = GameState.Menu;
+            
+            paddleTexture = new Texture2D(GraphicsDevice, 1, 1);
+            
+            paddle = new Paddle(paddleTexture, new Rectangle(
+                GraphicsDevice.Viewport.Width / 2,
+                GraphicsDevice.Viewport.Height - 150,
+                100,
+                20), 
+                Color.White);
+            
+            Input.Initialize();
             base.Initialize();
         }
 
@@ -50,7 +114,11 @@ namespace BrickBreaker
         /// </summary>
         protected override void LoadContent()
         {
-            
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            roboto24 = Content.Load<SpriteFont>("Roboto24");
+            ballTexture = Content.Load<Texture2D>("ball");
+            ballTextureAlt = Content.Load<Texture2D>("surprised-pikachu");
         }
 
         /// <summary>
@@ -66,9 +134,11 @@ namespace BrickBreaker
             {
                 Exit();
             }
-
-            base.Update(gameTime);
-        }
+            
+            paddle.UpdatePaddle(gameTime);
+            Input.Update();
+            
+            base.Update(gameTime); }
 
         /// <summary>
         /// Loops every frame and draws the content on the screen
@@ -78,6 +148,9 @@ namespace BrickBreaker
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             
+            _spriteBatch.Begin();
+            paddle.DrawPaddle(_spriteBatch);
+            _spriteBatch.End();
             base.Draw(gameTime);
         }
     }
