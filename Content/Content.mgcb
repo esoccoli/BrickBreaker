@@ -25,15 +25,25 @@
 /processorParam:TextureFormat=Color
 /build:ball.png
 
-#begin Roboto.ttf
-/copy:Roboto.ttf
+#begin NotoSans-Regular.ttf
+/copy:NotoSans-Regular.ttf
 
-#begin Roboto24.spritefont
+#begin NotoSans.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:Roboto24.spritefont
+/build:NotoSans.spritefont
+
+#begin PaytoneOne-Regular.ttf
+/copy:PaytoneOne-Regular.ttf
+
+#begin PaytoneOne.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:PaytoneOne.spritefont
 
 #begin surprised-pikachu.png
 /importer:TextureImporter

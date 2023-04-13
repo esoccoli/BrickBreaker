@@ -35,35 +35,17 @@ namespace BrickBreaker
         /// Manages the draw calls for the game
         /// </summary>
         private SpriteBatch _spriteBatch;
-        
-        /// <summary>
-        /// Texture of the brick, made from a Rectangle object instead of a file
-        /// </summary>
-        private Texture2D brickTexture;
-        
-        /// <summary>
-        /// Texture of the paddle, made from a Rectangle object instead of a file
-        /// </summary>
-        private Texture2D paddleTexture;
-        
-        /// <summary>
-        /// Default texture of the ball
-        /// </summary>
-        private Texture2D ballTexture;
-        
-        /// <summary>
-        /// Texture of the ball when it falls below the paddle
-        /// </summary>
-        private Texture2D ballTextureAlt;
-        
+
         /// <summary>
         /// Font file for the menu and info text
         /// </summary>
-        private SpriteFont roboto24;
-
-        private GameState currState;
+        private SpriteFont paytoneOne;
         
-        public Paddle paddle { get; set; }
+        private SpriteFont notoSans;
+
+        public GameState currState;
+
+        private Menu gameMenu;
 
         /// <summary>
         /// Sets up the content and window for the game
@@ -95,16 +77,7 @@ namespace BrickBreaker
             #endregion
             
             currState = GameState.Menu;
-            
-            paddleTexture = new Texture2D(GraphicsDevice, 1, 1);
-            
-            paddle = new Paddle(paddleTexture, new Rectangle(
-                GraphicsDevice.Viewport.Width / 2,
-                GraphicsDevice.Viewport.Height - 150,
-                100,
-                20), 
-                Color.White);
-            
+
             Input.Initialize();
             base.Initialize();
         }
@@ -116,9 +89,10 @@ namespace BrickBreaker
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            roboto24 = Content.Load<SpriteFont>("Roboto24");
-            ballTexture = Content.Load<Texture2D>("ball");
-            ballTextureAlt = Content.Load<Texture2D>("surprised-pikachu");
+            paytoneOne = Content.Load<SpriteFont>("PaytoneOne");
+            notoSans = Content.Load<SpriteFont>("NotoSans");
+            
+            gameMenu = new Menu(paytoneOne, notoSans, _spriteBatch, GraphicsDevice, game);
         }
 
         /// <summary>
@@ -129,16 +103,22 @@ namespace BrickBreaker
         {
             // Adds a keybind to exit the game
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)
-                || (GamePad.GetState(PlayerIndex.One).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.Menu)
-                && GamePad.GetState(PlayerIndex.Two).IsButtonDown((Buttons)Devcade.Input.ArcadeButtons.Menu)))
+                || GetButtonDown(1, ArcadeButtons.Menu)
+                && GetButtonDown(2, ArcadeButtons.Menu))
             {
                 Exit();
             }
-            
-            paddle.UpdatePaddle(gameTime);
+
+            switch (currState)
+            {
+                case GameState.Menu:
+                    gameMenu.UpdateMenu();
+                    break;
+            }
             Input.Update();
             
-            base.Update(gameTime); }
+            base.Update(gameTime);
+        }
 
         /// <summary>
         /// Loops every frame and draws the content on the screen
@@ -149,7 +129,13 @@ namespace BrickBreaker
             GraphicsDevice.Clear(Color.CornflowerBlue);
             
             _spriteBatch.Begin();
-            paddle.DrawPaddle(_spriteBatch);
+
+            switch (currState)
+            {
+                case GameState.Menu:
+                    gameMenu.DrawText();
+                    break;
+            }
             _spriteBatch.End();
             base.Draw(gameTime);
         }
