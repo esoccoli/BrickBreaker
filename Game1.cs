@@ -47,11 +47,14 @@ namespace BrickBreaker
         public GameState currState;
 
         private Menu gameMenu;
+        private Instructions instructionsScreen;
         
         private Texture2D redButton;
         private Texture2D blueButton;
         private Texture2D greenButton;
         private Texture2D whiteButton;
+
+        internal Texture2D surprisedPikachu;
 
         /// <summary>
         /// Sets up the content and window for the game
@@ -95,6 +98,8 @@ namespace BrickBreaker
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            surprisedPikachu = Content.Load<Texture2D>("surprised-pikachu");
+            
             paytoneOne = Content.Load<SpriteFont>("PaytoneOne");
             notoSans20 = Content.Load<SpriteFont>("NotoSans");
             notoSans16 = Content.Load<SpriteFont>("NotoSansSmall");
@@ -105,6 +110,17 @@ namespace BrickBreaker
             whiteButton = Content.Load<Texture2D>("white-button");
             
             gameMenu = new Menu(_spriteBatch, 
+                GraphicsDevice, 
+                game, 
+                notoSans20, 
+                notoSans16, 
+                paytoneOne, 
+                redButton, 
+                blueButton, 
+                greenButton, 
+                whiteButton);
+            
+            instructionsScreen = new Instructions(_spriteBatch, 
                 GraphicsDevice, 
                 game, 
                 notoSans20, 
@@ -135,6 +151,10 @@ namespace BrickBreaker
                 case GameState.Menu:
                     gameMenu.UpdateMenu();
                     break;
+                
+                case GameState.Instructions:
+                    instructionsScreen.UpdateInstructions();
+                    break;
             }
             Input.Update();
             
@@ -155,6 +175,10 @@ namespace BrickBreaker
             {
                 case GameState.Menu:
                     gameMenu.DrawText();
+                    break;
+                
+                case GameState.Instructions:
+                    instructionsScreen.DrawText();
                     break;
             }
             _spriteBatch.End();
