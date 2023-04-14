@@ -5,23 +5,33 @@ using Microsoft.Xna.Framework.Input;
 
 namespace BrickBreaker
 {
-    public class Menu
+    public class Menu : State
     {
-        private SpriteFont notoSans;
-        private SpriteFont paytoneOne;
-        private SpriteBatch sb;
-        private GraphicsDevice graphics;
-        private Game1 game;
-        private Rectangle window;
 
-        public Menu(SpriteFont paytoneOne, SpriteFont notoSans, SpriteBatch sb, GraphicsDevice graphics, Game1 game)
+        public Menu(SpriteBatch sb, 
+            GraphicsDevice graphics, 
+            Game1 game, 
+            SpriteFont notoSans, 
+            SpriteFont notoSansSmall,
+            SpriteFont paytoneOne,
+            Texture2D redButton,
+            Texture2D blueButton,
+            Texture2D greenButton,
+            Texture2D whiteButton) 
+            : base(sb, graphics, game, notoSans, notoSansSmall, paytoneOne, redButton, blueButton, greenButton, whiteButton)
         {
-            this.paytoneOne = paytoneOne;
-            this.notoSans = notoSans;
-            this.sb = sb;
-            this.graphics = graphics;
-            this.game = game;
-            window = this.graphics.Viewport.Bounds;
+            PaytoneOne = paytoneOne;
+            NotoSans = notoSans;
+            NotoSansSmall = notoSansSmall;
+            SB = sb;
+            Graphics = graphics;
+            Game = game;
+            Window = Graphics.Viewport.Bounds;
+            
+            RedButton = redButton;
+            BlueButton = blueButton;
+            GreenButton = greenButton;
+            WhiteButton = whiteButton;
         }
 
         public void UpdateMenu()
@@ -30,13 +40,26 @@ namespace BrickBreaker
                 Input.GetButtonDown(1, Input.ArcadeButtons.A1) ||
                 Input.GetButtonDown(2, Input.ArcadeButtons.A1))
             {
-                game.currState = GameState.Game;
+                Game.currState = GameState.Playing;
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.I) ||
+                     Input.GetButtonDown(1, Input.ArcadeButtons.A3) || 
+                     Input.GetButtonDown(2, Input.ArcadeButtons.A3))
+            {
+                Game.currState = GameState.Instructions;
             }
         }
         public void DrawText()
         {
-            sb.DrawString(paytoneOne, "Brick Breaker", new Vector2(50, window.Height / 2f - 100), Color.Black);
-            sb.DrawString(notoSans, "Press the Red Button to Start", new Vector2(30, window.Height / 2f + 50), Color.Black);
+            SB.DrawString(PaytoneOne, "Brick Breaker", new Vector2(50, Window.Height / 2f - 100), Color.White);
+            
+            SB.DrawString(NotoSans, "Press ", new Vector2(100, Window.Height / 2f + 50), Color.White);
+            SB.Draw(RedButton, new Rectangle(175, Window.Height / 2 + 50, 50, 50), Color.White);
+            SB.DrawString(NotoSans, " to Start", new Vector2(230, Window.Height / 2f + 50), Color.White);
+            
+            SB.DrawString(NotoSans, "Press ", new Vector2(50, Window.Height / 2f + 125), Color.White);
+            SB.Draw(BlueButton, new Rectangle(125, Window.Height / 2 + 120, 50, 50), Color.White);
+            SB.DrawString(NotoSans, " for Instructions", new Vector2(180, Window.Height / 2f + 125), Color.White);
         }
     }
 }

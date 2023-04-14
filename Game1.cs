@@ -14,9 +14,10 @@ namespace BrickBreaker
     public enum GameState
     {
         Menu,
-        Game,
+        Playing,
         GameOver,
-        Pause
+        Pause,
+        Instructions
     }
     
     /// <summary>
@@ -40,12 +41,17 @@ namespace BrickBreaker
         /// Font file for the menu and info text
         /// </summary>
         private SpriteFont paytoneOne;
-        
-        private SpriteFont notoSans;
+        private SpriteFont notoSans20;
+        private SpriteFont notoSans16;
 
         public GameState currState;
 
         private Menu gameMenu;
+        
+        private Texture2D redButton;
+        private Texture2D blueButton;
+        private Texture2D greenButton;
+        private Texture2D whiteButton;
 
         /// <summary>
         /// Sets up the content and window for the game
@@ -90,9 +96,24 @@ namespace BrickBreaker
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             paytoneOne = Content.Load<SpriteFont>("PaytoneOne");
-            notoSans = Content.Load<SpriteFont>("NotoSans");
+            notoSans20 = Content.Load<SpriteFont>("NotoSans");
+            notoSans16 = Content.Load<SpriteFont>("NotoSansSmall");
             
-            gameMenu = new Menu(paytoneOne, notoSans, _spriteBatch, GraphicsDevice, game);
+            redButton = Content.Load<Texture2D>("red-button");
+            blueButton = Content.Load<Texture2D>("blue-button");
+            greenButton = Content.Load<Texture2D>("green-button");
+            whiteButton = Content.Load<Texture2D>("white-button");
+            
+            gameMenu = new Menu(_spriteBatch, 
+                GraphicsDevice, 
+                game, 
+                notoSans20, 
+                notoSans16, 
+                paytoneOne, 
+                redButton, 
+                blueButton, 
+                greenButton, 
+                whiteButton);
         }
 
         /// <summary>
@@ -126,7 +147,7 @@ namespace BrickBreaker
         /// <param name="gameTime">The time elapsed in the game</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
             
             _spriteBatch.Begin();
 
