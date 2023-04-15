@@ -48,6 +48,8 @@ namespace BrickBreaker
 
         private Menu gameMenu;
         private Instructions instructionsScreen;
+        private PauseMenu pauseMenu;
+        private MainGame mainGame;
         
         private Texture2D redButton;
         private Texture2D blueButton;
@@ -55,6 +57,9 @@ namespace BrickBreaker
         private Texture2D whiteButton;
 
         internal Texture2D surprisedPikachu;
+        
+        private int score;
+        private int lives;
 
         /// <summary>
         /// Sets up the content and window for the game
@@ -87,6 +92,9 @@ namespace BrickBreaker
             
             currState = GameState.Menu;
 
+            score = 0;
+            lives = 5;
+            
             Input.Initialize();
             base.Initialize();
         }
@@ -130,6 +138,30 @@ namespace BrickBreaker
                 blueButton, 
                 greenButton, 
                 whiteButton);
+            
+            pauseMenu = new PauseMenu(_spriteBatch, 
+                GraphicsDevice, 
+                game, 
+                notoSans20, 
+                notoSans16, 
+                paytoneOne, 
+                redButton, 
+                blueButton, 
+                greenButton, 
+                whiteButton);
+            
+            mainGame = new MainGame(_spriteBatch, 
+                GraphicsDevice, 
+                game, 
+                notoSans20, 
+                notoSans16, 
+                paytoneOne, 
+                redButton, 
+                blueButton, 
+                greenButton, 
+                whiteButton,
+                score,
+                lives);
         }
 
         /// <summary>
@@ -155,6 +187,24 @@ namespace BrickBreaker
                 case GameState.Instructions:
                     instructionsScreen.UpdateInstructions();
                     break;
+                
+                case GameState.Pause:
+                    if (Keyboard.GetState().IsKeyDown(Keys.U) ||
+                        GetButtonDown(1, ArcadeButtons.B3) ||
+                        GetButtonDown(2, ArcadeButtons.B3))
+                    {
+                        currState = GameState.Playing;
+                    }
+                    break;
+                
+                case GameState.Playing:
+                    if (Keyboard.GetState().IsKeyDown(Keys.P) ||
+                        GetButtonDown(1, ArcadeButtons.B4) ||
+                        GetButtonDown(2, ArcadeButtons.B4))
+                    {
+                        currState = GameState.Pause;
+                    }
+                    break;
             }
             Input.Update();
             
@@ -179,6 +229,17 @@ namespace BrickBreaker
                 
                 case GameState.Instructions:
                     instructionsScreen.DrawText();
+                    break;
+                
+                case GameState.Pause:
+                    pauseMenu.DrawPauseMenu();
+                    break;
+                
+                case GameState.Playing:
+                    if (lives > 0)
+                    {
+                        mainGame.DrawGameInfo();
+                    }
                     break;
             }
             _spriteBatch.End();

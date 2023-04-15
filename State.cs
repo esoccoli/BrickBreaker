@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BrickBreaker
 {
+    /// <summary>
+    /// Base class for all of the game states that stores useful variables as properties
+    /// </summary>
     public abstract class State
     {
         /// <summary>
@@ -100,7 +103,5 @@ namespace BrickBreaker
             GreenButton = greenButton;
             WhiteButton = whiteButton;
         }
-        
-        
     }
 }
