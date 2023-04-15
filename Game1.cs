@@ -25,7 +25,7 @@ namespace BrickBreaker
     /// </summary>
     public class Game1 : Game
     {
-        public Game1 game;
+        public Game1 game { get; set; }
         
         /// <summary>
         /// Manages the graphics calls in the game
@@ -45,6 +45,7 @@ namespace BrickBreaker
         private SpriteFont notoSans16;
 
         public GameState currState;
+        private Rectangle window;
 
         private Menu gameMenu;
         private Instructions instructionsScreen;
@@ -58,6 +59,9 @@ namespace BrickBreaker
 
         internal Texture2D surprisedPikachu;
         
+        private Paddle paddle;
+        private Texture2D paddleTexture;
+
         private int score;
         private int lives;
 
@@ -91,7 +95,12 @@ namespace BrickBreaker
             #endregion
             
             currState = GameState.Menu;
+            window = GraphicsDevice.Viewport.Bounds;
 
+            paddleTexture = new Texture2D(GraphicsDevice, 1, 1);
+            paddleTexture.SetData(new Color[] { Color.White });
+            
+            paddle = new Paddle(paddleTexture, new Rectangle(window.Center.X - 50, window.Bottom - 100, 150, 20), Color.Gray, window);
             score = 0;
             lives = 5;
             
@@ -204,6 +213,14 @@ namespace BrickBreaker
                     {
                         currState = GameState.Pause;
                     }
+                    else if (lives > 0)
+                    {
+                        mainGame.UpdateGame(paddle);
+                    }
+                    else
+                    {
+                        currState = GameState.GameOver;
+                    }
                     break;
             }
             Input.Update();
@@ -239,6 +256,7 @@ namespace BrickBreaker
                     if (lives > 0)
                     {
                         mainGame.DrawGameInfo();
+                        mainGame.DrawGame(paddle);
                     }
                     break;
             }

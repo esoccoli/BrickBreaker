@@ -76,6 +76,25 @@ namespace BrickBreaker
             SB.DrawString(NotoSansSmall, $"Score: {score}", new Vector2(Window.Left + 15, Window.Top + 10), Color.White);
             SB.DrawString(NotoSansSmall, $"Lives: {lives}", new Vector2(Window.Right - 85, Window.Top + 10), Color.White);
         }
+        
+        /// <summary>
+        /// Updates the game objects
+        /// </summary>
+        /// <param name="paddle">Paddle object</param>
+        public void UpdateGame(Paddle paddle)
+        {
+            paddle.UpdatePaddle();
+        }
+        
+        /// <summary>
+        /// Draws the game objects
+        /// </summary>
+        /// <param name="paddle">Paddle object</param>
+        public void DrawGame(Paddle paddle)
+        {
+            DrawGameInfo();
+            paddle.DrawPaddle(SB);
+        }
 
     }
 }
