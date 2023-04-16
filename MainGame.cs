@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -76,26 +77,40 @@ namespace BrickBreaker
             SB.DrawString(NotoSansSmall, $"Score: {score}", new Vector2(Window.Left + 15, Window.Top + 10), Color.White);
             SB.DrawString(NotoSansSmall, $"Lives: {lives}", new Vector2(Window.Right - 85, Window.Top + 10), Color.White);
         }
-        
+
         /// <summary>
         /// Updates the game objects
         /// </summary>
         /// <param name="paddle">Paddle object</param>
-        public void UpdateGame(Paddle paddle, Ball ball)
+        /// <param name="ball">Ball object</param>
+        /// <param name="brickList">List of brick objects</param>
+        public void UpdateGame(Paddle paddle, Ball ball, List<Brick> brickList)
         {
             paddle.UpdatePaddle();
             ball.UpdateBall();
+            
+            for (int i = 0; i < brickList.Count; i++)
+            {
+                brickList[i].UpdateBrick();
+            }
         }
-        
+
         /// <summary>
         /// Draws the game objects
         /// </summary>
         /// <param name="paddle">Paddle object</param>
-        public void DrawGame(Paddle paddle, Ball ball)
+        /// <param name="ball">Ball object</param>
+        /// <param name="brickList">List of brick objects</param>
+        public void DrawGame(Paddle paddle, Ball ball, List<Brick> brickList)
         {
             DrawGameInfo();
             paddle.DrawPaddle(SB);
             ball.DrawBall(SB);
+            
+            for (int i = 0; i < brickList.Count; i++)
+            {
+                brickList[i].DrawBrick(SB);
+            }
         }
 
     }

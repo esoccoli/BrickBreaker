@@ -65,6 +65,9 @@ namespace BrickBreaker
         private Ball ball;
         private Texture2D ballTexture;
         internal Texture2D surprisedPikachu;
+        
+        private List<Brick> brickList;
+        private Texture2D brickTexture;
 
         private int score;
         private int lives;
@@ -179,22 +182,22 @@ namespace BrickBreaker
                 lives);
 
             Random rng = new Random();
-            Vector2 vel = new Vector2(0, 0);
+
+            Vector2 vel = rng.Next(2) == 0 ? new Vector2(-3, -5) : new Vector2(3, -5);
             
-            if (rng.Next(2) == 0)
-            {
-                vel = new Vector2(-3, -5);
-            }
-            else
-            {
-                vel = new Vector2(3, -5);
-            }
             ball = new Ball(ballTexture,
                 surprisedPikachu,
-                new Vector2(paddle.Bounds.Center.X - ballTexture.Width / 2f, paddle.Position.Y - 40),
+                new Vector2(paddle.Bounds.Center.X - ballTexture.Width / 2f, paddle.Position.Y - ballTexture.Height - 10),
                 vel,
                 paddle,
                 window);
+            
+            brickTexture = new Texture2D(GraphicsDevice, 1, 1);
+            brickTexture.SetData(new Color[] { Color.White });
+            
+            brickList = new List<Brick>();
+            
+            ResetGame();
         }
 
         /// <summary>
@@ -239,7 +242,7 @@ namespace BrickBreaker
                     }
                     else if (lives > 0)
                     {
-                        mainGame.UpdateGame(paddle, ball);
+                        mainGame.UpdateGame(paddle, ball, brickList);
                     }
                     else
                     {
@@ -280,12 +283,111 @@ namespace BrickBreaker
                     if (lives > 0)
                     {
                         mainGame.DrawGameInfo();
-                        mainGame.DrawGame(paddle, ball);
+                        mainGame.DrawGame(paddle, ball, brickList);
                     }
                     break;
             }
             _spriteBatch.End();
             base.Draw(gameTime);
+        }
+        
+        /// <summary>
+        /// Resets the bricks to their initial state
+        /// </summary>
+        public void ResetBricks()
+        {
+            int numRows = 12;
+            int numCols = 6;
+
+            // Number of pixels between bricks
+            int brickSpacing = 5;
+
+            // Greatest y-coordinate (farthest down) that bricks can be drawn
+            int brickAreaHeight = window.Height / 2;
+
+            // First row of bricks is 80 pixels below top of window
+            int brickAreaTopOffset = 80;
+
+            // Width and height of each brick (scales based on window size
+            int brickWidth = (window.Width - ((numCols * brickSpacing) + brickSpacing)) / numCols;
+            int brickHeight = (brickAreaHeight - ((numRows * brickSpacing) + brickSpacing)) / numRows;
+
+            // Clears the list of bricks
+            brickList = new List<Brick>();
+            
+            List<Color> brickColors = new List<Color>() {
+                Color.Red, Color.Orange, 
+                Color.Yellow, Color.Lime,
+                Color.ForestGreen, Color.DarkGreen,
+                Color.Aquamarine, Color.Aqua,
+                Color.DeepSkyBlue, Color.Magenta,
+                Color.Purple, Color.Pink
+            };
+            
+            // Adds all the bricks to the list
+            for (int row = 0; row < numRows; row++)
+            {
+                for (int col = 0; col < numCols; col++)
+                {
+                    Brick currBrick = new Brick(
+                        brickTexture, 
+                        new Rectangle(
+                            5 + (col * (brickWidth + brickSpacing)), 
+                            brickAreaTopOffset + (row * (brickHeight + brickSpacing)), 
+                            brickWidth, 
+                            brickHeight),
+                        brickColors[row],
+                        ball,
+                        window);
+
+                    brickList.Add(currBrick);
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Resets the ball to the initial state
+        /// </summary>
+        public void ResetBall()
+        {
+            Random rng = new Random();
+
+            Vector2 velocity = rng.Next(2) == 0 ? new Vector2(-3, -5) : new Vector2(3, -5);
+            
+            ball = new Ball(ballTexture,
+                surprisedPikachu,
+                new Vector2(paddle.Bounds.Center.X - ballTexture.Width / 2f, paddle.Position.Y - 40),
+                velocity,
+                paddle,
+                window);
+        }
+        
+        /// <summary>
+        /// Resets the paddle to the initial state
+        /// </summary>
+        public void ResetPaddle()
+        {
+            paddle = new Paddle(
+                paddleTexture, 
+                new Rectangle(
+                    window.Center.X - 50, 
+                    window.Bottom - 100, 
+                    150, 
+                    20), 
+                Color.Gray, 
+                window);
+        }
+        
+        /// <summary>
+        /// Resets the game to the initial state
+        /// </summary>
+        public void ResetGame()
+        {
+            ResetBricks();
+            ResetBall();
+            ResetPaddle();
+            score = 0;
+            lives = 5;
         }
     }
 }
