@@ -57,10 +57,14 @@ namespace BrickBreaker
         private Texture2D greenButton;
         private Texture2D whiteButton;
 
-        internal Texture2D surprisedPikachu;
+        
         
         private Paddle paddle;
         private Texture2D paddleTexture;
+
+        private Ball ball;
+        private Texture2D ballTexture;
+        internal Texture2D surprisedPikachu;
 
         private int score;
         private int lives;
@@ -101,6 +105,7 @@ namespace BrickBreaker
             paddleTexture.SetData(new Color[] { Color.White });
             
             paddle = new Paddle(paddleTexture, new Rectangle(window.Center.X - 50, window.Bottom - 100, 150, 20), Color.Gray, window);
+
             score = 0;
             lives = 5;
             
@@ -114,9 +119,10 @@ namespace BrickBreaker
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            surprisedPikachu = Content.Load<Texture2D>("surprised-pikachu");
             
+            ballTexture = Content.Load<Texture2D>("ball");
+            surprisedPikachu = Content.Load<Texture2D>("surprised-pikachu");
+
             paytoneOne = Content.Load<SpriteFont>("PaytoneOne");
             notoSans20 = Content.Load<SpriteFont>("NotoSans");
             notoSans16 = Content.Load<SpriteFont>("NotoSansSmall");
@@ -171,6 +177,24 @@ namespace BrickBreaker
                 whiteButton,
                 score,
                 lives);
+
+            Random rng = new Random();
+            Vector2 vel = new Vector2(0, 0);
+            
+            if (rng.Next(2) == 0)
+            {
+                vel = new Vector2(-3, -5);
+            }
+            else
+            {
+                vel = new Vector2(3, -5);
+            }
+            ball = new Ball(ballTexture,
+                surprisedPikachu,
+                new Vector2(paddle.Bounds.Center.X - ballTexture.Width / 2f, paddle.Position.Y - 40),
+                vel,
+                paddle,
+                window);
         }
 
         /// <summary>
@@ -215,7 +239,7 @@ namespace BrickBreaker
                     }
                     else if (lives > 0)
                     {
-                        mainGame.UpdateGame(paddle);
+                        mainGame.UpdateGame(paddle, ball);
                     }
                     else
                     {
@@ -256,7 +280,7 @@ namespace BrickBreaker
                     if (lives > 0)
                     {
                         mainGame.DrawGameInfo();
-                        mainGame.DrawGame(paddle);
+                        mainGame.DrawGame(paddle, ball);
                     }
                     break;
             }

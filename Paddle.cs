@@ -6,16 +6,58 @@ namespace BrickBreaker
 {
     public class Paddle
     {
-        private Texture2D texture;
-        private Rectangle bounds;
-        private Color color;
         private Rectangle window;
+
+        private Vector2 position;
         
+        private Rectangle bounds;
+        
+        /// <summary>
+        /// Stores the texture of the paddle
+        /// </summary>
+        public Texture2D Texture { get; set; }
+
+        public Vector2 Position
+        {
+            get => position;
+            set
+            {
+                position = value;
+                bounds.X = (int)position.X;
+                bounds.Y = (int)position.Y;
+            }
+        }
+
+        /// <summary>
+        /// Stores the bounds of the paddle as a rectangle object
+        /// </summary>
+        public Rectangle Bounds
+        {
+            get => bounds;
+            set
+            {
+                bounds = value;
+                position = new Vector2(bounds.X, bounds.Y);
+            }
+        }
+
+        /// <summary>
+        /// Stores the color of the paddle
+        /// </summary>
+        public Color Color { get; set; }
+        
+        /// <summary>
+        /// Creates the paddle with the specified data
+        /// </summary>
+        /// <param name="texture">Texture of the paddle</param>
+        /// <param name="bounds">Rectangle storing the paddle's position, width, and height</param>
+        /// <param name="color">Color of the paddle</param>
+        /// <param name="window">Rectangle storing the bounds of the game window</param>
         public Paddle(Texture2D texture, Rectangle bounds, Color color, Rectangle window)
         {
-            this.texture = texture;
-            this.bounds = bounds;
-            this.color = color;
+            Texture = texture;
+            Bounds = bounds;
+            Color = color;
             this.window = window;
         }
         
@@ -27,7 +69,7 @@ namespace BrickBreaker
             if ((Keyboard.GetState().IsKeyDown(Keys.A) ||
                 GetButtonDown(1, ArcadeButtons.StickLeft) ||
                 GetButtonDown(2, ArcadeButtons.StickLeft)) &&
-                bounds.X > 0)
+                Bounds.X > 0)
             {
                 bounds.X -= 5;
             }
@@ -35,7 +77,7 @@ namespace BrickBreaker
             if ((Keyboard.GetState().IsKeyDown(Keys.D) ||
                 GetButtonDown(1, ArcadeButtons.StickRight) ||
                 GetButtonDown(2, ArcadeButtons.StickRight)) &&
-                bounds.X < window.Width - bounds.Width)
+                Bounds.X < window.Width - Bounds.Width)
             {
                 bounds.X += 5;
             }
@@ -43,7 +85,7 @@ namespace BrickBreaker
         
         public void DrawPaddle(SpriteBatch sb)
         {
-            sb.Draw(texture, bounds, color);
+            sb.Draw(Texture, Bounds, Color);
         }
 
     }

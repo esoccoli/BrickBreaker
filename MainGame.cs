@@ -81,19 +81,21 @@ namespace BrickBreaker
         /// Updates the game objects
         /// </summary>
         /// <param name="paddle">Paddle object</param>
-        public void UpdateGame(Paddle paddle)
+        public void UpdateGame(Paddle paddle, Ball ball)
         {
             paddle.UpdatePaddle();
+            ball.UpdateBall();
         }
         
         /// <summary>
         /// Draws the game objects
         /// </summary>
         /// <param name="paddle">Paddle object</param>
-        public void DrawGame(Paddle paddle)
+        public void DrawGame(Paddle paddle, Ball ball)
         {
             DrawGameInfo();
             paddle.DrawPaddle(SB);
+            ball.DrawBall(SB);
         }
 
     }
