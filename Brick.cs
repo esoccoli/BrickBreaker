@@ -83,7 +83,10 @@ namespace BrickBreaker
         /// <param name="sb">Spritebatch object</param>
         public void DrawBrick(SpriteBatch sb)
         {
-            sb.Draw(Texture, Bounds, Color);
+            if (!Broken)
+            {
+                sb.Draw(Texture, Bounds, Color);
+            }
         }
     }
 }

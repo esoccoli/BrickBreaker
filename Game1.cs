@@ -119,9 +119,9 @@ namespace BrickBreaker
             { 
                 Color.Red, Color.Orange, 
                 Color.Yellow, Color.LawnGreen,
-                Color.Green, Color.ForestGreen, 
-                Color.Aqua, Color.DeepSkyBlue, 
-                Color.Lavender, Color.Magenta, 
+                Color.Green, Color.DarkGreen, 
+                Color.Aqua, Color.CornflowerBlue, 
+                Color.DodgerBlue, Color.Magenta, 
                 Color.Purple, Color.Pink
             };
 
