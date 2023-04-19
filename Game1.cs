@@ -16,6 +16,7 @@ namespace BrickBreaker
         Menu,
         Playing,
         GameOver,
+        Win,
         Pause,
         Instructions
     }
@@ -26,6 +27,8 @@ namespace BrickBreaker
     public class Game1 : Game
     {
         public Game1 game { get; set; }
+
+        private Random rng;
         
         /// <summary>
         /// Manages the graphics calls in the game
@@ -57,8 +60,6 @@ namespace BrickBreaker
         private Texture2D greenButton;
         private Texture2D whiteButton;
 
-        
-        
         private Paddle paddle;
         private Texture2D paddleTexture;
 
@@ -68,7 +69,8 @@ namespace BrickBreaker
         
         private List<Brick> brickList;
         private Texture2D brickTexture;
-
+        private Color[] brickColors;
+        
         private int score;
         private int lives;
 
@@ -100,6 +102,8 @@ namespace BrickBreaker
 			_graphics.ApplyChanges();
 #endif
             #endregion
+
+            rng = new Random();
             
             currState = GameState.Menu;
             window = GraphicsDevice.Viewport.Bounds;
@@ -107,6 +111,20 @@ namespace BrickBreaker
             paddleTexture = new Texture2D(GraphicsDevice, 1, 1);
             paddleTexture.SetData(new Color[] { Color.White });
             
+            brickTexture = new Texture2D(GraphicsDevice, 1, 1);
+            brickTexture.SetData(new Color[] { Color.White });
+            brickList = new List<Brick>();
+            
+            brickColors = new Color[]
+            { 
+                Color.Red, Color.Orange, 
+                Color.Yellow, Color.LawnGreen,
+                Color.Green, Color.ForestGreen, 
+                Color.Aqua, Color.DeepSkyBlue, 
+                Color.Lavender, Color.Magenta, 
+                Color.Purple, Color.Pink
+            };
+
             paddle = new Paddle(paddleTexture, new Rectangle(window.Center.X - 50, window.Bottom - 100, 150, 20), Color.Gray, window);
 
             score = 0;
@@ -134,7 +152,7 @@ namespace BrickBreaker
             blueButton = Content.Load<Texture2D>("blue-button");
             greenButton = Content.Load<Texture2D>("green-button");
             whiteButton = Content.Load<Texture2D>("white-button");
-            
+
             gameMenu = new Menu(_spriteBatch, 
                 GraphicsDevice, 
                 game, 
@@ -181,9 +199,18 @@ namespace BrickBreaker
                 score,
                 lives);
 
-            Random rng = new Random();
-
-            Vector2 vel = rng.Next(2) == 0 ? new Vector2(-3, -5) : new Vector2(3, -5);
+            Vector2 vel = new Vector2(0, 0);
+            
+            int randNum = rng.Next(2);
+            
+            if (randNum == 0)
+            {
+                vel = new Vector2(-3, -5);
+            }
+            else
+            {
+                vel = new Vector2(3, -5);
+            }
             
             ball = new Ball(ballTexture,
                 surprisedPikachu,
@@ -192,12 +219,7 @@ namespace BrickBreaker
                 paddle,
                 window);
             
-            brickTexture = new Texture2D(GraphicsDevice, 1, 1);
-            brickTexture.SetData(new Color[] { Color.White });
-            
-            brickList = new List<Brick>();
-            
-            ResetGame();
+            ResetBricks();
         }
 
         /// <summary>
@@ -292,13 +314,17 @@ namespace BrickBreaker
         }
         
         /// <summary>
-        /// Resets the bricks to their initial state
+        /// Resets the state of all the bricks and sets the ball to the initial position
         /// </summary>
         public void ResetBricks()
         {
-            int numRows = 12;
-            int numCols = 6;
+            #region Brick Sizes
 
+            // There will always be 15 rows & 8 columns of bricks
+            // The size of the bricks will scale to fit the window
+            int numRows = 12;
+            int numCols = 4;
+            
             // Number of pixels between bricks
             int brickSpacing = 5;
 
@@ -311,40 +337,28 @@ namespace BrickBreaker
             // Width and height of each brick (scales based on window size
             int brickWidth = (window.Width - ((numCols * brickSpacing) + brickSpacing)) / numCols;
             int brickHeight = (brickAreaHeight - ((numRows * brickSpacing) + brickSpacing)) / numRows;
-
-            // Clears the list of bricks
-            brickList = new List<Brick>();
-            
-            List<Color> brickColors = new List<Color>() {
-                Color.Red, Color.Orange, 
-                Color.Yellow, Color.Lime,
-                Color.ForestGreen, Color.DarkGreen,
-                Color.Aquamarine, Color.Aqua,
-                Color.DeepSkyBlue, Color.Magenta,
-                Color.Purple, Color.Pink
-            };
+            #endregion
             
             // Adds all the bricks to the list
             for (int row = 0; row < numRows; row++)
             {
                 for (int col = 0; col < numCols; col++)
                 {
-                    Brick currBrick = new Brick(
-                        brickTexture, 
-                        new Rectangle(
-                            5 + (col * (brickWidth + brickSpacing)), 
-                            brickAreaTopOffset + (row * (brickHeight + brickSpacing)), 
-                            brickWidth, 
-                            brickHeight),
+                    Brick currBrick = new Brick(brickTexture, new Rectangle(
+                        5 + (col * (brickWidth + brickSpacing)),
+                        brickAreaTopOffset + (row * (brickHeight + brickSpacing)),
+                        brickWidth,
+                        brickHeight),
                         brickColors[row],
                         ball,
-                        window);
-
+                        window
+                    );
+                    
                     brickList.Add(currBrick);
                 }
             }
         }
-        
+
         /// <summary>
         /// Resets the ball to the initial state
         /// </summary>

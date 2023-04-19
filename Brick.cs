@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -61,17 +62,17 @@ namespace BrickBreaker
         /// <summary>
         /// Updates the current brick
         /// </summary>
-        public void UpdateBrick()
+        public void UpdateBricks(List<Brick> brickList)
         {
-            bool ballCanReverse = true;
-            if (ball.Texture.Bounds.Intersects(Bounds))
+            bool canReverse = true;
+            for (int i = 0; i < brickList.Count; i++)
             {
-                Broken = true;
-
-                if (ballCanReverse)
+                if (ball.Bounds.Intersects(brickList[i].Bounds)
+                    && !brickList[i].Broken)
                 {
-                    ball.Velocity = new Vector2(ball.Velocity.X, -ball.Velocity.Y);
-                    ballCanReverse = false;
+                    ball.Velocity = new Vector2(ball.Velocity.X, ball.Velocity.Y * -1);
+                    canReverse = false;
+                    brickList[i].Broken = true;
                 }
             }
         }
@@ -82,10 +83,7 @@ namespace BrickBreaker
         /// <param name="sb">Spritebatch object</param>
         public void DrawBrick(SpriteBatch sb)
         {
-            if (!Broken)
-            {
-                sb.Draw(Texture, Bounds, Color);
-            }
+            sb.Draw(Texture, Bounds, Color);
         }
     }
 }

@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework.Input;
 using static Devcade.Input;
 namespace BrickBreaker
 {
+    /// <summary>
+    /// Manages the paddle and its interactions with other game objects
+    /// </summary>
     public class Paddle
     {
         private Rectangle window;
@@ -16,7 +19,10 @@ namespace BrickBreaker
         /// Stores the texture of the paddle
         /// </summary>
         public Texture2D Texture { get; set; }
-
+        
+        /// <summary>
+        /// Position vector of the paddle
+        /// </summary>
         public Vector2 Position
         {
             get => position;
@@ -83,6 +89,10 @@ namespace BrickBreaker
             }
         }
         
+        /// <summary>
+        /// Draws the paddle to the screen
+        /// </summary>
+        /// <param name="sb">Spritebatch object</param>
         public void DrawPaddle(SpriteBatch sb)
         {
             sb.Draw(Texture, Bounds, Color);

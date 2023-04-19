@@ -5,6 +5,8 @@ namespace BrickBreaker
 {
     public class Ball
     {
+        private Texture2D texture;
+        private Texture2D altTexture;
         private Vector2 position;
         private Vector2 velocity;
         private Rectangle bounds;
@@ -14,41 +16,37 @@ namespace BrickBreaker
         /// <summary>
         /// Texture of the ball
         /// </summary>
-        public Texture2D Texture { get; set; }
+        public Texture2D Texture {get => texture; set => texture = value;}
         
         /// <summary>
-        /// Alternate texture of the ball
+        /// Texture of the ball when it is below the paddle
         /// </summary>
-        public Texture2D AltTexture { get; set; }
+        public Texture2D AltTexture {get => altTexture; set => altTexture = value;}
         
+        /// <summary>
+        /// Position of the ball
+        /// </summary>
+        public Vector2 Position {get => position; set => position = value;}
+        
+        /// <summary>
+        /// Bounds of the ball
+        /// </summary>
+        public Rectangle Bounds {get => bounds; set => bounds = value;}
+
         /// <summary>
         /// Velocity of the ball
         /// </summary>
-        public Vector2 Velocity { get; set; }
+        public Vector2 Velocity {get => velocity; set => velocity = value;}
         
         /// <summary>
-        /// Stores the position of the ball
-        /// </summary>
-        public Vector2 Position
-        {
-            get => position;
-            set
-            {
-                position = value;
-                bounds.X = (int)position.X;
-                bounds.Y = (int)position.Y;
-            }
-        }
-
-        /// <summary>
-        /// Creates the ball with the necessary data
+        /// Creates a new ball object with the necessary data
         /// </summary>
         /// <param name="texture">Texture of the ball</param>
-        /// <param name="altTexture">Alternate ball texture</param>
-        /// <param name="position">Position of the ball</param>
+        /// <param name="altTexture">Texture of the ball when it is below the paddle</param>
+        /// <param name="position">Position vector of the ball</param>
         /// <param name="velocity">Velocity of the ball</param>
         /// <param name="paddle">Paddle object</param>
-        /// <param name="window">Rectangle storing the bounds of the game window</param>
+        /// <param name="window">Bounds of the game window</param>
         public Ball(Texture2D texture, Texture2D altTexture, Vector2 position, Vector2 velocity, Paddle paddle, Rectangle window)
         {
             Texture = texture;
@@ -133,6 +131,5 @@ namespace BrickBreaker
         {
             sb.Draw(Texture, position, Color.White);
         }
-        
     }
 }
