@@ -64,14 +64,12 @@ namespace BrickBreaker
         /// </summary>
         public void UpdateBricks(List<Brick> brickList)
         {
-            bool canReverse = true;
             for (int i = 0; i < brickList.Count; i++)
             {
                 if (ball.Bounds.Intersects(brickList[i].Bounds)
                     && !brickList[i].Broken)
                 {
                     ball.Velocity = new Vector2(ball.Velocity.X, ball.Velocity.Y * -1);
-                    canReverse = false;
                     brickList[i].Broken = true;
                 }
             }
