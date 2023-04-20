@@ -129,7 +129,14 @@ namespace BrickBreaker
         /// <param name="sb">Spritebatch object</param>
         public void DrawBall(SpriteBatch sb)
         {
-            sb.Draw(Texture, position, Color.White);
+            if (bounds.Y > paddle.Bounds.Bottom)
+            {
+                sb.Draw(AltTexture, position, Color.White);
+            }
+            else
+            {
+                sb.Draw(Texture, position, Color.White);
+            }
         }
     }
 }
