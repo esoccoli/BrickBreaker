@@ -84,7 +84,6 @@ namespace BrickBreaker
         /// <param name="paddle">Paddle object</param>
         /// <param name="ball">Ball object</param>
         /// <param name="brickList">List of brick objects</param>
-        /// <param name="brickList">List of bricks</param>
         public void UpdateGame(Paddle paddle, Ball ball, List<Brick> brickList)
         {
             brickList[0].UpdateBricks(brickList);
@@ -103,7 +102,6 @@ namespace BrickBreaker
         /// <param name="paddle">Paddle object</param>
         /// <param name="ball">Ball object</param>
         /// <param name="brickList">List of brick objects</param>
-        /// <param name="brickList">List of bricks in the game</param>
         public void DrawGame(Paddle paddle, Ball ball, List<Brick> brickList)
         {
             DrawGameInfo();
