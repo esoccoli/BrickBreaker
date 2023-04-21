@@ -10,6 +10,7 @@ namespace BrickBreaker
         private Vector2 position;
         private Rectangle window;
         private Ball ball;
+        private Game1 game;
 
         /// <summary>
         /// Tracks whether or not the brick is broken
@@ -47,7 +48,7 @@ namespace BrickBreaker
         /// <param name="color">Color of the brick</param>
         /// <param name="ball">Ball object</param>
         /// <param name="window">Bounds of the game window</param>
-        public Brick(Texture2D texture, Rectangle bounds, Color color, Ball ball, Rectangle window)
+        public Brick(Texture2D texture, Rectangle bounds, Color color, Ball ball, Rectangle window, Game1 game)
         {
             Texture = texture;
             Bounds = bounds;
@@ -55,7 +56,8 @@ namespace BrickBreaker
 
             this.ball = ball;
             this.window = window;
-
+            this.game = game;
+            
             Broken = false;
         }
 
@@ -71,6 +73,7 @@ namespace BrickBreaker
                 {
                     ball.Velocity = new Vector2(ball.Velocity.X, ball.Velocity.Y * -1);
                     brickList[i].Broken = true;
+                    game.score += 5 * game.lives;
                     return;
                 }
             }

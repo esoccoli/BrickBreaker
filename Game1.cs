@@ -526,7 +526,8 @@ namespace BrickBreaker
                         brickHeight),
                         brickColors[row],
                         ball,
-                        window
+                        window,
+                        game
                     );
                     
                     brickList.Add(currBrick);
