@@ -71,6 +71,7 @@ namespace BrickBreaker
                 {
                     ball.Velocity = new Vector2(ball.Velocity.X, ball.Velocity.Y * -1);
                     brickList[i].Broken = true;
+                    return;q
                 }
             }
         }
