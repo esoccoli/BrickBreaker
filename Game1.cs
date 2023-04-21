@@ -467,7 +467,7 @@ namespace BrickBreaker
                 case GameState.Playing:
                     if (lives > 0)
                     {
-                        mainGame.DrawGameInfo();
+                        mainGame.DrawGameInfo(score, lives);
                         mainGame.DrawGame(paddle, ball, brickList);
                     }
                     break;

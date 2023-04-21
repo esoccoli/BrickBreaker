@@ -72,7 +72,7 @@ namespace BrickBreaker
         /// <summary>
         /// Displays score and number of lives on the screen
         /// </summary>
-        public void DrawGameInfo()
+        public void DrawGameInfo(int score, int lives)
         {
             SB.DrawString(NotoSansSmall, $"Score: {score}", new Vector2(Window.Left + 15, Window.Top + 10), Color.White);
             SB.DrawString(NotoSansSmall, $"Lives: {lives}", new Vector2(Window.Right - 85, Window.Top + 10), Color.White);
@@ -104,8 +104,6 @@ namespace BrickBreaker
         /// <param name="brickList">List of brick objects</param>
         public void DrawGame(Paddle paddle, Ball ball, List<Brick> brickList)
         {
-            DrawGameInfo();
-
             for (int i = 0; i < brickList.Count; i++)
             {
                 if (!brickList[i].Broken)
