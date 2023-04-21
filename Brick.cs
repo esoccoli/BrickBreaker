@@ -86,5 +86,22 @@ namespace BrickBreaker
                 sb.Draw(Texture, Bounds, Color);
             }
         }
+        
+        /// <summary>
+        /// Checks whether all the bricks are broken
+        /// </summary>
+        /// <param name="brickList">List of bricks</param>
+        /// <returns>True if all bricks are broken, false otherwise</returns>
+        public bool AllBricksBroken(List<Brick> brickList)
+        {
+            for (int i = 0; i < brickList.Count; i++)
+            {
+                if (!brickList[i].Broken)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

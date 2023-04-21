@@ -57,6 +57,7 @@ namespace BrickBreaker
         private MainGame mainGame;
         private LifeLost lifeLostScreen;
         private GameOver gameOverScreen;
+        private Win winScreen;
         
         private Texture2D redButton;
         private Texture2D blueButton;
@@ -224,6 +225,17 @@ namespace BrickBreaker
                 greenButton, 
                 whiteButton);
             
+            winScreen = new Win(_spriteBatch, 
+                GraphicsDevice, 
+                game, 
+                notoSans20, 
+                notoSans16, 
+                paytoneOne, 
+                redButton, 
+                blueButton, 
+                greenButton, 
+                whiteButton);
+            
             Vector2 vel = new Vector2(0, 0);
             
             int randNum = rng.Next(2);
@@ -299,6 +311,10 @@ namespace BrickBreaker
                         }
                     }
                     
+                    else if (brickList[0].AllBricksBroken(brickList))
+                    {
+                        currState = GameState.Win;
+                    }
                     else
                     {
                         mainGame.UpdateGame(paddle, ball, brickList);
@@ -313,7 +329,9 @@ namespace BrickBreaker
                     gameOverScreen.UpdateGameOver();
                     break;
                 
-                
+                case GameState.Win:
+                    winScreen.UpdateWin();
+                    break;
             }
             Input.Update();
             
@@ -360,6 +378,9 @@ namespace BrickBreaker
                     gameOverScreen.DrawGameOver();
                     break;
                 
+                case GameState.Win:
+                    winScreen.DrawWinScreen();
+                    break;
             }
             _spriteBatch.End();
             base.Draw(gameTime);
@@ -374,8 +395,8 @@ namespace BrickBreaker
 
             // There will always be 15 rows & 8 columns of bricks
             // The size of the bricks will scale to fit the window
-            int numRows = 12;
-            int numCols = 4;
+            int numRows = 1;
+            int numCols = 1;
             
             // Number of pixels between bricks
             int brickSpacing = 5;
