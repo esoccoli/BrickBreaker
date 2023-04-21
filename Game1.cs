@@ -398,16 +398,9 @@ namespace BrickBreaker
         /// </summary>
         public void ResetBall()
         {
-            Random rng = new Random();
-
-            Vector2 velocity = rng.Next(2) == 0 ? new Vector2(-3, -5) : new Vector2(3, -5);
-            
-            ball = new Ball(ballTexture,
-                surprisedPikachu,
-                new Vector2(paddle.Bounds.Center.X - ballTexture.Width / 2f, paddle.Position.Y - 40),
-                velocity,
-                paddle,
-                window);
+            ball.Position = new Vector2(paddle.Bounds.Center.X - ballTexture.Width / 2f, paddle.Position.Y - ballTexture.Height - 10);
+            ball.Velocity = rng.Next(0, 2) == 0 ? new Vector2(-3, -5) : new Vector2(3, -5);
+            ball.Bounds = new Rectangle((int)ball.Position.X, (int)ball.Position.Y, ballTexture.Width, ballTexture.Height);
         }
         
         /// <summary>
@@ -415,15 +408,8 @@ namespace BrickBreaker
         /// </summary>
         public void ResetPaddle()
         {
-            paddle = new Paddle(
-                paddleTexture, 
-                new Rectangle(
-                    window.Center.X - 50, 
-                    window.Bottom - 100, 
-                    150, 
-                    20), 
-                Color.Gray, 
-                window);
+            paddle.Position = new Vector2(window.Center.X - paddle.Bounds.Width / 2f, window.Height - 100);
+            paddle.Bounds = new Rectangle((int)paddle.Position.X, (int)paddle.Position.Y, 150, 20);
         }
         
         /// <summary>

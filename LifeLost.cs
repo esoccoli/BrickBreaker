@@ -63,8 +63,8 @@ namespace BrickBreaker
                 GetButtonDown(1, ArcadeButtons.A1) ||
                 GetButtonDown(2, ArcadeButtons.A1))
             {
-                Game.ResetBall();
                 Game.ResetPaddle();
+                Game.ResetBall();
                 Game.currState = GameState.Playing;
             }
         }
