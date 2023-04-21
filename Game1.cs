@@ -18,7 +18,8 @@ namespace BrickBreaker
         GameOver,
         Win,
         Pause,
-        Instructions
+        Instructions,
+        LifeLost
     }
     
     /// <summary>
@@ -54,6 +55,7 @@ namespace BrickBreaker
         private Instructions instructionsScreen;
         private PauseMenu pauseMenu;
         private MainGame mainGame;
+        private LifeLost lifeLostScreen;
         
         private Texture2D redButton;
         private Texture2D blueButton;
@@ -198,7 +200,18 @@ namespace BrickBreaker
                 whiteButton,
                 score,
                 lives);
-
+            
+            lifeLostScreen = new LifeLost(_spriteBatch, 
+                GraphicsDevice, 
+                game, 
+                notoSans20, 
+                notoSans16, 
+                paytoneOne, 
+                redButton, 
+                blueButton, 
+                greenButton, 
+                whiteButton);
+            
             Vector2 vel = new Vector2(0, 0);
             
             int randNum = rng.Next(2);
@@ -262,15 +275,31 @@ namespace BrickBreaker
                     {
                         currState = GameState.Pause;
                     }
-                    else if (lives > 0)
+                    if (ball.Position.Y > window.Bottom + 50)
+                    {
+                        lives -= 1;
+
+                        if (lives <= 0)
+                        {
+                            currState = GameState.GameOver;
+                        }
+                        else
+                        {
+                            currState = GameState.LifeLost;
+                        }
+                    }
+                    
+                    else
                     {
                         mainGame.UpdateGame(paddle, ball, brickList);
                     }
-                    else
-                    {
-                        currState = GameState.GameOver;
-                    }
                     break;
+                
+                case GameState.LifeLost:
+                    lifeLostScreen.UpdateLifeLost();
+                    break;
+                
+                
             }
             Input.Update();
             
@@ -308,6 +337,11 @@ namespace BrickBreaker
                         mainGame.DrawGame(paddle, ball, brickList);
                     }
                     break;
+                
+                case GameState.LifeLost:
+                    lifeLostScreen.DrawLifeLost();
+                    break;
+                
             }
             _spriteBatch.End();
             base.Draw(gameTime);
