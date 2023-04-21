@@ -58,6 +58,11 @@ namespace BrickBreaker
                 Input.GetButtonDown(1, Input.ArcadeButtons.A1) ||
                 Input.GetButtonDown(2, Input.ArcadeButtons.A1))
             {
+                Game.ResetPaddle();
+                Game.ResetBall();
+                Game.ResetBricks();
+                Game.score = 0;
+                Game.lives = 5;
                 Game.currState = GameState.Playing;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.I) ||

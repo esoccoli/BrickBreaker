@@ -71,11 +71,11 @@ namespace BrickBreaker
         
         public void DrawLifeLost()
         {
-            SB.DrawString(PaytoneOne, "Life Lost!", new Vector2(Window.Center.X - 100, Window.Center.Y - 75), Color.White);
+            SB.DrawString(PaytoneOne, "Life Lost!", new Vector2(Window.Center.X - 100, Window.Center.Y - 45), Color.White);
             
-            SB.DrawString(NotoSans, "Press ", new Vector2(Window.Center.X - 50, Window.Center.Y), Color.White);
-            SB.Draw(RedButton, new Rectangle(Window.Center.X, Window.Center.Y, 50, 50), Color.White);
-            SB.DrawString(NotoSans, " to continue", new Vector2(Window.Center.X, Window.Center.Y), Color.White);
+            SB.DrawString(NotoSans, "Press ", new Vector2(Window.Center.X - 130, Window.Center.Y + 75), Color.White);
+            SB.Draw(RedButton, new Rectangle(Window.Center.X - 50, Window.Center.Y + 75, 50, 50), Color.White);
+            SB.DrawString(NotoSans, " to continue", new Vector2(Window.Center.X, Window.Center.Y + 75), Color.White);
         }
     }
 }

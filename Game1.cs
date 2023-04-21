@@ -56,6 +56,7 @@ namespace BrickBreaker
         private PauseMenu pauseMenu;
         private MainGame mainGame;
         private LifeLost lifeLostScreen;
+        private GameOver gameOverScreen;
         
         private Texture2D redButton;
         private Texture2D blueButton;
@@ -73,8 +74,8 @@ namespace BrickBreaker
         private Texture2D brickTexture;
         private Color[] brickColors;
         
-        private int score;
-        private int lives;
+        public int score;
+        public int lives;
 
         /// <summary>
         /// Sets up the content and window for the game
@@ -212,6 +213,17 @@ namespace BrickBreaker
                 greenButton, 
                 whiteButton);
             
+            gameOverScreen = new GameOver(_spriteBatch, 
+                GraphicsDevice, 
+                game, 
+                notoSans20, 
+                notoSans16, 
+                paytoneOne, 
+                redButton, 
+                blueButton, 
+                greenButton, 
+                whiteButton);
+            
             Vector2 vel = new Vector2(0, 0);
             
             int randNum = rng.Next(2);
@@ -231,8 +243,6 @@ namespace BrickBreaker
                 vel,
                 paddle,
                 window);
-            
-            ResetBricks();
         }
 
         /// <summary>
@@ -299,6 +309,10 @@ namespace BrickBreaker
                     lifeLostScreen.UpdateLifeLost();
                     break;
                 
+                case GameState.GameOver:
+                    gameOverScreen.UpdateGameOver();
+                    break;
+                
                 
             }
             Input.Update();
@@ -340,6 +354,10 @@ namespace BrickBreaker
                 
                 case GameState.LifeLost:
                     lifeLostScreen.DrawLifeLost();
+                    break;
+                
+                case GameState.GameOver:
+                    gameOverScreen.DrawGameOver();
                     break;
                 
             }
