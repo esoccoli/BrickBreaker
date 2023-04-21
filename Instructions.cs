@@ -88,7 +88,7 @@ namespace BrickBreaker
             SB.Draw(GreenButton, new Rectangle(Window.Center.X - 80, Window.Center.Y - 10, 50, 50), Color.White);
             SB.DrawString(NotoSansSmall, " to return to menu", new Vector2(Window.Center.X - 20, Window.Center.Y), Color.White);
             
-            SB.Draw(Game.surprisedPikachu, new Rectangle(0, Window.Center.Y, Window.Width, Window.Height / 2), Color.White);
+            SB.Draw(Game.altBallTexture, new Rectangle(0, Window.Center.Y, Window.Width, Window.Height / 2), Color.White);
         }
     }
 }

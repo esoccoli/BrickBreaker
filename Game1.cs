@@ -42,40 +42,133 @@ namespace BrickBreaker
         private SpriteBatch _spriteBatch;
 
         /// <summary>
-        /// Font file for the menu and info text
+        /// Paytone One font, size 20
         /// </summary>
         private SpriteFont paytoneOne;
+        
+        /// <summary>
+        /// Noto Sans font, size 20
+        /// </summary>
         private SpriteFont notoSans20;
+        
+        /// <summary>
+        /// Noto Sans font, size 16
+        /// </summary>
         private SpriteFont notoSans16;
-
+        
+        /// <summary>
+        /// Current state of the game
+        /// </summary>
         public GameState currState;
+        
+        /// <summary>
+        /// Boumds of the game window
+        /// </summary>
         private Rectangle window;
 
+        /// <summary>
+        /// Menu screen object
+        /// </summary>
         private Menu gameMenu;
+        
+        /// <summary>
+        /// Instructions screen object
+        /// </summary>
         private Instructions instructionsScreen;
+        
+        /// <summary>
+        /// Pause screen object
+        /// </summary>
         private PauseMenu pauseMenu;
+        
+        /// <summary>
+        /// Main game object
+        /// </summary>
         private MainGame mainGame;
+        
+        /// <summary>
+        /// Life lost screen object
+        /// </summary>
         private LifeLost lifeLostScreen;
+        
+        /// <summary>
+        /// Game over screen object
+        /// </summary>
         private GameOver gameOverScreen;
+        
+        /// <summary>
+        /// Win screen object
+        /// </summary>
         private Win winScreen;
         
+        /// <summary>
+        /// Red button on the cabinet
+        /// </summary>
         private Texture2D redButton;
+        
+        /// <summary>
+        /// Blue button on the cabinet
+        /// </summary>
         private Texture2D blueButton;
+        
+        /// <summary>
+        /// Green button on the cabinet
+        /// </summary>
         private Texture2D greenButton;
+        
+        /// <summary>
+        /// White button on the cabinet
+        /// </summary>
         private Texture2D whiteButton;
-
+        
+        /// <summary>
+        /// Paddle object
+        /// </summary>
         private Paddle paddle;
+        
+        /// <summary>
+        /// Texture of the paddle
+        /// </summary>
         private Texture2D paddleTexture;
 
+        /// <summary>
+        /// Ball object
+        /// </summary>
         private Ball ball;
-        private Texture2D ballTexture;
-        internal Texture2D surprisedPikachu;
         
+        /// <summary>
+        /// Texture of the ball
+        /// </summary>
+        private Texture2D ballTexture;
+        
+        /// <summary>
+        /// Alternate texture of the ball
+        /// </summary>
+        internal Texture2D altBallTexture;
+        
+        /// <summary>
+        /// List of bricks
+        /// </summary>
         private List<Brick> brickList;
+        
+        /// <summary>
+        /// Texture of the bricks
+        /// </summary>
         private Texture2D brickTexture;
+        
+        /// <summary>
+        /// List of colors the bricks can have
+        /// </summary>
         private Color[] brickColors;
         
+        /// <summary>
+        /// Player's current score
+        /// </summary>
         public int score;
+        
+        /// <summary>
+        /// Number of lives remaining
+        /// </summary>
         public int lives;
 
         /// <summary>
@@ -111,14 +204,18 @@ namespace BrickBreaker
             
             currState = GameState.Menu;
             window = GraphicsDevice.Viewport.Bounds;
-
+            
+            // Sets up the game objects and the textures
             paddleTexture = new Texture2D(GraphicsDevice, 1, 1);
             paddleTexture.SetData(new Color[] { Color.White });
             
             brickTexture = new Texture2D(GraphicsDevice, 1, 1);
             brickTexture.SetData(new Color[] { Color.White });
+            
+            // Initializes the list of bricks
             brickList = new List<Brick>();
             
+            // Initializes the list of colors the bricks can have
             brickColors = new Color[]
             { 
                 Color.Red, Color.Orange, 
@@ -146,12 +243,13 @@ namespace BrickBreaker
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             
             ballTexture = Content.Load<Texture2D>("ball");
-            surprisedPikachu = Content.Load<Texture2D>("surprised-pikachu");
+            altBallTexture = Content.Load<Texture2D>("surprised-pikachu");
 
             paytoneOne = Content.Load<SpriteFont>("PaytoneOne");
             notoSans20 = Content.Load<SpriteFont>("NotoSans");
             notoSans16 = Content.Load<SpriteFont>("NotoSansSmall");
             
+            // Cabinet button textures
             redButton = Content.Load<Texture2D>("red-button");
             blueButton = Content.Load<Texture2D>("blue-button");
             greenButton = Content.Load<Texture2D>("green-button");
@@ -250,7 +348,7 @@ namespace BrickBreaker
             }
             
             ball = new Ball(ballTexture,
-                surprisedPikachu,
+                altBallTexture,
                 new Vector2(paddle.Bounds.Center.X - ballTexture.Width / 2f, paddle.Position.Y - ballTexture.Height - 10),
                 vel,
                 paddle,
@@ -297,6 +395,8 @@ namespace BrickBreaker
                     {
                         currState = GameState.Pause;
                     }
+                    
+                    // Ball is below the bottom of the screen
                     if (ball.Position.Y > window.Bottom + 50)
                     {
                         lives -= 1;
@@ -311,10 +411,12 @@ namespace BrickBreaker
                         }
                     }
                     
+                    // Checks if all bricks are broken
                     else if (brickList[0].AllBricksBroken(brickList))
                     {
                         currState = GameState.Win;
                     }
+                    
                     else
                     {
                         mainGame.UpdateGame(paddle, ball, brickList);
@@ -395,8 +497,8 @@ namespace BrickBreaker
 
             // There will always be 15 rows & 8 columns of bricks
             // The size of the bricks will scale to fit the window
-            int numRows = 1;
-            int numCols = 1;
+            int numRows = 12;
+            int numCols = 5;
             
             // Number of pixels between bricks
             int brickSpacing = 5;

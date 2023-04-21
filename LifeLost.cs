@@ -56,7 +56,10 @@ namespace BrickBreaker
             GreenButton = greenButton;
             WhiteButton = whiteButton;
         }
-
+        
+        /// <summary>
+        /// Checks for input to continue the game
+        /// </summary>
         public void UpdateLifeLost()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Space) ||
@@ -69,6 +72,9 @@ namespace BrickBreaker
             }
         }
         
+        /// <summary>
+        /// Draws the contents of the life lost screen
+        /// </summary>
         public void DrawLifeLost()
         {
             SB.DrawString(PaytoneOne, "Life Lost!", new Vector2(Window.Center.X - 100, Window.Center.Y - 45), Color.White);

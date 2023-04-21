@@ -56,7 +56,10 @@ namespace BrickBreaker
             GreenButton = greenButton;
             WhiteButton = whiteButton;
         }
-
+        
+        /// <summary>
+        /// Checks for input on the winto continue the game
+        /// </summary>
         public void UpdateWin()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.M) ||
