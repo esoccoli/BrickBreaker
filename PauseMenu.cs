@@ -80,12 +80,25 @@ namespace BrickBreaker
         /// </summary>
         public void DrawPauseMenu()
         {
+            #if DEBUG
+            
             SB.DrawString(PaytoneOne, "Game Paused", new Vector2(Window.Center.X - 160, Window.Center.Y - 50), Color.White);
             
             SB.DrawString(NotoSans, "Press ", new Vector2(Window.Center.X - 130, Window.Center.Y + 50), Color.White);
             SB.Draw(WhiteButton, new Rectangle(Window.Center.X - 50, Window.Center.Y + 45, 50, 50), Color.BlueViolet);
             SB.DrawString(NotoSans, "4", new Vector2(Window.Center.X - 33, Window.Center.Y + 50), Color.White);
             SB.DrawString(NotoSans, " to unpause", new Vector2(Window.Center.X + 10, Window.Center.Y + 50), Color.White);
+            
+            #else
+            
+            SB.DrawString(PaytoneOneCabinet, "Game Paused", new Vector2(Window.Center.X - 160, Window.Center.Y - 50), Color.White);
+            
+            SB.DrawString(NotoSansCabinet, "Press ", new Vector2(Window.Center.X - 130, Window.Center.Y + 50), Color.White);
+            SB.Draw(WhiteButton, new Rectangle(Window.Center.X - 50, Window.Center.Y + 45, 50, 50), Color.BlueViolet);
+            SB.DrawString(NotoSansCabinet, "4", new Vector2(Window.Center.X - 33, Window.Center.Y + 50), Color.White);
+            SB.DrawString(NotoSansCabinet, " to unpause", new Vector2(Window.Center.X + 10, Window.Center.Y + 50), Color.White);
+            
+            #endif
         }
     }
 }

@@ -92,6 +92,8 @@ namespace BrickBreaker
         /// </summary>
         public void DrawText()
         {
+            #if DEBUG
+            
             SB.DrawString(PaytoneOne, "Controls", new Vector2(110, 30), Color.White);
             
             SB.DrawString(NotoSansSmall, "Move the joystick to move the paddle", new Vector2(Window.Center.X - 185, Window.Center.Y - 300), Color.White);
@@ -103,6 +105,22 @@ namespace BrickBreaker
             SB.DrawString(NotoSansSmall, " to return to menu", new Vector2(Window.Center.X - 20, Window.Center.Y), Color.White);
             
             SB.Draw(Game.altBallTexture, new Rectangle(0, Window.Center.Y, Window.Width, Window.Height / 2), Color.White);
+            
+            #else
+            
+            SB.DrawString(PaytoneOneCabinet, "Controls", new Vector2(110, 30), Color.White);
+            
+            SB.DrawString(NotoSansCabinetSmall, "Move the joystick to move the paddle", new Vector2(Window.Center.X - 185, Window.Center.Y - 300), Color.White);
+            SB.DrawString(NotoSansCabinetSmall, "Break all the bricks to win", new Vector2(Window.Center.X - 125, Window.Center.Y - 200), Color.White);
+            SB.DrawString(NotoSansCabinetSmall, "Try to win with all 5 lives", new Vector2(Window.Center.X - 125, Window.Center.Y - 100), Color.White);
+            
+            SB.DrawString(NotoSansCabinetSmall, "Press ", new Vector2(Window.Center.X - 150, Window.Center.Y), Color.White);
+            SB.Draw(GreenButton, new Rectangle(Window.Center.X - 80, Window.Center.Y - 10, 50, 50), Color.White);
+            SB.DrawString(NotoSansCabinetSmall, " to return to menu", new Vector2(Window.Center.X - 20, Window.Center.Y), Color.White);
+            
+            SB.Draw(Game.altBallTexture, new Rectangle(0, Window.Center.Y, Window.Width, Window.Height / 2), Color.White);
+            
+            #endif
         }
     }
 }

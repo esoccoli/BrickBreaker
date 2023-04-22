@@ -103,6 +103,8 @@ namespace BrickBreaker
         /// </summary>
         public void DrawGameOver()
         {
+            #if DEBUG
+            
             SB.DrawString(
                 PaytoneOne, 
                 "Game Over", 
@@ -127,6 +129,33 @@ namespace BrickBreaker
                     Window.Center.Y - NotoSansSmall.MeasureString("Press any button to continue").Y / 2 + 100),
                 Color.White);
                     
+            #else
+            
+            SB.DrawString(
+                PaytoneOneCabinet, 
+                "Game Over", 
+                new Vector2(
+                    Window.Center.X - PaytoneOne.MeasureString("Game Over").X / 2, 
+                    Window.Center.Y - PaytoneOne.MeasureString("Game Over").Y / 2), 
+                Color.White);
+            
+            SB.DrawString(
+                    NotoSansCabinet,
+                    "Score: " + Game.score,
+                    new Vector2(
+                        Window.Center.X - NotoSans.MeasureString("Score: " + Game.score).X / 2,
+                        Window.Center.Y - NotoSans.MeasureString("Score: " + Game.score).Y / 2 + 50),
+                    Color.White);
+            
+            SB.DrawString(
+                NotoSansCabinetSmall,
+                "Press any button to continue",
+                new Vector2(
+                    Window.Center.X - NotoSansSmall.MeasureString("Press any button to continue").X / 2,
+                    Window.Center.Y - NotoSansSmall.MeasureString("Press any button to continue").Y / 2 + 100),
+                Color.White);
+            
+            #endif
         }
     }
 }
