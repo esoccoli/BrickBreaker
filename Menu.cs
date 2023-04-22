@@ -122,7 +122,7 @@ namespace BrickBreaker
             SB.Draw(RedButton, new Rectangle(Window.Center.X - 50, Window.Center.Y, 100, 100), Color.White);
             SB.DrawString(NotoSansCabinet, " to Start", new Vector2(Window.Center.X + 50 , Window.Center.Y), Color.White);
             
-            SB.DrawString(NotoSansCabinet, "Press ", new Vector2(Window.Center.X - 375, Window.Center.Y + 150), Color.White);
+            SB.DrawString(NotoSansCabinet, "Press ", new Vector2(Window.Center.X - 355, Window.Center.Y + 150), Color.White);
             SB.Draw(BlueButton, new Rectangle(Window.Center.X - 175, Window.Center.Y + 150, 100, 100), Color.White);
             SB.DrawString(NotoSansCabinet, " for Instructions", new Vector2(Window.Center.X - 75, Window.Center.Y + 150), Color.White);
             
