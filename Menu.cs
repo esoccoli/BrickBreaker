@@ -102,31 +102,48 @@ namespace BrickBreaker
         /// </summary>
         public void DrawText()
         {
-            #if DEBUG
+            SB.DrawString(
+                PaytoneOne, 
+                "Brick Breaker", 
+                new Vector2(
+                    Window.Center.X - PaytoneOne.MeasureString("Brick Breaker").X / 2f + 10, 
+                    Window.Center.Y - 200), 
+                Color.White);
             
-            SB.DrawString(PaytoneOne, "Brick Breaker", new Vector2(Window.Center.X - 150, Window.Center.Y - 100), Color.White);
             
-            SB.DrawString(NotoSans, "Press ", new Vector2(Window.Center.X - 100, Window.Center.Y + 50), Color.White);
-            SB.Draw(RedButton, new Rectangle(Window.Center.X - 25, Window.Center.Y + 50, 50, 50), Color.White);
-            SB.DrawString(NotoSans, " to Start", new Vector2(Window.Center.X + 25, Window.Center.Y + 50), Color.White);
+            SB.DrawString(
+                NotoSans, 
+                "Start Game", 
+                new Vector2(
+                    Window.Center.X - NotoSans.MeasureString("Start Game").X / 2f + 50, 
+                    Window.Center.Y + 50), 
+                Color.White);
             
-            SB.DrawString(NotoSans, "Press ", new Vector2(Window.Center.X - 160, Window.Center.Y + 125), Color.White);
-            SB.Draw(BlueButton, new Rectangle(Window.Center.X - 85, Window.Center.Y + 120, 50, 50), Color.White);
-            SB.DrawString(NotoSans, " for Instructions", new Vector2(Window.Center.X - 30, Window.Center.Y + 125), Color.White);
+            SB.Draw(
+                RedButton, 
+                new Rectangle(
+                    (int)(Window.Center.X - NotoSans.MeasureString("Start Game").X / 2f - 40), 
+                    Window.Center.Y + 30, 
+                    75, 
+                    75), 
+                Color.White);
+
+            SB.DrawString(
+                NotoSans,
+                "Instructions",
+                new Vector2(
+                    Window.Center.X - NotoSans.MeasureString("Instructions").X / 2f + 50,
+                    Window.Center.Y + 175),
+                Color.White);
             
-            #else
-            
-            SB.DrawString(PaytoneOneCabinet, "Brick Breaker", new Vector2(Window.Center.X - 300, Window.Center.Y - 150), Color.White);
-            
-            SB.DrawString(NotoSansCabinet, "Press ", new Vector2(Window.Center.X - 225, Window.Center.Y), Color.White);
-            SB.Draw(RedButton, new Rectangle(Window.Center.X - 50, Window.Center.Y, 100, 100), Color.White);
-            SB.DrawString(NotoSansCabinet, " to Start", new Vector2(Window.Center.X + 50 , Window.Center.Y), Color.White);
-            
-            SB.DrawString(NotoSansCabinet, "Press ", new Vector2(Window.Center.X - 355, Window.Center.Y + 150), Color.White);
-            SB.Draw(BlueButton, new Rectangle(Window.Center.X - 175, Window.Center.Y + 150, 100, 100), Color.White);
-            SB.DrawString(NotoSansCabinet, " for Instructions", new Vector2(Window.Center.X - 75, Window.Center.Y + 150), Color.White);
-            
-            #endif
+            SB.Draw(
+                BlueButton, 
+                new Rectangle(
+                    (int)(Window.Center.X - NotoSans.MeasureString("Instructions").X / 2f - 40), 
+                    Window.Center.Y + 155, 
+                    75, 
+                    75),
+                Color.White);
         }
     }
 }
