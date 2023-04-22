@@ -40,11 +40,26 @@ namespace BrickBreaker
         /// Manages the draw calls for the game
         /// </summary>
         private SpriteBatch _spriteBatch;
-
+        
         /// <summary>
-        /// Paytone One font, size 20
+        /// Paytone One font, size 72
         /// </summary>
-        private SpriteFont paytoneOne;
+        private SpriteFont paytoneOne72;
+        
+        /// <summary>
+        /// Paytone One font, size 36
+        /// </summary>
+        private SpriteFont paytoneOne36;
+        
+        /// <summary>
+        /// Noto Sans font, size 48
+        /// </summary>
+        private SpriteFont notoSans48;
+        
+        /// <summary>
+        /// Noto Sans font, size 36
+        /// </summary>
+        private SpriteFont notoSans36;
         
         /// <summary>
         /// Noto Sans font, size 20
@@ -55,7 +70,7 @@ namespace BrickBreaker
         /// Noto Sans font, size 16
         /// </summary>
         private SpriteFont notoSans16;
-        
+
         /// <summary>
         /// Current state of the game
         /// </summary>
@@ -244,10 +259,17 @@ namespace BrickBreaker
             
             ballTexture = Content.Load<Texture2D>("ball");
             altBallTexture = Content.Load<Texture2D>("surprised-pikachu");
-
-            paytoneOne = Content.Load<SpriteFont>("PaytoneOne");
-            notoSans20 = Content.Load<SpriteFont>("NotoSans");
-            notoSans16 = Content.Load<SpriteFont>("NotoSansSmall");
+            
+            // Paytone One fonts
+            paytoneOne72 = Content.Load<SpriteFont>("PaytoneOneCabinet"); // Cabinet
+            paytoneOne36 = Content.Load<SpriteFont>("PaytoneOne"); // Debug
+            
+            // Noto Sans fonts
+            notoSans48 = Content.Load<SpriteFont>("NotoSansCabinet"); // Cabinet
+            notoSans36 = Content.Load<SpriteFont>("NotoSansCabinetSmall"); // Cabinet
+            
+            notoSans20 = Content.Load<SpriteFont>("NotoSans"); // Debug
+            notoSans16 = Content.Load<SpriteFont>("NotoSansSmall"); // Debug
             
             // Cabinet button textures
             redButton = Content.Load<Texture2D>("red-button");
@@ -260,7 +282,7 @@ namespace BrickBreaker
                 game, 
                 notoSans20, 
                 notoSans16, 
-                paytoneOne, 
+                paytoneOne36, 
                 redButton, 
                 blueButton, 
                 greenButton, 
@@ -271,7 +293,7 @@ namespace BrickBreaker
                 game, 
                 notoSans20, 
                 notoSans16, 
-                paytoneOne, 
+                paytoneOne36, 
                 redButton, 
                 blueButton, 
                 greenButton, 
@@ -282,7 +304,7 @@ namespace BrickBreaker
                 game, 
                 notoSans20, 
                 notoSans16, 
-                paytoneOne, 
+                paytoneOne36, 
                 redButton, 
                 blueButton, 
                 greenButton, 
@@ -293,7 +315,7 @@ namespace BrickBreaker
                 game, 
                 notoSans20, 
                 notoSans16, 
-                paytoneOne, 
+                paytoneOne36, 
                 redButton, 
                 blueButton, 
                 greenButton, 
@@ -306,7 +328,7 @@ namespace BrickBreaker
                 game, 
                 notoSans20, 
                 notoSans16, 
-                paytoneOne, 
+                paytoneOne36, 
                 redButton, 
                 blueButton, 
                 greenButton, 
@@ -317,7 +339,7 @@ namespace BrickBreaker
                 game, 
                 notoSans20, 
                 notoSans16, 
-                paytoneOne, 
+                paytoneOne36, 
                 redButton, 
                 blueButton, 
                 greenButton, 
@@ -328,7 +350,7 @@ namespace BrickBreaker
                 game, 
                 notoSans20, 
                 notoSans16, 
-                paytoneOne, 
+                paytoneOne36, 
                 redButton, 
                 blueButton, 
                 greenButton, 
