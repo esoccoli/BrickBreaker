@@ -116,15 +116,15 @@ namespace BrickBreaker
             
             #else
             
-            SB.DrawString(PaytoneOneCabinet, "Brick Breaker", new Vector2(Window.Center.X - 200, Window.Center.Y - 100), Color.White);
+            SB.DrawString(PaytoneOneCabinet, "Brick Breaker", new Vector2(Window.Center.X - 220, Window.Center.Y - 100), Color.White);
             
-            SB.DrawString(NotoSansCabinet, "Press ", new Vector2(Window.Center.X - 200, Window.Center.Y + 50), Color.White);
-            SB.Draw(RedButton, new Rectangle(Window.Center.X - 125, Window.Center.Y + 50, 50, 50), Color.White);
-            SB.DrawString(NotoSansCabinet, " to Start", new Vector2(Window.Center.X + 50, Window.Center.Y + 50), Color.White);
+            SB.DrawString(NotoSansCabinet, "Press ", new Vector2(Window.Center.X - 250, Window.Center.Y), Color.White);
+            SB.Draw(RedButton, new Rectangle(Window.Center.X - 175, Window.Center.Y - 50, 75, 75), Color.White);
+            SB.DrawString(NotoSansCabinet, " to Start", new Vector2(Window.Center.X - 90, Window.Center.Y), Color.White);
             
-            SB.DrawString(NotoSansCabinet, "Press ", new Vector2(Window.Center.X - 175, Window.Center.Y + 125), Color.White);
-            SB.Draw(BlueButton, new Rectangle(Window.Center.X - 100, Window.Center.Y + 120, 50, 50), Color.White);
-            SB.DrawString(NotoSansCabinet, " for Instructions", new Vector2(Window.Center.X - 30, Window.Center.Y + 125), Color.White);
+            SB.DrawString(NotoSansCabinet, "Press ", new Vector2(Window.Center.X - 250, Window.Center.Y + 75), Color.White);
+            SB.Draw(BlueButton, new Rectangle(Window.Center.X - 175 Window.Center.Y + 75, 75, 75), Color.White);
+            SB.DrawString(NotoSansCabinet, " for Instructions", new Vector2(Window.Center.X - 90, Window.Center.Y + 75), Color.White);
             
             #endif
         }
