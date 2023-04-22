@@ -53,9 +53,15 @@ namespace BrickBreaker
                 greenButton, 
                 whiteButton)
         {
+            PaytoneOneCabinet = paytoneOneCabinet;
             PaytoneOne = paytoneOne;
+            
+            NotoSansCabinet = notoSansCabinet;
+            NotoSansCabinetSmall = notoSansCabinetSmall;
+            
             NotoSans = notoSans;
             NotoSansSmall = notoSansSmall;
+            
             SB = sb;
             Graphics = graphics;
             Game = game;
@@ -96,6 +102,8 @@ namespace BrickBreaker
         /// </summary>
         public void DrawText()
         {
+            #if DEBUG
+            
             SB.DrawString(PaytoneOne, "Brick Breaker", new Vector2(Window.Center.X - 150, Window.Center.Y - 100), Color.White);
             
             SB.DrawString(NotoSans, "Press ", new Vector2(Window.Center.X - 100, Window.Center.Y + 50), Color.White);
@@ -105,6 +113,20 @@ namespace BrickBreaker
             SB.DrawString(NotoSans, "Press ", new Vector2(Window.Center.X - 160, Window.Center.Y + 125), Color.White);
             SB.Draw(BlueButton, new Rectangle(Window.Center.X - 85, Window.Center.Y + 120, 50, 50), Color.White);
             SB.DrawString(NotoSans, " for Instructions", new Vector2(Window.Center.X - 30, Window.Center.Y + 125), Color.White);
+            
+            #else
+            
+            SB.DrawString(PaytoneOneCabinet, "Brick Breaker", new Vector2(Window.Center.X - 150, Window.Center.Y - 100), Color.White);
+            
+            SB.DrawString(NotoSansCabinet, "Press ", new Vector2(Window.Center.X - 100, Window.Center.Y + 50), Color.White);
+            SB.Draw(RedButton, new Rectangle(Window.Center.X - 25, Window.Center.Y + 50, 50, 50), Color.White);
+            SB.DrawString(NotoSansCabinet, " to Start", new Vector2(Window.Center.X + 25, Window.Center.Y + 50), Color.White);
+            
+            SB.DrawString(NotoSansCabinet, "Press ", new Vector2(Window.Center.X - 160, Window.Center.Y + 125), Color.White);
+            SB.Draw(BlueButton, new Rectangle(Window.Center.X - 85, Window.Center.Y + 120, 50, 50), Color.White);
+            SB.DrawString(NotoSansCabinet, " for Instructions", new Vector2(Window.Center.X - 30, Window.Center.Y + 125), Color.White);
+            
+            #endif
         }
     }
 }

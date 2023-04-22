@@ -51,9 +51,15 @@ namespace BrickBreaker
                 greenButton, 
                 whiteButton)
         {
+            PaytoneOneCabinet = paytoneOneCabinet;
             PaytoneOne = paytoneOne;
+            
+            NotoSansCabinet = notoSansCabinet;
+            NotoSansCabinetSmall = notoSansCabinetSmall;
+            
             NotoSans = notoSans;
             NotoSansSmall = notoSansSmall;
+            
             SB = sb;
             Graphics = graphics;
             Game = game;
