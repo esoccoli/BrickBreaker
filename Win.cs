@@ -132,7 +132,7 @@ namespace BrickBreaker
             #else
             
             SB.DrawString(
-                PaytoneOneCabinet,, 
+                PaytoneOneCabinet,
                 "You Win!", 
                 new Vector2(
                     Window.Center.X - PaytoneOne.MeasureString("You Win").X / 2, 
