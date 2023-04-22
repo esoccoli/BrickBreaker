@@ -77,15 +77,18 @@ namespace BrickBreaker
         /// Texture for the A4 button on the cabinet
         /// </summary>
         protected Texture2D WhiteButton { get; set; }
-        
+
         /// <summary>
         /// Initializes all the variables that are needed within the game states
         /// </summary>
         /// <param name="sb">Spritebatch object</param>
         /// <param name="graphics">GraphicsDevice object</param>
         /// <param name="game">Game object</param>
+        /// <param name="notoSansCabinet">NotoSans font, size 48</param>
+        /// <param name="notoSansCabinetSmall">NotoSans font, size 36</param>
         /// <param name="notoSans">NotoSans font, size 20</param>
         /// <param name="notoSansSmall">NotoSans font, size 16</param>
+        /// <param name="paytoneOneCabinet">PaytoneOne font, size</param>
         /// <param name="paytoneOne">PaytoneOne font, size 20</param>
         /// <param name="redButton">A1 button texture</param>
         /// <param name="blueButton">A2 button texture</param>
