@@ -116,10 +116,16 @@ namespace BrickBreaker
             
             #else
             
-            SB.DrawString(PaytoneOneCabinet, "Brick Breaker", new Vector2(Window.Center.X - 300, Window.Center.Y - 150), Color.White);
+            SB.DrawString(
+                PaytoneOneCabinet, 
+                "Brick Breaker", 
+                new Vector2(
+                    Window.Center.X - PaytoneOne.MeasureString("Brick Breaker").X / 2, 
+                    Window.Center.Y - PaytoneOne.MeasureString("Brick Breaker").Y / 2), 
+                Color.White);
             
             SB.DrawString(NotoSansCabinet, "Press ", new Vector2(Window.Center.X - 225, Window.Center.Y), Color.White);
-            SB.Draw(RedButton, new Rectangle(Window.Center.X - 60, Window.Center.Y, 100, 100), Color.White);
+            SB.Draw(RedButton, new Rectangle(Window.Center.X - 50, Window.Center.Y, 100, 100), Color.White);
             SB.DrawString(NotoSansCabinet, " to Start", new Vector2(Window.Center.X + 50 , Window.Center.Y), Color.White);
             
             SB.DrawString(NotoSansCabinet, "Press ", new Vector2(Window.Center.X - 350, Window.Center.Y + 150), Color.White);
