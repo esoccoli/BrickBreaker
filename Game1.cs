@@ -383,11 +383,11 @@ namespace BrickBreaker
             
             if (randNum == 0)
             {
-                vel = new Vector2(-9, -15);
+                vel = new Vector2(-6, -10);
             }
             else
             {
-                vel = new Vector2(9, -15);
+                vel = new Vector2(6, -10);
             }
             
             ball = new Ball(ballTexture,
@@ -584,7 +584,7 @@ namespace BrickBreaker
         public void ResetBall()
         {
             ball.Position = new Vector2(paddle.Bounds.Center.X - ballTexture.Width / 2f, paddle.Position.Y - ballTexture.Height - 10);
-            ball.Velocity = rng.Next(0, 2) == 0 ? new Vector2(-9, -15) : new Vector2(9, -15);
+            ball.Velocity = rng.Next(0, 2) == 0 ? new Vector2(-6, -10) : new Vector2(6, -10);
             ball.Bounds = new Rectangle((int)ball.Position.X, (int)ball.Position.Y, ballTexture.Width, ballTexture.Height);
         }
         
