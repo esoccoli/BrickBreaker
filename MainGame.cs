@@ -97,7 +97,7 @@ namespace BrickBreaker
             #else
             
             SB.DrawString(NotoSansCabinetSmall, $"Score: {score}", new Vector2(Window.Left + 30, Window.Top + 10), Color.White);
-            SB.DrawString(NotoSansCabinetSmall, $"Lives: {lives}", new Vector2(Window.Right - 125, Window.Top + 10), Color.White);
+            SB.DrawString(NotoSansCabinetSmall, $"Lives: {lives}", new Vector2(Window.Right - 175, Window.Top + 10), Color.White);
 
             #endif
         }
