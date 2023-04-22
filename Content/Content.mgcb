@@ -59,6 +59,20 @@
 /processorParam:TextureFormat=Compressed
 /build:NotoSans.spritefont
 
+#begin NotoSansCabinet.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:NotoSansCabinet.spritefont
+
+#begin NotoSansCabinetSmall.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:NotoSansCabinetSmall.spritefont
+
 #begin NotoSansSmall.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -75,6 +89,13 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:PaytoneOne.spritefont
+
+#begin PaytoneOneCabinet.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:PaytoneOneCabinet.spritefont
 
 #begin red-button.png
 /importer:TextureImporter
