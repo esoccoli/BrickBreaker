@@ -9,6 +9,16 @@ namespace BrickBreaker
     public abstract class State
     {
         /// <summary>
+        /// Noto Sans font, size 48
+        /// </summary>
+        protected SpriteFont NotoSansCabinet { get; set; }
+        
+        /// <summary>
+        /// Noto Sans font, size 36
+        /// </summary>
+        protected SpriteFont NotoSansCabinetSmall { get; set; }
+        
+        /// <summary>
         /// Noto Sans font, size 20
         /// </summary>
         protected SpriteFont NotoSans { get; set; }
@@ -19,7 +29,12 @@ namespace BrickBreaker
         protected SpriteFont NotoSansSmall { get; set; }
         
         /// <summary>
-        /// Paytone One font, size 20
+        /// Paytone One font, size 48
+        /// </summary>
+        protected SpriteFont PaytoneOneCabinet { get; set; }
+        
+        /// <summary>
+        /// Paytone One font, size 36
         /// </summary>
         protected SpriteFont PaytoneOne { get; set; }
         
@@ -78,17 +93,25 @@ namespace BrickBreaker
         /// <param name="whiteButton">A4 button texture</param>
         protected State(SpriteBatch sb, 
             GraphicsDevice graphics, 
-            Game1 game, 
+            Game1 game,
+            SpriteFont notoSansCabinet,
+            SpriteFont notoSansCabinetSmall,
             SpriteFont notoSans, 
             SpriteFont notoSansSmall, 
+            SpriteFont paytoneOneCabinet,
             SpriteFont paytoneOne, 
             Texture2D redButton, 
             Texture2D blueButton, 
             Texture2D greenButton, 
             Texture2D whiteButton)
         {
+            NotoSansCabinet = notoSansCabinet;
+            NotoSansCabinetSmall = notoSansCabinetSmall;
+            
             NotoSans = notoSans;
             NotoSansSmall = notoSansSmall;
+            
+            PaytoneOneCabinet = paytoneOneCabinet;
             PaytoneOne = paytoneOne;
             
             SB = sb;

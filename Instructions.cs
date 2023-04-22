@@ -12,14 +12,17 @@ namespace BrickBreaker
     {
         
         /// <summary>
-        /// Sets up an instructions screen object with useful variables
+        /// Sets up a menu object with useful variables
         /// </summary>
         /// <param name="sb">Spritebatch object</param>
         /// <param name="graphics">Graphics manager</param>
         /// <param name="game">Game1 class object</param>
+        /// <param name="notoSansCabinet">NotoSans font, size 48</param>
+        /// <param name="notoSansCabinetSmall">NotoSans font, size 36</param>
         /// <param name="notoSans">NotoSans font, size 20</param>
         /// <param name="notoSansSmall">NotoSans font, size 16</param>
-        /// <param name="paytoneOne">PaytoneOne font, size 20</param>
+        /// <param name="paytoneOneCabinet">PaytoneOne font, size 72</param>
+        /// <param name="paytoneOne">PaytoneOne font, size 36</param>
         /// <param name="redButton">Texture of the red button on the cabinet</param>
         /// <param name="blueButton">Texture of the blue button on the cabinet</param>
         /// <param name="greenButton">Texture of the green button on the cabinet</param>
@@ -27,31 +30,36 @@ namespace BrickBreaker
         public Instructions(SpriteBatch sb, 
             GraphicsDevice graphics, 
             Game1 game, 
+            SpriteFont notoSansCabinet,
+            SpriteFont notoSansCabinetSmall,
             SpriteFont notoSans, 
-            SpriteFont notoSansSmall, 
-            SpriteFont paytoneOne, 
-            Texture2D redButton, 
-            Texture2D blueButton, 
-            Texture2D greenButton, Texture2D whiteButton)
+            SpriteFont notoSansSmall,
+            SpriteFont paytoneOneCabinet,
+            SpriteFont paytoneOne,
+            Texture2D redButton,
+            Texture2D blueButton,
+            Texture2D greenButton,
+            Texture2D whiteButton) 
             : base(sb, 
-            graphics, 
-            game, 
-            notoSans, 
-            notoSansSmall, 
-            paytoneOne, 
-            redButton, 
-            blueButton,
-            greenButton, 
-            whiteButton)
+                graphics, 
+                game,
+                notoSansCabinet,
+                notoSansCabinetSmall,
+                notoSans, 
+                notoSansSmall, 
+                paytoneOneCabinet,
+                paytoneOne, 
+                redButton, 
+                blueButton, 
+                greenButton, 
+                whiteButton)
         {
-            SB = sb;
-            Graphics = graphics;
-            Game = game;
-            
             PaytoneOne = paytoneOne;
             NotoSans = notoSans;
             NotoSansSmall = notoSansSmall;
-            
+            SB = sb;
+            Graphics = graphics;
+            Game = game;
             Window = Graphics.Viewport.Bounds;
             
             RedButton = redButton;
