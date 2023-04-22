@@ -91,11 +91,23 @@ namespace BrickBreaker
         /// </summary>
         public void DrawLifeLost()
         {
+            #if DEBUG
+            
             SB.DrawString(PaytoneOne, "Life Lost!", new Vector2(Window.Center.X - 100, Window.Center.Y - 45), Color.White);
             
             SB.DrawString(NotoSans, "Press ", new Vector2(Window.Center.X - 130, Window.Center.Y + 75), Color.White);
             SB.Draw(RedButton, new Rectangle(Window.Center.X - 50, Window.Center.Y + 75, 50, 50), Color.White);
             SB.DrawString(NotoSans, " to continue", new Vector2(Window.Center.X, Window.Center.Y + 75), Color.White);
+            
+            #else
+            
+            SB.DrawString(PaytoneOneCabinet, "Life Lost!", new Vector2(Window.Center.X - 100, Window.Center.Y - 45), Color.White);
+            
+            SB.DrawString(NotoSansCabinet, "Press ", new Vector2(Window.Center.X - 130, Window.Center.Y + 75), Color.White);
+            SB.Draw(RedButton, new Rectangle(Window.Center.X - 50, Window.Center.Y + 75, 50, 50), Color.White);
+            SB.DrawString(NotoSansCabinet, " to continue", new Vector2(Window.Center.X, Window.Center.Y + 75), Color.White);
+            
+            #endif
         }
     }
 }

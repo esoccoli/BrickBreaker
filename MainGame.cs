@@ -11,7 +11,7 @@ namespace BrickBreaker
     {
         private int score;
         private int lives;
-        
+
         /// <summary>
         /// Sets up a menu object with useful variables
         /// </summary>
@@ -28,6 +28,8 @@ namespace BrickBreaker
         /// <param name="blueButton">Texture of the blue button on the cabinet</param>
         /// <param name="greenButton">Texture of the green button on the cabinet</param>
         /// <param name="whiteButton">Texture of the white button on the cabinet</param>
+        /// <param name="score">Player's current score</param>
+        /// <param name="lives">Number of lives remaining</param>
         public MainGame(SpriteBatch sb, 
             GraphicsDevice graphics, 
             Game1 game, 
@@ -81,12 +83,23 @@ namespace BrickBreaker
         }
         
         /// <summary>
-        /// Displays score and number of lives on the screen
+        /// Draws the score and lives to the screen
         /// </summary>
+        /// <param name="score">Player's current score</param>
+        /// <param name="lives">Number of lives remaining</param>
         public void DrawGameInfo(int score, int lives)
         {
+            #if DEBUG
+            
             SB.DrawString(NotoSansSmall, $"Score: {score}", new Vector2(Window.Left + 15, Window.Top + 10), Color.White);
             SB.DrawString(NotoSansSmall, $"Lives: {lives}", new Vector2(Window.Right - 85, Window.Top + 10), Color.White);
+            
+            #else
+            
+            SB.DrawString(NotoSansCabinetSmall, $"Score: {score}", new Vector2(Window.Left + 15, Window.Top + 10), Color.White);
+            SB.DrawString(NotoSansCabinetSmall, $"Lives: {lives}", new Vector2(Window.Right - 85, Window.Top + 10), Color.White);
+
+            #endif
         }
 
         /// <summary>
