@@ -119,11 +119,11 @@ namespace BrickBreaker
             SB.DrawString(PaytoneOneCabinet, "Brick Breaker", new Vector2(Window.Center.X - 300, Window.Center.Y - 150), Color.White);
             
             SB.DrawString(NotoSansCabinet, "Press ", new Vector2(Window.Center.X - 225, Window.Center.Y), Color.White);
-            SB.Draw(RedButton, new Rectangle(Window.Center.X - 100, Window.Center.Y, 100, 100), Color.White);
+            SB.Draw(RedButton, new Rectangle(Window.Center.X - 25, Window.Center.Y, 100, 100), Color.White);
             SB.DrawString(NotoSansCabinet, " to Start", new Vector2(Window.Center.X + 50 , Window.Center.Y), Color.White);
             
             SB.DrawString(NotoSansCabinet, "Press ", new Vector2(Window.Center.X - 350, Window.Center.Y + 150), Color.White);
-            SB.Draw(BlueButton, new Rectangle(Window.Center.X - 175, Window.Center.Y + 150, 100, 100), Color.White);
+            SB.Draw(BlueButton, new Rectangle(Window.Center.X - 150, Window.Center.Y + 150, 100, 100), Color.White);
             SB.DrawString(NotoSansCabinet, " for Instructions", new Vector2(Window.Center.X - 75, Window.Center.Y + 150), Color.White);
             
             #endif
