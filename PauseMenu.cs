@@ -80,25 +80,29 @@ namespace BrickBreaker
         /// </summary>
         public void DrawPauseMenu()
         {
-            #if DEBUG
+            SB.DrawString(
+                PaytoneOne, 
+                "Game Paused", 
+                new Vector2(
+                    Window.Center.X - PaytoneOne.MeasureString("Game Paused").X / 2f, 
+                    Window.Center.Y - PaytoneOne.MeasureString("Game Paused").Y / 2f - 100), 
+                Color.White);
+
+            SB.DrawString(NotoSans,
+                "Unpause",
+                new Vector2(
+                    Window.Center.X - NotoSans.MeasureString("Unpause").X / 2f + 50,
+                    Window.Center.Y - NotoSans.MeasureString("Unpause").Y / 2f + 45),
+                Color.White);
             
-            SB.DrawString(PaytoneOne, "Game Paused", new Vector2(Window.Center.X - 160, Window.Center.Y - 50), Color.White);
-            
-            SB.DrawString(NotoSans, "Press ", new Vector2(Window.Center.X - 130, Window.Center.Y + 50), Color.White);
-            SB.Draw(WhiteButton, new Rectangle(Window.Center.X - 50, Window.Center.Y + 45, 50, 50), Color.BlueViolet);
-            SB.DrawString(NotoSans, "4", new Vector2(Window.Center.X - 33, Window.Center.Y + 50), Color.White);
-            SB.DrawString(NotoSans, " to unpause", new Vector2(Window.Center.X + 10, Window.Center.Y + 50), Color.White);
-            
-            #else
-            
-            SB.DrawString(PaytoneOneCabinet, "Game Paused", new Vector2(Window.Center.X - 160, Window.Center.Y - 50), Color.White);
-            
-            SB.DrawString(NotoSansCabinet, "Press ", new Vector2(Window.Center.X - 130, Window.Center.Y + 50), Color.White);
-            SB.Draw(WhiteButton, new Rectangle(Window.Center.X - 50, Window.Center.Y + 45, 50, 50), Color.BlueViolet);
-            SB.DrawString(NotoSansCabinet, "4", new Vector2(Window.Center.X - 33, Window.Center.Y + 50), Color.White);
-            SB.DrawString(NotoSansCabinet, " to unpause", new Vector2(Window.Center.X + 10, Window.Center.Y + 50), Color.White);
-            
-            #endif
+            SB.Draw(
+                WhiteButton,
+                new Rectangle(
+                    (int)(Window.Center.X - NotoSans.MeasureString("Unpause").X / 2f - 40),
+                    (int)(Window.Center.Y - NotoSans.MeasureString("Unpause").Y / 2f + 25),
+                    75,
+                    75),
+                Color.BlueViolet);
         }
     }
 }
