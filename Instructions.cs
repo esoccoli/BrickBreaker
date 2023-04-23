@@ -140,15 +140,6 @@ namespace BrickBreaker
                     75, 
                     75),
                 Color.White);
-            
-            /*SB.Draw(
-                Game.altBallTexture, 
-                new Rectangle(
-                    0, 
-                    Window.Center.Y - 200, 
-                    Window.Width, 
-                    Window.Height / 2), 
-                Color.White);*/
         }
     }
 }
