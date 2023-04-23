@@ -92,35 +92,63 @@ namespace BrickBreaker
         /// </summary>
         public void DrawText()
         {
-            #if DEBUG
+            SB.DrawString(
+                PaytoneOne, 
+                "Controls", 
+                new Vector2(
+                    Window.Center.X - PaytoneOne.MeasureString("Controls").X / 2f, 
+                    Window.Center.Y - PaytoneOne.MeasureString("Controls").Y / 2f - 350), 
+                Color.White);
             
-            SB.DrawString(PaytoneOne, "Controls", new Vector2(110, 30), Color.White);
+            SB.DrawString(
+                NotoSans, 
+                "Joystick moves the paddle", 
+                new Vector2(
+                    Window.Center.X - NotoSans.MeasureString("Joystick moves the paddle").X / 2f, 
+                    Window.Center.Y - NotoSans.MeasureString("Joystick moves the paddle").Y / 2f - 150), 
+                Color.White);
             
-            SB.DrawString(NotoSansSmall, "Move the joystick to move the paddle", new Vector2(Window.Center.X - 185, Window.Center.Y - 300), Color.White);
-            SB.DrawString(NotoSansSmall, "Break all the bricks to win", new Vector2(Window.Center.X - 125, Window.Center.Y - 200), Color.White);
-            SB.DrawString(NotoSansSmall, "Try to win with all 5 lives", new Vector2(Window.Center.X - 125, Window.Center.Y - 100), Color.White);
+            SB.DrawString(
+                NotoSans, 
+                "Break all the bricks to win", 
+                new Vector2(
+                    Window.Center.X - NotoSans.MeasureString("Break all the bricks to win").X / 2f, 
+                    Window.Center.Y - NotoSans.MeasureString("Break all the bricks to win").Y / 2f - 100), 
+                Color.White);
             
-            SB.DrawString(NotoSansSmall, "Press ", new Vector2(Window.Center.X - 150, Window.Center.Y), Color.White);
-            SB.Draw(GreenButton, new Rectangle(Window.Center.X - 80, Window.Center.Y - 10, 50, 50), Color.White);
-            SB.DrawString(NotoSansSmall, " to return to menu", new Vector2(Window.Center.X - 20, Window.Center.Y), Color.White);
+            SB.DrawString(
+                NotoSans, 
+                "Try to win with all 5 lives", 
+                new Vector2(
+                    Window.Center.X - NotoSans.MeasureString("Try to win with all 5 lives").X / 2f, 
+                    Window.Center.Y - NotoSans.MeasureString("Try to win with all 5 lives").Y / 2f - 50), 
+                Color.White);
             
-            SB.Draw(Game.altBallTexture, new Rectangle(0, Window.Center.Y, Window.Width, Window.Height / 2), Color.White);
+            SB.DrawString(
+                NotoSans, 
+                "Return to Menu", 
+                new Vector2(
+                    Window.Center.X - NotoSans.MeasureString("Return to Menu").X / 2f + 50, 
+                    Window.Center.Y - NotoSans.MeasureString("Return to Menu").Y / 2f + 120),
+                Color.White);
             
-            #else
+            SB.Draw(
+                GreenButton, 
+                new Rectangle(
+                    (int)(Window.Center.X - NotoSans.MeasureString("Return to Menu").X / 2f - 50), 
+                    (int)(Window.Center.Y - NotoSans.MeasureString("Return to Menu").Y / 2f + 100),
+                    75, 
+                    75),
+                Color.White);
             
-            SB.DrawString(PaytoneOneCabinet, "Controls", new Vector2(110, 30), Color.White);
-            
-            SB.DrawString(NotoSansCabinetSmall, "Move the joystick to move the paddle", new Vector2(Window.Center.X - 185, Window.Center.Y - 300), Color.White);
-            SB.DrawString(NotoSansCabinetSmall, "Break all the bricks to win", new Vector2(Window.Center.X - 125, Window.Center.Y - 200), Color.White);
-            SB.DrawString(NotoSansCabinetSmall, "Try to win with all 5 lives", new Vector2(Window.Center.X - 125, Window.Center.Y - 100), Color.White);
-            
-            SB.DrawString(NotoSansCabinetSmall, "Press ", new Vector2(Window.Center.X - 150, Window.Center.Y), Color.White);
-            SB.Draw(GreenButton, new Rectangle(Window.Center.X - 80, Window.Center.Y - 10, 50, 50), Color.White);
-            SB.DrawString(NotoSansCabinetSmall, " to return to menu", new Vector2(Window.Center.X - 20, Window.Center.Y), Color.White);
-            
-            SB.Draw(Game.altBallTexture, new Rectangle(0, Window.Center.Y, Window.Width, Window.Height / 2), Color.White);
-            
-            #endif
+            /*SB.Draw(
+                Game.altBallTexture, 
+                new Rectangle(
+                    0, 
+                    Window.Center.Y - 200, 
+                    Window.Width, 
+                    Window.Height / 2), 
+                Color.White);*/
         }
     }
 }
