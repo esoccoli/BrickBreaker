@@ -103,59 +103,29 @@ namespace BrickBreaker
         /// </summary>
         public void DrawGameOver()
         {
-            #if DEBUG
-            
             SB.DrawString(
                 PaytoneOne, 
                 "Game Over", 
                 new Vector2(
-                    Window.Center.X - PaytoneOne.MeasureString("Game Over").X / 2, 
-                    Window.Center.Y - PaytoneOne.MeasureString("Game Over").Y / 2), 
+                    Window.Center.X - PaytoneOne.MeasureString("Game Over").X / 2f, 
+                    Window.Center.Y - PaytoneOne.MeasureString("Game Over").Y / 2f - 100), 
                 Color.White);
             
             SB.DrawString(
                     NotoSans,
                     "Score: " + Game.score,
                     new Vector2(
-                        Window.Center.X - NotoSans.MeasureString("Score: " + Game.score).X / 2,
-                        Window.Center.Y - NotoSans.MeasureString("Score: " + Game.score).Y / 2 + 50),
+                        Window.Center.X - NotoSans.MeasureString("Score: " + Game.score).X / 2f,
+                        Window.Center.Y - NotoSans.MeasureString("Score: " + Game.score).Y / 2f),
                     Color.White);
             
             SB.DrawString(
-                NotoSansSmall,
+                NotoSans,
                 "Press any button to continue",
                 new Vector2(
-                    Window.Center.X - NotoSansSmall.MeasureString("Press any button to continue").X / 2,
-                    Window.Center.Y - NotoSansSmall.MeasureString("Press any button to continue").Y / 2 + 100),
+                    Window.Center.X - NotoSans.MeasureString("Press any button to continue").X / 2f,
+                    Window.Center.Y - NotoSans.MeasureString("Press any button to continue").Y / 2f + 50),
                 Color.White);
-                    
-            #else
-            
-            SB.DrawString(
-                PaytoneOneCabinet, 
-                "Game Over", 
-                new Vector2(
-                    Window.Center.X - PaytoneOne.MeasureString("Game Over").X / 2, 
-                    Window.Center.Y - PaytoneOne.MeasureString("Game Over").Y / 2), 
-                Color.White);
-            
-            SB.DrawString(
-                    NotoSansCabinet,
-                    "Score: " + Game.score,
-                    new Vector2(
-                        Window.Center.X - NotoSans.MeasureString("Score: " + Game.score).X / 2,
-                        Window.Center.Y - NotoSans.MeasureString("Score: " + Game.score).Y / 2 + 50),
-                    Color.White);
-            
-            SB.DrawString(
-                NotoSansCabinetSmall,
-                "Press any button to continue",
-                new Vector2(
-                    Window.Center.X - NotoSansSmall.MeasureString("Press any button to continue").X / 2,
-                    Window.Center.Y - NotoSansSmall.MeasureString("Press any button to continue").Y / 2 + 100),
-                Color.White);
-            
-            #endif
         }
     }
 }

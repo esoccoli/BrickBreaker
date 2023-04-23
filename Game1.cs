@@ -244,7 +244,7 @@ namespace BrickBreaker
             paddle = new Paddle(paddleTexture, new Rectangle(window.Center.X - 50, window.Bottom - 100, 150, 20), Color.Gray, window);
 
             score = 0;
-            lives = 5;
+            lives = 1;
             
             Input.Initialize();
             base.Initialize();
@@ -606,7 +606,7 @@ namespace BrickBreaker
             ResetBall();
             ResetPaddle();
             score = 0;
-            lives = 5;
+            lives = 1;
         }
     }
 }

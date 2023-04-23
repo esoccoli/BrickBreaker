@@ -77,7 +77,7 @@ namespace BrickBreaker
                 GetButtonDown(2, ArcadeButtons.StickLeft)) &&
                 Bounds.X > 0)
             {
-                bounds.X -= 8;
+                bounds.X -= 10;
             }
             
             if ((Keyboard.GetState().IsKeyDown(Keys.D) ||
@@ -85,7 +85,7 @@ namespace BrickBreaker
                 GetButtonDown(2, ArcadeButtons.StickRight)) &&
                 Bounds.X < window.Width - Bounds.Width)
             {
-                bounds.X += 8;
+                bounds.X += 10;
             }
         }
         
