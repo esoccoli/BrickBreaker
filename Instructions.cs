@@ -92,6 +92,8 @@ namespace BrickBreaker
         /// </summary>
         public void DrawText()
         {
+            #if DEBUG
+            
             SB.DrawString(
                 PaytoneOne, 
                 "Controls", 
@@ -140,6 +142,59 @@ namespace BrickBreaker
                     75, 
                     75),
                 Color.White);
+            
+            #else
+            
+            SB.DrawString(
+                PaytoneOneCabinet, 
+                "Controls", 
+                new Vector2(
+                    Window.Center.X - PaytoneOneCabinet.MeasureString("Controls").X / 2f, 
+                    Window.Center.Y - PaytoneOneCabinet.MeasureString("Controls").Y / 2f - 350), 
+                Color.White);
+            
+            SB.DrawString(
+                NotoSansCabinet, 
+                "Joystick moves the paddle", 
+                new Vector2(
+                    Window.Center.X - NotoSansCabinet.MeasureString("Joystick moves the paddle").X / 2f, 
+                    Window.Center.Y - NotoSansCabinet.MeasureString("Joystick moves the paddle").Y / 2f - 175), 
+                Color.White);
+            
+            SB.DrawString(
+                NotoSansCabinet, 
+                "Break all the bricks to win", 
+                new Vector2(
+                    Window.Center.X - NotoSansCabinet.MeasureString("Break all the bricks to win").X / 2f, 
+                    Window.Center.Y - NotoSansCabinet.MeasureString("Break all the bricks to win").Y / 2f - 50), 
+                Color.White);
+            
+            SB.DrawString(
+                NotoSansCabinet, 
+                "Try to win with all 5 lives", 
+                new Vector2(
+                    Window.Center.X - NotoSansCabinet.MeasureString("Try to win with all 5 lives").X / 2f, 
+                    Window.Center.Y - NotoSansCabinet.MeasureString("Try to win with all 5 lives").Y / 2f +75), 
+                Color.White);
+            
+            SB.DrawString(
+                NotoSansCabinet, 
+                "Return to Menu", 
+                new Vector2(
+                    Window.Center.X - NotoSansCabinet.MeasureString("Return to Menu").X / 2f + 50, 
+                    Window.Center.Y - NotoSansCabinet.MeasureString("Return to Menu").Y / 2f + 250),
+                Color.White);
+            
+            SB.Draw(
+                GreenButton, 
+                new Rectangle(
+                    (int)(Window.Center.X - NotoSansCabinet.MeasureString("Return to Menu").X / 2f - 75), 
+                    (int)(Window.Center.Y - NotoSansCabinet.MeasureString("Return to Menu").Y / 2f + 250),
+                    100, 
+                    100),
+                Color.White);
+            
+            #endif
         }
     }
 }

@@ -90,8 +90,8 @@ namespace BrickBreaker
                 Game.currState = GameState.Playing;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.I) ||
-                    Input.GetButtonDown(1, Input.ArcadeButtons.A3) || 
-                    Input.GetButtonDown(2, Input.ArcadeButtons.A3))
+                    Input.GetButtonDown(1, Input.ArcadeButtons.A2) || 
+                    Input.GetButtonDown(2, Input.ArcadeButtons.A2))
             {
                 Game.currState = GameState.Instructions;
             }
