@@ -93,19 +93,57 @@ namespace BrickBreaker
         {
             #if DEBUG
             
-            SB.DrawString(PaytoneOne, "Life Lost!", new Vector2(Window.Center.X - 100, Window.Center.Y - 45), Color.White);
+            SB.DrawString(
+                PaytoneOne, 
+                "Life Lost!", 
+                new Vector2(
+                    Window.Center.X - PaytoneOne.MeasureString("Life Lost!").X / 2, 
+                    Window.Center.Y - PaytoneOne.MeasureString("Life Lost!").Y / 2 - 100), 
+                Color.White);
             
-            SB.DrawString(NotoSans, "Press ", new Vector2(Window.Center.X - 130, Window.Center.Y + 75), Color.White);
-            SB.Draw(RedButton, new Rectangle(Window.Center.X - 50, Window.Center.Y + 75, 50, 50), Color.White);
-            SB.DrawString(NotoSans, " to continue", new Vector2(Window.Center.X, Window.Center.Y + 75), Color.White);
+            SB.Draw(
+                RedButton,
+                new Rectangle(
+                    (int)(Window.Center.X - NotoSans.MeasureString("Continue").X / 2 - 45), 
+                    (int)(Window.Center.Y + NotoSans.MeasureString("Continue").Y / 2 + 25), 
+                    75, 
+                    75),
+                Color.White);
+            
+            SB.DrawString(
+                NotoSans,
+                "Continue",
+                new Vector2(
+                    Window.Center.X - NotoSans.MeasureString("Continue").X / 2 + 45,
+                    Window.Center.Y + NotoSans.MeasureString("Continue").Y / 2 + 45),
+                Color.White);
             
             #else
             
-            SB.DrawString(PaytoneOneCabinet, "Life Lost!", new Vector2(Window.Center.X - 100, Window.Center.Y - 45), Color.White);
+            SB.DrawString(
+                PaytoneOneCabinet, 
+                "Life Lost!", 
+                new Vector2(
+                    Window.Center.X - PaytoneOneCabinet.MeasureString("Life Lost!").X / 2, 
+                    Window.Center.Y - PaytoneOneCabinet.MeasureString("Life Lost!").Y / 2 - 200), 
+                Color.White);
             
-            SB.DrawString(NotoSansCabinet, "Press ", new Vector2(Window.Center.X - 130, Window.Center.Y + 75), Color.White);
-            SB.Draw(RedButton, new Rectangle(Window.Center.X - 50, Window.Center.Y + 75, 50, 50), Color.White);
-            SB.DrawString(NotoSansCabinet, " to continue", new Vector2(Window.Center.X, Window.Center.Y + 75), Color.White);
+            SB.Draw(
+                RedButton,
+                new Rectangle(
+                    (int)(Window.Center.X - NotoSansCabinet.MeasureString("Continue").X / 2 - 60), 
+                    (int)(Window.Center.Y + NotoSansCabinet.MeasureString("Continue").Y / 2 + 25), 
+                    100, 
+                    100),
+                Color.White);
+            
+            SB.DrawString(
+                NotoSansCabinet,
+                "Continue",
+                new Vector2(
+                    Window.Center.X - NotoSansCabinet.MeasureString("Continue").X / 2 + 60,
+                    Window.Center.Y + NotoSansCabinet.MeasureString("Continue").Y / 2 + 30),
+                Color.White);
             
             #endif
         }
