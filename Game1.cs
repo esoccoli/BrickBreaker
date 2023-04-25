@@ -242,7 +242,7 @@ namespace BrickBreaker
             };
 
             score = 0;
-            lives = 1;
+            lives = 5;
             
             Input.Initialize();
             base.Initialize();

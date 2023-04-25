@@ -73,7 +73,7 @@ namespace BrickBreaker
         public void UpdatePaddle()
         {
             if ((Keyboard.GetState().IsKeyDown(Keys.A) ||
-                GetButtonDown(1, ArcadeButtons.StickLeft) ||
+                GetButton(1, ArcadeButtons.StickLeft) ||
                 GetButtonDown(2, ArcadeButtons.StickLeft)) &&
                 Bounds.X > 0)
             {
@@ -81,8 +81,8 @@ namespace BrickBreaker
             }
             
             if ((Keyboard.GetState().IsKeyDown(Keys.D) ||
-                GetButtonDown(1, ArcadeButtons.StickRight) ||
-                GetButtonDown(2, ArcadeButtons.StickRight)) &&
+                GetButton(1, ArcadeButtons.StickRight) ||
+                GetButton(2, ArcadeButtons.StickRight)) &&
                 Bounds.X < window.Width - Bounds.Width)
             {
                 bounds.X += 10;
