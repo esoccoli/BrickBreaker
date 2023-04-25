@@ -86,7 +86,7 @@ namespace BrickBreaker
                 Game.ResetBall();
                 Game.ResetBricks();
                 Game.score = 0;
-                Game.lives = 5;
+                Game.lives = 1;
                 Game.currState = GameState.Playing;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.I) ||
