@@ -557,8 +557,8 @@ namespace BrickBreaker
 
             // Number of rows and columns of bricks
             // Size of the bricks will scale to fit the desired area of the window
-            int numRows = 12;
-            int numCols = 5;
+            int numRows = 1;
+            int numCols = 1;
             
             // Number of pixels between bricks
             int brickSpacing = 5;

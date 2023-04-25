@@ -122,11 +122,11 @@ namespace BrickBreaker
                 Color.White);
             
             SB.DrawString(
-                NotoSansSmall,
+                NotoSans,
                 "Press any button to continue",
                 new Vector2(
-                    Window.Center.X - NotoSansSmall.MeasureString("Press any button to continue").X / 2,
-                    Window.Center.Y - NotoSansSmall.MeasureString("Press any button to continue").Y / 2 + 100),
+                    Window.Center.X - NotoSans.MeasureString("Press any button to continue").X / 2,
+                    Window.Center.Y - NotoSans.MeasureString("Press any button to continue").Y / 2 + 100),
                 Color.White);
             
             #else
@@ -135,24 +135,24 @@ namespace BrickBreaker
                 PaytoneOneCabinet,
                 "You Win!", 
                 new Vector2(
-                    Window.Center.X - PaytoneOne.MeasureString("You Win").X / 2, 
-                    Window.Center.Y - PaytoneOne.MeasureString("You Win").Y / 2), 
+                    Window.Center.X - PaytoneOneCabinet.MeasureString("You Win").X / 2, 
+                    Window.Center.Y - PaytoneOneCabinet.MeasureString("You Win").Y / 2 - 150), 
                 Color.White);
             
             SB.DrawString(
                 NotoSansCabinet,
                 "Score: " + Game.score,
                 new Vector2(
-                    Window.Center.X - NotoSans.MeasureString("Score: " + Game.score).X / 2,
-                    Window.Center.Y - NotoSans.MeasureString("Score: " + Game.score).Y / 2 + 50),
+                    Window.Center.X - NotoSansCabinet.MeasureString("Score: " + Game.score).X / 2,
+                    Window.Center.Y - NotoSansCabinet.MeasureString("Score: " + Game.score).Y / 2 + 50),
                 Color.White);
             
             SB.DrawString(
-                NotoSansCabinetSmall,
+                NotoSansCabinet,
                 "Press any button to continue",
                 new Vector2(
-                    Window.Center.X - NotoSansSmall.MeasureString("Press any button to continue").X / 2,
-                    Window.Center.Y - NotoSansSmall.MeasureString("Press any button to continue").Y / 2 + 100),
+                    Window.Center.X - NotoSansCabinet.MeasureString("Press any button to continue").X / 2,
+                    Window.Center.Y - NotoSansCabinet.MeasureString("Press any button to continue").Y / 2 + 125),
                 Color.White);
             
             #endif
