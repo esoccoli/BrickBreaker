@@ -5,6 +5,9 @@ using static Devcade.Input;
 
 namespace BrickBreaker
 {
+    /// <summary>
+    /// Manages the game while in the win state
+    /// </summary>
     public class Win : State
     {
         

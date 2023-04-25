@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Input;
 
 namespace BrickBreaker
 {
+    /// <summary>
+    /// </summary>
     public class GameOver : State
     {
         

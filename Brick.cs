@@ -8,7 +8,6 @@ namespace BrickBreaker
     {
         private Rectangle bounds;
         private Vector2 position;
-        private Rectangle window;
         private Ball ball;
         private Game1 game;
 
@@ -20,12 +19,12 @@ namespace BrickBreaker
         /// <summary>
         /// Texture of the brick
         /// </summary>
-        public Texture2D Texture { get; set; }
+        public Texture2D Texture { get; }
 
         /// <summary>
         /// Color of the brick
         /// </summary>
-        public Color Color { get; set; }
+        public Color Color { get; }
 
         /// <summary>
         /// Bounds of the brick
@@ -55,7 +54,6 @@ namespace BrickBreaker
             Color = color;
 
             this.ball = ball;
-            this.window = window;
             this.game = game;
             
             Broken = false;

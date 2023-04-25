@@ -27,8 +27,14 @@ namespace BrickBreaker
     /// </summary>
     public class Game1 : Game
     {
+        /// <summary>
+        /// Stores a reference to the game object so data from Game1 can be accessed from other classes
+        /// </summary>
         public Game1 game { get; }
-
+        
+        /// <summary>
+        /// Random object
+        /// </summary>
         private Random rng;
         
         /// <summary>
@@ -209,9 +215,9 @@ namespace BrickBreaker
             _graphics.PreferredBackBufferHeight = 980;
             _graphics.ApplyChanges();
 #else
-            _graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
-			_graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
-			_graphics.ApplyChanges();
+            _graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width; 
+            _graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height; 
+            _graphics.ApplyChanges();
 #endif
             #endregion
 
@@ -231,7 +237,7 @@ namespace BrickBreaker
             brickList = new List<Brick>();
             
             // Initializes the list of colors the bricks can have
-            brickColors = new Color[]
+            brickColors = new[]
             { 
                 Color.Red, Color.Orange, 
                 Color.Yellow, Color.LawnGreen,

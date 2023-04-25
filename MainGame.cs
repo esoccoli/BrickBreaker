@@ -9,9 +9,6 @@ namespace BrickBreaker
     /// </summary>
     public class MainGame : State
     {
-        /*private int score;
-        private int lives;*/
-
         /// <summary>
         /// Sets up a menu object with useful variables
         /// </summary>
@@ -77,9 +74,6 @@ namespace BrickBreaker
             BlueButton = blueButton;
             GreenButton = greenButton;
             WhiteButton = whiteButton;
-            
-            /*this.score = score;
-            this.lives = lives;*/
         }
         
         /// <summary>

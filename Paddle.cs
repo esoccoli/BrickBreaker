@@ -9,16 +9,25 @@ namespace BrickBreaker
     /// </summary>
     public class Paddle
     {
+        /// <summary>
+        /// Rectangle storing the bounds of the game window
+        /// </summary>
         private Rectangle window;
-
+        
+        /// <summary>
+        /// Position of the top left corner of the paddle
+        /// </summary>
         private Vector2 position;
         
+        /// <summary>
+        /// Bounds of the paddle
+        /// </summary>
         private Rectangle bounds;
         
         /// <summary>
         /// Stores the texture of the paddle
         /// </summary>
-        public Texture2D Texture { get; set; }
+        public Texture2D Texture { get; }
         
         /// <summary>
         /// Position vector of the paddle
@@ -50,7 +59,7 @@ namespace BrickBreaker
         /// <summary>
         /// Stores the color of the paddle
         /// </summary>
-        public Color Color { get; set; }
+        public Color Color { get; }
         
         /// <summary>
         /// Creates the paddle with the specified data
@@ -74,7 +83,7 @@ namespace BrickBreaker
         {
             if ((Keyboard.GetState().IsKeyDown(Keys.A) ||
                 GetButton(1, ArcadeButtons.StickLeft) ||
-                GetButtonDown(2, ArcadeButtons.StickLeft)) &&
+                GetButton(2, ArcadeButtons.StickLeft)) &&
                 Bounds.X > 0)
             {
                 bounds.X -= 10;

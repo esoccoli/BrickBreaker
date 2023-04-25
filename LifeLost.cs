@@ -5,6 +5,9 @@ using static Devcade.Input;
 
 namespace BrickBreaker
 {
+    /// <summary>
+    /// Manages the game while it is in the life lost state
+    /// </summary>
     public class LifeLost : State
     {
         
