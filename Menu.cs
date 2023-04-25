@@ -102,11 +102,13 @@ namespace BrickBreaker
         /// </summary>
         public void DrawText()
         {
+            #if DEBUG
+            
             SB.DrawString(
                 PaytoneOne, 
                 "Brick Breaker", 
                 new Vector2(
-                    Window.Center.X - PaytoneOne.MeasureString("Brick Breaker").X / 2f + 10, 
+                    Window.Center.X - PaytoneOne.MeasureString("Brick Breaker").X / 2f, 
                     Window.Center.Y - 200), 
                 Color.White);
             
@@ -144,6 +146,53 @@ namespace BrickBreaker
                     75, 
                     75),
                 Color.White);
+
+            #else
+            
+            SB.DrawString(
+                PaytoneOneCabinet, 
+                "Brick Breaker", 
+                new Vector2(
+                    Window.Center.X - PaytoneOneCabinet.MeasureString("Brick Breaker").X / 2f, 
+                    Window.Center.Y - PaytoneOneCabinet.MeasureString("Brick Breaker").Y / 2f - 200), 
+                Color.White);
+            
+            
+            SB.DrawString(
+                NotoSansCabinet, 
+                "Start Game", 
+                new Vector2(
+                    Window.Center.X - NotoSansCabinet.MeasureString("Start Game").X / 2f + 60, 
+                    Window.Center.Y + NotoSansCabinet.MeasureString("Start Game").Y / 2f - 45), 
+                Color.White);
+            
+            SB.Draw(
+                RedButton, 
+                new Rectangle(
+                    (int)(Window.Center.X - NotoSansCabinet.MeasureString("Start Game").X / 2f - 60), 
+                    (int)(Window.Center.Y + NotoSansCabinet.MeasureString("Start Game").Y / 2f - 50), 
+                    100, 
+                    100), 
+                Color.White);
+
+            SB.DrawString(
+                NotoSansCabinet,
+                "Instructions",
+                new Vector2(
+                    Window.Center.X - NotoSansCabinet.MeasureString("Instructions").X / 2f + 60,
+                    Window.Center.Y + NotoSansCabinet.MeasureString("Instructions").Y / 2f + 130),
+                Color.White);
+            
+            SB.Draw(
+                BlueButton, 
+                new Rectangle(
+                    (int)(Window.Center.X - NotoSansCabinet.MeasureString("Instructions").X / 2f - 60), 
+                    (int)(Window.Center.Y + NotoSansCabinet.MeasureString("Instructions").Y / 2f + 125), 
+                    100, 
+                    100),
+                Color.White);
+            
+            #endif
         }
     }
 }
