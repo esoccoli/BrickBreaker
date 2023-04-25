@@ -80,6 +80,7 @@ namespace BrickBreaker
         /// </summary>
         public void DrawPauseMenu()
         {
+            #if DEBUG
             SB.DrawString(
                 PaytoneOne, 
                 "Game Paused", 
@@ -103,6 +104,35 @@ namespace BrickBreaker
                     75,
                     75),
                 Color.BlueViolet);
+            
+            #else
+            
+            SB.DrawString(
+                PaytoneOneCabinet, 
+                "Game Paused", 
+                new Vector2(
+                    Window.Center.X - PaytoneOneCabinet.MeasureString("Game Paused").X / 2f, 
+                    Window.Center.Y - PaytoneOneCabinet.MeasureString("Game Paused").Y / 2f - 200), 
+                Color.White);
+
+            SB.DrawString(
+                NotoSansCabinet,
+                "Unpause",
+                new Vector2(
+                    Window.Center.X - NotoSansCabinet.MeasureString("Unpause").X / 2f + 75,
+                    Window.Center.Y - NotoSansCabinet.MeasureString("Unpause").Y / 2f + 45),
+                Color.White);
+            
+            SB.Draw(
+                WhiteButton,
+                new Rectangle(
+                    (int)(Window.Center.X - NotoSansCabinet.MeasureString("Unpause").X / 2f - 50),
+                    (int)(Window.Center.Y - NotoSansCabinet.MeasureString("Unpause").Y / 2f + 45),
+                    100,
+                    100),
+                Color.BlueViolet);
+            
+            #endif
         }
     }
 }
