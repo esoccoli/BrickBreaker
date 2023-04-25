@@ -71,7 +71,17 @@ namespace BrickBreaker
                 if (ball.Bounds.Intersects(brickList[i].Bounds)
                     && !brickList[i].Broken)
                 {
-                    ball.Velocity = new Vector2(ball.Velocity.X, ball.Velocity.Y * -1);
+                    Rectangle overlap = Rectangle.Intersect(ball.Bounds, brickList[i].Bounds);
+                    
+                    // Collides with the top or bottom of the brick
+                    if (overlap.Width >= overlap.Height)
+                    {
+                        ball.Velocity = new Vector2(ball.Velocity.X, -ball.Velocity.Y);
+                    }
+                    else
+                    {
+                        ball.Velocity = new Vector2(-ball.Velocity.X, ball.Velocity.Y);
+                    }
                     brickList[i].Broken = true;
                     game.score += 5 * game.lives;
                     return;

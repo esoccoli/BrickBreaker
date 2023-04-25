@@ -9,8 +9,8 @@ namespace BrickBreaker
     /// </summary>
     public class MainGame : State
     {
-        private int score;
-        private int lives;
+        /*private int score;
+        private int lives;*/
 
         /// <summary>
         /// Sets up a menu object with useful variables
@@ -78,8 +78,8 @@ namespace BrickBreaker
             GreenButton = greenButton;
             WhiteButton = whiteButton;
             
-            this.score = score;
-            this.lives = lives;
+            /*this.score = score;
+            this.lives = lives;*/
         }
         
         /// <summary>
@@ -138,11 +138,6 @@ namespace BrickBreaker
             
             paddle.DrawPaddle(SB);
             ball.DrawBall(SB);
-            
-            for (int i = 0; i < brickList.Count; i++)
-            {
-                brickList[i].DrawBrick(SB);
-            }
         }
     }
 }

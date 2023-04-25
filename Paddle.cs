@@ -97,6 +97,5 @@ namespace BrickBreaker
         {
             sb.Draw(Texture, Bounds, Color);
         }
-
     }
 }

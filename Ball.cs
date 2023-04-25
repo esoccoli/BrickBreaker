@@ -22,16 +22,35 @@ namespace BrickBreaker
         /// Texture of the ball when it is below the paddle
         /// </summary>
         public Texture2D AltTexture {get => altTexture; set => altTexture = value;}
-        
+
         /// <summary>
         /// Position of the ball
         /// </summary>
-        public Vector2 Position {get => position; set => position = value;}
-        
+        public Vector2 Position
+        {
+            get => position;
+            set
+            {
+                bounds.X = (int)value.X;
+                bounds.Y = (int)value.Y;
+                bounds = new Rectangle(bounds.X, bounds.Y, bounds.Width, bounds.Height);
+                position = value;
+            }
+        }
+
         /// <summary>
         /// Bounds of the ball
         /// </summary>
-        public Rectangle Bounds {get => bounds; set => bounds = value;}
+        public Rectangle Bounds
+        {
+            get => bounds;
+            set
+            {
+                bounds = value;
+                position.X = bounds.X;
+                position.Y = bounds.Y;
+            }
+        }
 
         /// <summary>
         /// Velocity of the ball
