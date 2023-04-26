@@ -95,7 +95,9 @@ namespace BrickBreaker
                 GetButtonDown(2, ArcadeButtons.B1) ||
                 GetButtonDown(2, ArcadeButtons.B2) ||
                 GetButtonDown(2, ArcadeButtons.B3) ||
-                GetButtonDown(2, ArcadeButtons.B4))
+                GetButtonDown(2, ArcadeButtons.B4) ||
+                GetButtonDown(1, ArcadeButtons.Menu) ||
+                GetButtonDown(2, ArcadeButtons.Menu))
             {
                 Game.currState = GameState.Menu;
             }
